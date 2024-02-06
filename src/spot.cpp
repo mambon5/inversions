@@ -62,6 +62,9 @@ double Spot::getClose() {
     return this->close;
 }
 
+double Spot::getCloseConst() const{
+    return this->close;
+}
 
 std::string Spot::toString() {
     std::ostringstream osOpen;

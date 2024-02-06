@@ -1,7 +1,7 @@
 #include "quote.hpp"
 #include "time_utils.hpp"
 #include "curl_utils.hpp"
-
+using namespace std;
 #include <iostream>
 #include <sstream>
 #include <curl/curl.h>
@@ -58,6 +58,18 @@ void Quote::printSpots() {
          ++it) {
         std::cout << it->toString() << std::endl;
     }
+}
+
+vector<double> Quote::getCloseVals() {
+    std::vector<double> closeValues;
+
+    for (std::vector<Spot>::const_iterator it = this -> spots.begin();
+         it != this -> spots.end();
+         ++it) {
+        closeValues.push_back(it->getCloseConst());
+    }
+
+    return closeValues;
 }
 
 void Quote::clearSpots() {

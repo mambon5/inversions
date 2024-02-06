@@ -57,8 +57,19 @@ int main() {
     snp500->getHistoricalSpots("2023-10-01", "2023-12-31", "1d");
 
     cout << tick << endl;
+    
     // Print the spots
     snp500->printSpots();
+
+
+    // printing just the close values
+    vector<double> closeVals;
+
+    closeVals = snp500->getCloseVals();
+    cout << "outputing el vector de closed values del ticker: " << tick << endl;
+    OutputVectorDouble(closeVals);
+
+
 
     // Print a spot
     try {

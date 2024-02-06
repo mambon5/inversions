@@ -56,6 +56,11 @@ public:
     void printSpots();
 
     /**
+     * @brief return double vector of close values
+     */
+    std::vector<double> getCloseVals();
+
+    /**
      * @brief Clear all the spots
      */
     void clearSpots();

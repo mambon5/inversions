@@ -86,6 +86,12 @@ public:
      */
     double getClose();
 
+      /**
+     * @brief Close price getter as const
+     * @return Price at closing
+     */
+    double getCloseConst() const;
+
     /**
      * @brief Convert Spot into string
      * @return String containing the Spot info
