@@ -62,9 +62,9 @@ int main() {
 
     // Print a spot
     try {
-        Spot spot = snp500->getSpot("2017-12-01");
-        cout << "Spot at 2017-12-01: " << endl;
-        spot.printSpot();
+        Spot spot = snp500->getSpot("2023-12-18");
+        cout << "Spot at 2023-12-18 closed at: " << endl;
+        cout << spot.getClose() << endl;
     } catch(const exception &e) {
         cerr << e.what() << endl;
     }
