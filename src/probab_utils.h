@@ -1,7 +1,32 @@
 #include <iostream>
 #include <vector>
 #include <algorithm>
+#include <ctime>
+#include <cmath>
 using namespace std;
+
+
+string getCurrentDate() {
+    // Obtener la fecha y hora actual
+    time_t now = time(0);
+    struct tm *currentTime = localtime(&now);
+
+    // Formatear la fecha en el formato deseado
+    char buffer[11];  // Suficiente espacio para "YYYY-MM-DD" y el carácter nulo
+    strftime(buffer, sizeof(buffer), "%Y-%m-%d", currentTime);
+
+    return buffer;
+}
+
+vector<int> roundToInteger(const std::vector<double>& values) {
+    std::vector<int> roundedValues;
+    
+    for (const double& value : values) {
+        roundedValues.push_back(static_cast<int>(std::round(value)));
+    }
+    
+    return roundedValues;
+}
 
 // Función para calcular el percentil de un valor en un vector
 double calcularPercentil(const std::vector<double>& valores, double valor) {
@@ -41,3 +66,5 @@ vector<double> calcularPercentilVector(const std::vector<double>& dist, vector<d
 
     return percentils;
 }
+
+

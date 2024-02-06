@@ -22,8 +22,52 @@ using namespace std;
 // compile by the command: g++ get_dailies.cpp -o prova -lcurl
 // or using: g++ time_utils.cpp curl_utils.cpp quote.cpp spot.cpp example.cpp -o dailies -lcurl
 
+vector<string> ticks = { "^IXIC", "^GSPC", "^DJI", "META", "TSLA", "HPE", "PSX", "SU.PA", "RIOT",
+"GOOGL", "GME", "INTC", "IBM", "QCOM", "ASML", "TSM", "NVDA", "005930.KS", "NFLX", "MSFT",
+"LPL", "HLF", "AAPL",
+"BTC-EUR", "ADA-EUR", "ETH-EUR", "EUR=X", "GC=F", "CL=F" };
 
-int main() {
+void PrintLastYearVals(string tick, bool extraPrint=false) {
+    string currentDate = getCurrentDate();
+    cout << "Fecha actual: " << currentDate << endl;
+
+    string initialDate = "2023-01-01";
+
+    // string tick = "^GSPC";
+    // S&P 500
+    Quote *snp500 = new Quote(tick);
+
+    // Get the historical spots from Yahoo Finance
+    // pass strings to const char* vars
+    const char * inid = initialDate.c_str();
+    const char * currd = currentDate.c_str();    
+    snp500->getHistoricalSpots(inid, currd, "1d");
+
+
+    // printing just the close values
+    vector<double> closeVals;
+
+    closeVals = snp500->getCloseVals();
+    // if(extraPrint) OutputVectorDouble(closeVals);
+
+    // // Print the spots
+    // snp500->printSpots();
+
+    vector<double> percent;
+    percent = calcularPercentilVector(closeVals, closeVals);
+    vector<int> roundedValues = roundToInteger(percent);
+    if(extraPrint) OutputVectorInt(roundedValues);
+    int n = LenghtOfVectorInt(roundedValues);
+    cout << "last close value percentile: " << roundedValues[n-1] << endl;
+    
+
+    // // Free memory
+    // delete snp500;
+
+}
+
+
+void example_test() {
     // Ejemplo de uso
     vector<double> datos = {12.5, 30.2, 15.5, 3.2, 89.12, 14.2, 15.8, 18.3, 20.1, 22.7, 25.4, 28.0, 30.6, 33.2};
 
@@ -69,6 +113,8 @@ int main() {
     cout << "outputing el vector de closed values del ticker: " << tick << endl;
     OutputVectorDouble(closeVals);
 
+    string currentDate = getCurrentDate();
+    cout << "Fecha actual: " << currentDate << endl;
 
 
     // Print a spot
@@ -96,4 +142,22 @@ int main() {
     delete snp500;
     delete eurusd;
     delete euraud;
+}
+
+
+
+int main() {
+
+    bool printAll;
+
+    cout << "Print all daily percentiles? Yes=1, No=0"<< endl;
+
+    cin >> printAll;
+
+
+    for(string tick : ticks) {
+        cout << endl << "#### " << tick << ": " << endl;
+        PrintLastYearVals(tick, printAll);
+    }
+
 }

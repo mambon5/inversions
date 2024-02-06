@@ -170,6 +170,15 @@ void LenghtOfVector(const vector<string>& tickers) {
 
 }
 
+int LenghtOfVectorInt(const vector<int>& tickers) {
+    int n = 0;
+    for(int str : tickers) {
+        n++;
+    }
+    return n;
+
+}
+
 
 void OutputVector( const vector<string>& tickers) {
     int n = 0;
