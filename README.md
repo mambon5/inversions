@@ -1,4 +1,8 @@
-# yahoo-finance
+# Intro
+
+Usem les llibreries de *yahoo-finance* per crear un algoritme en cpp que calculi els percentils del valor diari de cada acció, durant el període d'1 o dos anys.
+
+## yahoo-finance
 
 C++ library to get stock data from Yahoo Finance.
 
