@@ -1,0 +1,116 @@
+
+#### ^IXIC: 
+Fecha actual: 2024-02-06
+last close value percentile: 99
+
+#### ^GSPC: 
+Fecha actual: 2024-02-06
+last close value percentile: 99
+
+#### ^DJI: 
+Fecha actual: 2024-02-06
+last close value percentile: 99
+
+#### META: 
+Fecha actual: 2024-02-06
+last close value percentile: 99
+
+#### TSLA: 
+Fecha actual: 2024-02-06
+last close value percentile: 18
+
+#### HPE: 
+Fecha actual: 2024-02-06
+last close value percentile: 20
+
+#### PSX: 
+Fecha actual: 2024-02-06
+last close value percentile: 100
+
+#### SU.PA: 
+Fecha actual: 2024-02-06
+last close value percentile: 99
+
+#### RIOT: 
+Fecha actual: 2024-02-06
+last close value percentile: 40
+
+#### GOOGL: 
+Fecha actual: 2024-02-06
+last close value percentile: 97
+
+#### GME: 
+Fecha actual: 2024-02-06
+last close value percentile: 7
+
+#### INTC: 
+Fecha actual: 2024-02-06
+last close value percentile: 82
+
+#### IBM: 
+Fecha actual: 2024-02-06
+last close value percentile: 97
+
+#### QCOM: 
+Fecha actual: 2024-02-06
+last close value percentile: 95
+
+#### ASML: 
+Fecha actual: 2024-02-06
+last close value percentile: 100
+
+#### TSM: 
+Fecha actual: 2024-02-06
+last close value percentile: 100
+
+#### NVDA: 
+Fecha actual: 2024-02-06
+last close value percentile: 100
+
+#### 005930.KS: 
+Fecha actual: 2024-02-06
+last close value percentile: 93
+
+#### NFLX: 
+Fecha actual: 2024-02-06
+last close value percentile: 97
+
+#### MSFT: 
+Fecha actual: 2024-02-06
+last close value percentile: 99
+
+#### LPL: 
+Fecha actual: 2024-02-06
+last close value percentile: 2
+
+#### HLF: 
+Fecha actual: 2024-02-06
+last close value percentile: 0
+
+#### AAPL: 
+Fecha actual: 2024-02-06
+last close value percentile: 74
+
+#### BTC-EUR: 
+Fecha actual: 2024-02-06
+last close value percentile: 96
+
+#### ADA-EUR: 
+Fecha actual: 2024-02-06
+last close value percentile: 88
+
+#### ETH-EUR: 
+Fecha actual: 2024-02-06
+last close value percentile: 97
+
+#### EUR=X: 
+Fecha actual: 2024-02-06
+last close value percentile: 65
+
+#### GC=F: 
+Fecha actual: 2024-02-06
+last close value percentile: 87
+
+#### CL=F: 
+Fecha actual: 2024-02-06
+last close value percentile: 26

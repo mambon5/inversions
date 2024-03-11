@@ -9,8 +9,8 @@ using namespace std;
 #include <ctime>
 #include <chrono>
 #include <thread>
-#include <string.h>
-
+//#include <string.h> // dont use string.h, use cstring instead
+#include <cstring>
 #include <dirent.h>
 #include <sys/types.h>
 
@@ -23,50 +23,12 @@ using namespace std;
 // it is worth checking it out
 
 
-// to do in the code:
-// 1. process by block
-// 2.
-// 3. 
-
-
-// int sortarray(const vector<string>& paraules) {
-//     // Create a character array "paraules" of size 10 and character value 15.
-    
-//     // Create another array “arr” of data type string, and the value of '10' is set as a character value.
-//     int n = size(paraules);
-//     for (int x = 0; x < n; x++) {
-//         int m = size(paraules[x]);
-//         for (int y = 1; y < m; y++) {
-//             const char* par11 = paraules[y].c_str();
-//             const char* par22 = paraules[y-1].c_str();
-//             int len1 = size(par11);
-//             int len2 = size(par22);
-//             char par1[len1];
-//             char par2[len2];
-//             int maxi = max(size(par1), size(par2));
-//             char arr[maxi];
-//             if (strcmp(par2, par1) > 0) {
-//                 strcpy(arr, par2);
-//                 strcpy(par2, par1);
-//                 strcpy(par1, arr);
-//             }
-
-//         }
-//     }
-//     cout << "\nAlphabetical order of parauless :\n";
-//     for (int x = 0; x < 10; x++)
-//         cout << paraules[x] << endl;
-//     cout << endl;
-//     return 0;
-
-// }
-
 
 bool compareStrings(const std::string& str1, const std::string& str2) {
   return str1 < str2;
 }
 
-void sortarray(vector<string>& arrayDeStrings) {
+void sortarray(vector<std::string>& arrayDeStrings) {
     // Ejemplo de un array de strings
     // std::vector<std::string> arrayDeStrings = {"baababa","zzz", "abc", "aaaaa", "xyz", "def"};
 
@@ -80,6 +42,23 @@ void sortarray(vector<string>& arrayDeStrings) {
     // }
 
 }
+
+class sort_indices
+{
+    // sorts the indices instead of the array!
+    // how to use it:
+    // int arr[5]={4,1,3,6,2}
+    // string arr1[5]={"a1","b1","c1","d1","e1"};
+    // int indices[5]={0,1,2,3,4};
+    // arr[indices[0]]
+    // std::sort(indices, indices+5, sort_indices(arr));
+    //
+   private:
+     int* mparr;
+   public:
+     sort_indices(int* parr) : mparr(parr) {}
+     bool operator()(int i, int j) const { return mparr[i]<mparr[j]; }
+};
 
 string DownloadWebBody(const string& url) {
     CURL *curl = curl_easy_init();
@@ -100,7 +79,7 @@ string DownloadWebBody(const string& url) {
 }
 
 // Define the write callback function
-size_t WriteCallback(void* ptr, size_t size, size_t nmemb, std::string* userdata) {
+size_t WriteCallback(void* ptr, size_t size, size_t nmemb, string* userdata) {
     size_t totalSize = size * nmemb;
     userdata->append(static_cast<char*>(ptr), totalSize);
     return totalSize;
@@ -108,10 +87,10 @@ size_t WriteCallback(void* ptr, size_t size, size_t nmemb, std::string* userdata
 
 
 // Function to download content from a URL using libcurl
-string DownloadWebContent(const string& url) {
+std::string DownloadWebContent(const std::string& url) {
     CURL* curl;
     CURLcode res;
-    string webContent;
+    std::string webContent;
 
     curl = curl_easy_init();
     if (curl) {
@@ -129,13 +108,13 @@ string DownloadWebContent(const string& url) {
 
         curl_easy_cleanup(curl);
     }
-    cout << "DownloadWebContent() succeded" << endl;
+    std::cout << "DownloadWebContent() succeded" << endl;
     return webContent;
 }
 
-string getTableStocks(const string& body) {
+std::string getTableStocks(const std::string& body) {
     size_t pos = 0;
-    string table;
+    std::string table;
     pos = body.find("lookup-table", pos); // start of the table of interest
     size_t endPos = body.find("<span>Next", pos); // end of the table of interest
     if(int(pos) < body.length() && int(endPos) < body.length()){
@@ -147,22 +126,22 @@ string getTableStocks(const string& body) {
     return table;
 }
 
-string DirectWebContent(string& searchGroup, string B, string  C) {
-    string baseUrl = "https://finance.yahoo.com/lookup/all?s=";
-    string url = baseUrl + searchGroup + "&t=A&b="+B+"&c="+C;
-    string webContent = DownloadWebContent(url);
+std::string DirectWebContent(std::string& searchGroup, std::string B, std::string  C) {
+    std::string baseUrl = "https://finance.yahoo.com/lookup/all?s=";
+    std::string url = baseUrl + searchGroup + "&t=A&b="+B+"&c="+C;
+    std::string webContent = DownloadWebContent(url);
     return webContent;
 }
 
 // String filtering for the tickers:
-bool StringInVector(const string& ticker, const vector<string>& tickers) {
+bool StringInVector(const std::string& ticker, const vector<std::string>& tickers) {
     // return true if ticker in string vector
     return find(begin(tickers), end(tickers), ticker) != end(tickers);
 }
 
-void LenghtOfVector(const vector<string>& tickers) {
+void LenghtOfVector(const vector<std::string>& tickers) {
     int n = 0;
-    for(string str : tickers) {
+    for(std::string str : tickers) {
         n++;
     }
     cout << endl;
@@ -179,10 +158,19 @@ int LenghtOfVectorInt(const vector<int>& tickers) {
 
 }
 
-
-void OutputVector( const vector<string>& tickers) {
+int LenghtOfVectorDoub(const vector<double>& tickers) {
     int n = 0;
-    for(string str : tickers) {
+    for(int str : tickers) {
+        n++;
+    }
+    return n;
+
+}
+
+
+void OutputVector( const vector<std::string>& tickers) {
+    int n = 0;
+    for(std::string str : tickers) {
         cout << str << " - ";
         n++;
     }
@@ -205,7 +193,32 @@ void OutputVectorDouble( const vector<double>& tickers) {
     cout << endl;
 }
 
-void WriteToFileSimple( const string& output, const string& outputFile) {
+void Output2DVectorDouble( const vector<vector<double>>& matrix) {
+    for (vector<double> vect : matrix) {
+        for(double str : vect) {
+            cout << str << " - ";
+    }
+        cout << endl;
+    }
+}
+
+void Output2Dvector_custom1( const vector<vector<double>>& matrix, const vector<string>& strings) {
+    for (vector<double> vect : matrix) {
+        cout << vect[0] << " - " << vect[1] << " - " << strings[int(vect[2])] << endl;
+    
+    }
+}
+
+void Output2Dvector_firstFew( const vector<vector<double>>& matrix, const vector<string>& strings, int show=5) {
+    for (vector<double> vect : matrix) {
+        if(show==0) return;
+        cout << vect[0] << " - " << vect[1] << " - " << strings[int(vect[2])] << endl;
+        show --;
+    }
+}
+
+
+void WriteToFileSimple( const std::string& output, const std::string& outputFile) {
     ofstream outFile;
     outFile.open(outputFile, ios_base::out); // append instead of overwrite
     if (!outFile.is_open()) {
@@ -217,7 +230,7 @@ void WriteToFileSimple( const string& output, const string& outputFile) {
     outFile.close();
 }
 
-void WriteToFile(const vector<string>& tickers, const string& outputFile) {
+void WriteToFile(const vector<std::string>& tickers, const std::string& outputFile) {
     ofstream outFile;
     outFile.open(outputFile, ios_base::app); // append instead of overwrite
     if (!outFile.is_open()) {
@@ -229,7 +242,7 @@ void WriteToFile(const vector<string>& tickers, const string& outputFile) {
     // int len = sizeof(tickers)/sizeof(tickers[0]);
     // tickers = sort(tickers.begin(), tickers.end());
     // Write tickers to the output file
-    for (const string& ticker : tickers) {
+    for (const std::string& ticker : tickers) {
         cout << ticker << ", ";
         outFile << ticker << ",";
     }
@@ -237,11 +250,11 @@ void WriteToFile(const vector<string>& tickers, const string& outputFile) {
     
 }
 
-vector <string> getLastSearchGroup() {
-    string line;
-    string block;
-    string filename = "last_save_ticks.txt";
-    string characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+vector <std::string> getLastSearchGroup() {
+    std::string line;
+    std::string block;
+    std::string filename = "last_save_ticks.txt";
+    std::string characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
     int size = sizeof(characters);
     int first;
     int second;
@@ -261,10 +274,10 @@ vector <string> getLastSearchGroup() {
     }
     cout << endl << "Opened file for last tickers used, got this: " + line << endl;
     
-    string characters1 = characters.substr(first, size - first);
-    string characters2 = characters.substr(second, size - second);
+    std::string characters1 = characters.substr(first, size - first);
+    std::string characters2 = characters.substr(second, size - second);
     if (block=="") block="0";
-    vector <string> vect;
+    vector <std::string> vect;
     vect.push_back(line);
     vect.push_back(characters1);
     vect.push_back(characters2);
@@ -282,13 +295,13 @@ int getLastFileNumber() {
    if (dr) {
       while ((en = readdir(dr)) != NULL) {
         //  cout<<" \n"<<en->d_name; //print all directory name
-        string filename = en->d_name;
+        std::string filename = en->d_name;
         int n = filename.length();
 
 
         if( filename.find(".csv") < n && filename.find("_") <  n) {
             filename = filename.substr(0, n-4);
-            string number = filename.substr(filename.find("_")+1, filename.length()-1);
+            std::string number = filename.substr(filename.find("_")+1, filename.length()-1);
             if(stoi(number) > lastn) lastn = stoi(number);
             files = files + 1;
         }
@@ -299,16 +312,16 @@ int getLastFileNumber() {
    return lastn;
 }
 
-vector<string> readCsv(const string& filename)
+vector<std::string> readCsv(const std::string& filename)
 {
-    vector<string>   result;
-    string                line;
+    vector<std::string>   result;
+    std::string                line;
     ifstream file(filename);
     
     while(getline(file,line)) {
 
         stringstream          lineStream(line);
-        string                cell;
+        std::string                cell;
 
         while(getline(lineStream,cell, ','))
         {
@@ -324,17 +337,38 @@ vector<string> readCsv(const string& filename)
     return result;
 }
 
-vector<string> CsvFilterDuplicates(const string& filename)
+vector<std::string> readPartialCsv(const std::string& filename, const int& elems, bool printOutput=false) {
+    // elems són els elements a llegir
+    ifstream fitxer(filename);
+    vector<std::string> elements;
+    
+    std::string tick;
+    for (int i=0; i<elems;++i) { 
+  
+  
+        // read an entire row and 
+        // store it in a string variable 'line' 
+        getline(fitxer, tick, ',');
+        elements.push_back(tick);
+  
+       if(printOutput) cout << "ticker que hem llegit: " << tick << endl;
+    }
+
+    fitxer.close();
+    return(elements);
+}
+
+vector<std::string> CsvFilterDuplicates(const std::string& filename)
 {
-    vector<string>   result;
-    string                line;
+    vector<std::string>   result;
+    std::string                line;
     ifstream file(filename);
     int repeated = 0;
     
     while(getline(file,line)) {
 
         stringstream          lineStream(line);
-        string                cell;
+        std::string                cell;
 
         while(getline(lineStream,cell, ','))
         {

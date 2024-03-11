@@ -3,26 +3,39 @@
 #include <algorithm>
 #include <ctime>
 #include <cmath>
+#include "Eigen/Dense"
+#include <chrono>
+
+using namespace Eigen;
 using namespace std;
 
 
-string getCurrentDate() {
-    // Obtener la fecha y hora actual
-    time_t now = time(0);
-    struct tm *currentTime = localtime(&now);
+void regression( vector<double>& x_vals,  vector<double>& y_vals, double& slope, double& intercept) {
+    
+    // Transformar el vector<double> en VectorXd
+    Map<const VectorXd> x(x_vals.data(), x_vals.size());
+    Map<const VectorXd> y(y_vals.data(), y_vals.size());
+    
+    int n = x.size();
 
-    // Formatear la fecha en el formato deseado
-    char buffer[11];  // Suficiente espacio para "YYYY-MM-DD" y el carácter nulo
-    strftime(buffer, sizeof(buffer), "%Y-%m-%d", currentTime);
+    // Construir la matriz X y el vector Y
+    MatrixXd X(n, 2);
+    X.col(0) = VectorXd::Ones(n);
+    X.col(1) = x;
 
-    return buffer;
+    // Calcular la regresión lineal usando la fórmula cerrada (X^T*X)^-1*X^T*Y
+    Vector2d theta = (X.transpose() * X).ldlt().solve(X.transpose() * y);
+
+    // Asignar los valores de la pendiente (slope) e intercepto
+    intercept = theta(0);
+    slope = theta(1);
 }
 
-vector<int> roundToInteger(const std::vector<double>& values) {
-    std::vector<int> roundedValues;
+vector<int> roundToInteger(const vector<double>& values) {
+    vector<int> roundedValues;
     
     for (const double& value : values) {
-        roundedValues.push_back(static_cast<int>(std::round(value)));
+        roundedValues.push_back(static_cast<int>(round(value)));
     }
     
     return roundedValues;
@@ -66,5 +79,6 @@ vector<double> calcularPercentilVector(const std::vector<double>& dist, vector<d
 
     return percentils;
 }
+
 
 
