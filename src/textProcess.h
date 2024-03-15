@@ -217,15 +217,14 @@ void Output2Dvector_firstFew( const vector<vector<double>>& matrix, const vector
     }
 }
 
-
-void WriteToFileSimple( const std::string& output, const std::string& outputFile) {
+void WriteToFileSimple( const std::string& output, const std::string& outputFile, bool printall=false) {
     ofstream outFile;
-    outFile.open(outputFile, ios_base::out); // append instead of overwrite
+    outFile.open(outputFile, ios_base::app); // append instead of overwrite
     if (!outFile.is_open()) {
         cerr << "Failed to open the output file: " << outputFile << endl;
         return;
     }
-    cout << "writing output to ouput file: " << outputFile << endl;
+    if(printall) cout << "writing output to ouput file: " << outputFile << endl;
     outFile << output << endl;
     outFile.close();
 }
@@ -247,7 +246,6 @@ void WriteToFile(const vector<std::string>& tickers, const std::string& outputFi
         outFile << ticker << ",";
     }
     outFile.close();
-    
 }
 
 vector <std::string> getLastSearchGroup() {

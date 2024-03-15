@@ -14,16 +14,18 @@ using namespace std;
 #include <thread>
 #include <string.h>
 
-
+//There're some limitations by making the call to Yahoo Finance API: 
+// Using the Public API (without authentication), you are limited to 2,000 requests per hour per IP 
+// (or up to a total of 48,000 requests a day).
 
 // compile by the command: g++ get_dailies.cpp -o prova -lcurl
 // or using: g++ time_utils.cpp curl_utils.cpp quote.cpp spot.cpp analitza_tot.cpp -o anal_main -lcurl
 
 string dir = "/var/www/escolamatem/cpp/";
-string file = dir+"stocks_slope_percent.csv";
+string slope_file = dir+"stocks_slope_percent.csv";
 ofstream outfile("test.txt");
 
-// ofstream outputFile(file);
+// ofstream outputFile(slope_file);
 
 string inp_file = "processed_ticks.csv";
 
@@ -40,7 +42,7 @@ void outputPercentSlope() {
     vector<string> tickers;
     tickers = readPartialCsv(inp_file, elems);
 
-    ofstream outputFile(file);
+    ofstream outputFile(slope_file);
     bool printAll=false;
     string initialDate = "2023-01-01";
 
@@ -55,6 +57,8 @@ void outputPercentSlope() {
     double index = 0;
 
     // tickers = {"0094.Z"};
+    // tickers = {"0A22.IL"};
+    outputFile.close();
 
     for(string tick : tickers) {
         cout << "analizing tickers... " << (index+1)/size(tickers)*100 << "%"<< endl;
@@ -63,10 +67,14 @@ void outputPercentSlope() {
         cout << "last year vals done" << endl;
         // cout << "slope: " << slope <<", percentile: " << percent << "%" << endl;
         // only print stocks with increasing trend in last year
-        if(slope>0) outputFile << percent << "," << slope << "," << tick << endl;
+        if(slope>0) {
+            string line = to_string(percent) + "," + to_string(slope) + "," + tick;
+            WriteToFileSimple(line, slope_file);
+            cout << percent << "," << slope << "," << tick << endl;
+        }
         index++;
     }
-    outputFile.close();
+    
 }
 
 void showBestStocks() { //read from csv created in function outputPercentSlope()
@@ -99,8 +107,6 @@ void showBestStocks() { //read from csv created in function outputPercentSlope()
     Output2Dvector_custom1(slope_00, tickers);
     vD_sortByCol(slope_00);
 
-
-
     cout << "showing sorted elements of vector slope_00: " <<endl;
     Output2Dvector_firstFew(slope_00, tickers, showFirst);
 
@@ -115,8 +121,6 @@ void showBestStocks() { //read from csv created in function outputPercentSlope()
     vD_sortByCol(slope_03);
     cout << "showing sorted elements of vector slope_03: " <<endl;
     Output2Dvector_firstFew(slope_03, tickers, showFirst);
-
-
 }
 
 
