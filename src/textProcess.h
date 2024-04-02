@@ -229,6 +229,18 @@ void WriteToFileSimple( const std::string& output, const std::string& outputFile
     outFile.close();
 }
 
+void WriteToFileOver( const std::string& output, const std::string& outputFile, bool printall=false) {
+    ofstream outFile;
+    outFile.open(outputFile, ios_base::trunc); // Obre el fitxer per escriptura, truncant el contingut existent
+    if (!outFile.is_open()) {
+        cerr << "Failed to open the output file: " << outputFile << endl;
+        return;
+    }
+    if(printall) cout << "writing output to ouput file: " << outputFile << endl;
+    outFile << output << endl;
+    outFile.close();
+}
+
 void WriteToFile(const vector<std::string>& tickers, const std::string& outputFile) {
     ofstream outFile;
     outFile.open(outputFile, ios_base::app); // append instead of overwrite
@@ -247,6 +259,7 @@ void WriteToFile(const vector<std::string>& tickers, const std::string& outputFi
     }
     outFile.close();
 }
+
 
 vector <std::string> getLastSearchGroup() {
     std::string line;
@@ -335,6 +348,56 @@ vector<std::string> readCsv(const std::string& filename)
     return result;
 }
 
+string GetFirstLineOfFile(const std::string& inputFile, bool printall=false) {
+    // obten la primera linia del fitxer.
+    std::ifstream archivo(inputFile); // Abrir el archivo para lectura
+    std::string primeraLinea = "";
+    if (archivo.is_open()) {        
+        if (std::getline(archivo, primeraLinea)) { // Leer la primera línea del archivo
+            if(printall) std::cout << "La primera línea del archivo es: " << primeraLinea << std::endl;
+        } else {
+            std::cout << "GetFirstLineOfFile(): El archivo está vacío." << std::endl;
+        }
+        archivo.close(); // Cerrar el archivo después de su uso
+    } else {
+        std::cerr << "No se pudo abrir el archivo." << std::endl;
+    }
+    return primeraLinea;
+}
+
+vector<std::string> readPartialCsvFromCertainLine(const std::string& filename, 
+                const int& elems, const string firstTick, bool printOutput=false) {
+    // elems són els elements a llegir
+    // firstTick és la primera ticker a partir de la qual comença a llegir noms d'accions
+    ifstream fitxer(filename);
+    vector<std::string> elements;
+    
+    std::string tick;
+    bool validTick=false;
+    for (int i=0; i<elems;++i) { 
+  
+        // read an entire row and 
+        // store it in a string variable 'line' 
+        
+        getline(fitxer, tick, ',');
+        if(tick == firstTick) {
+            validTick=true;
+             i--;
+            continue;
+        }
+        if(!validTick) {
+            i--;
+            continue;
+        }
+        elements.push_back(tick);
+  
+       if(printOutput) cout << "ticker que hem llegit: " << tick << endl;
+    }
+
+    fitxer.close();
+    return(elements);
+}
+
 vector<std::string> readPartialCsv(const std::string& filename, const int& elems, bool printOutput=false) {
     // elems són els elements a llegir
     ifstream fitxer(filename);
@@ -385,4 +448,11 @@ vector<std::string> CsvFilterDuplicates(const std::string& filename)
     }
     cout << to_string(repeated) << " repetitions deleted." << endl;
     return result;
+}
+
+bool file_exists(const string fileName)
+{
+    // checks whether a file exists or not
+    std::ifstream infile(fileName);
+    return infile.good();
 }

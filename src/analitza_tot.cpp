@@ -13,6 +13,7 @@ using namespace std;
 #include <chrono>
 #include <thread>
 #include <string.h>
+#include <experimental/filesystem>
 
 //There're some limitations by making the call to Yahoo Finance API: 
 // Using the Public API (without authentication), you are limited to 2,000 requests per hour per IP 
@@ -24,6 +25,8 @@ using namespace std;
 string dir = "/var/www/escolamatem/cpp/";
 string slope_file = dir+"stocks_slope_percent.csv";
 ofstream outfile("test.txt");
+string lastTicker = dir+"lastTickerUsed.txt";
+// ofstream lastTiFile(lastTicker);
 
 // ofstream outputFile(slope_file);
 
@@ -32,6 +35,10 @@ string inp_file = "processed_ticks.csv";
 vector<double> slope_parts {0, 0.05, 0.1, 0.15, 0.2, 0.25, 0.3, 0.35};
 
 void outputPercentSlope() {
+    //  0. mira lultim ticker que s'ha analitzat
+    //  1. Agafa els tickers que vinguin donats pel cin
+    //  2. Tria una data inicial i final
+    //  3. 
     int elems;
 
     cout << "mostrant intervals de classificació del pendent de les accions: " << endl;
@@ -40,9 +47,15 @@ void outputPercentSlope() {
     cout << "escriu el nombre de tickers que vols llegir:" << endl;
     cin >> elems;
     vector<string> tickers;
-    tickers = readPartialCsv(inp_file, elems);
+    // mira lultim ticker que s'ha analitzat:
+    string lastTick;
+    lastTick = GetFirstLineOfFile(lastTicker);
+    // if last ticker exists, read after it
+    if(lastTick != "") tickers = readPartialCsvFromCertainLine(inp_file, elems, lastTick);
+    else tickers = readPartialCsv(inp_file, elems); // else, read the first tickers of the file
 
-    ofstream outputFile(slope_file);
+    ofstream outputFile;
+    outputFile.open(slope_file, ios_base::app); // append instead of overwrite);
     bool printAll=false;
     string initialDate = "2023-01-01";
 
@@ -60,6 +73,8 @@ void outputPercentSlope() {
     // tickers = {"0A22.IL"};
     outputFile.close();
 
+    
+
     for(string tick : tickers) {
         cout << "analizing tickers... " << (index+1)/size(tickers)*100 << "%"<< endl;
         cout << endl << "#### " << tick << ": " << endl;
@@ -69,12 +84,12 @@ void outputPercentSlope() {
         // only print stocks with increasing trend in last year
         if(slope>0) {
             string line = to_string(percent) + "," + to_string(slope) + "," + tick;
-            WriteToFileSimple(line, slope_file);
+            WriteToFileSimple(line, slope_file); // write results of pertile analysis
+            WriteToFileOver(tick, lastTicker); // write tickername in  file
             cout << percent << "," << slope << "," << tick << endl;
         }
         index++;
     }
-    
 }
 
 void showBestStocks() { //read from csv created in function outputPercentSlope()
@@ -126,4 +141,5 @@ void showBestStocks() { //read from csv created in function outputPercentSlope()
 
 int main() {
     outputPercentSlope();
+   
 }
