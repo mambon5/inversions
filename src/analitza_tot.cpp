@@ -85,9 +85,9 @@ void outputPercentSlope() {
         if(slope>0) {
             string line = to_string(percent) + "," + to_string(slope) + "," + tick;
             WriteToFileSimple(line, slope_file); // write results of pertile analysis
-            WriteToFileOver(tick, lastTicker); // write tickername in  file
             cout << percent << "," << slope << "," << tick << endl;
         }
+        WriteToFileOver(tick, lastTicker); // write tickername in  file
         index++;
     }
 }
