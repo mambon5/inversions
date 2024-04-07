@@ -149,6 +149,15 @@ void LenghtOfVector(const vector<std::string>& tickers) {
 
 }
 
+int LenghtOfVectorStr(const vector<string>& tickers) {
+    int n = 0;
+    for(string str : tickers) {
+        n++;
+    }
+    return n;
+
+}
+
 int LenghtOfVectorInt(const vector<int>& tickers) {
     int n = 0;
     for(int str : tickers) {
@@ -379,19 +388,22 @@ vector<std::string> readPartialCsvFromCertainLine(const std::string& filename,
         // read an entire row and 
         // store it in a string variable 'line' 
         
-        getline(fitxer, tick, ',');
-        if(tick == firstTick) {
-            validTick=true;
-             i--;
-            continue;
-        }
-        if(!validTick) {
-            i--;
-            continue;
-        }
-        elements.push_back(tick);
-  
-       if(printOutput) cout << "ticker que hem llegit: " << tick << endl;
+        if(getline(fitxer, tick, ',')){ // if you read a new element, then continue
+            if(tick == firstTick) {
+                validTick=true;
+                i--;
+                continue;
+            }
+            if(!validTick) {
+                i--;
+                continue;
+            }
+            elements.push_back(tick);
+    
+        if(printOutput) cout << "ticker que hem llegit: " << tick << endl;
+        } 
+        else break; // if no new line, then exit loop, it means we reached the end of the ticker file!
+        // so we should also reinitiate the last ticker file to ""
     }
 
     fitxer.close();

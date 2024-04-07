@@ -22,17 +22,24 @@ using namespace std;
 // compile by the command: g++ get_dailies.cpp -o prova -lcurl
 // or using: g++ time_utils.cpp curl_utils.cpp quote.cpp spot.cpp analitza_tot.cpp -o anal_main -lcurl
 
+// if the computer makes more than 2000 requests per hour, you get an unauthorized error.
+// sometimes it doesn't happend though.
+string currentDate = getCurrentDate();
+
 string dir = "/var/www/escolamatem/cpp/";
-string slope_file = dir+"stocks_slope_percent.csv";
+string slope_file = dir+"stocks_slope_percent_"+currentDate+".csv";
 ofstream outfile("test.txt");
 string lastTicker = dir+"lastTickerUsed.txt";
 // ofstream lastTiFile(lastTicker);
 
 // ofstream outputFile(slope_file);
 
-string inp_file = "processed_ticks.csv";
+// string inp_file = "processed_ticks.csv";
+string inp_file = "mock_ticks.csv"; // this line is only for testing purposes
 
 vector<double> slope_parts {0, 0.05, 0.1, 0.15, 0.2, 0.25, 0.3, 0.35};
+
+
 
 void outputPercentSlope() {
     //  0. mira lultim ticker que s'ha analitzat
@@ -49,9 +56,10 @@ void outputPercentSlope() {
     vector<string> tickers;
     // mira lultim ticker que s'ha analitzat:
     string lastTick;
-    lastTick = GetFirstLineOfFile(lastTicker);
+    lastTick = GetFirstLineOfFile(lastTicker, true);
     // if last ticker exists, read after it
-    if(lastTick != "") tickers = readPartialCsvFromCertainLine(inp_file, elems, lastTick);
+    if(lastTick != "") tickers = readPartialCsvFromCertainLine(inp_file, elems, lastTick, true);
+    
     else tickers = readPartialCsv(inp_file, elems); // else, read the first tickers of the file
 
     ofstream outputFile;
@@ -62,7 +70,7 @@ void outputPercentSlope() {
     cout << "initial date: " << initialDate << endl;
     outputFile << "initial date: " << initialDate << endl;
 
-    string currentDate = getCurrentDate();
+    
     cout << "Fecha actual: " << currentDate << endl;
     outputFile << "Fecha actual: " << currentDate << endl;
     vector<double> percents;
@@ -90,6 +98,8 @@ void outputPercentSlope() {
         WriteToFileOver(tick, lastTicker); // write tickername in  file
         index++;
     }
+
+    if(LenghtOfVectorStr(tickers) < elems) WriteToFileOver("", lastTicker); // reset last ticker to "" since we reached EOF (tickers read < we wanted to read)
 }
 
 void showBestStocks() { //read from csv created in function outputPercentSlope()
