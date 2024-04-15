@@ -115,8 +115,8 @@ void PrintMainStocks(const vector<std::string> &ticks, std::string & file) {
         cout << "last close value percentile: " << percent << endl;
         outputFile << "last close value percentile: " << percent << endl;
 
-        cout << "Pendiente (slope): " << slope << endl;
-        outputFile << "Pendiente (slope): " << slope << endl;
+        cout << "Pendiente (slope): " << PrintNumberWithXDecimalsDoub(slope,3) << endl;
+        outputFile << "Pendiente (slope): " << PrintNumberWithXDecimalsDoub(slope,3) << endl;
             }
 
     outputFile.close();
