@@ -13,7 +13,7 @@ using namespace std;
 #include <cstring>
 #include <dirent.h>
 #include <sys/types.h>
-
+#include <iomanip>      // std::setprecision
 
 #include <curl/curl.h>
 // compile by the command: g++ yh_download_data.cpp -o prova -lcurl
@@ -23,6 +23,13 @@ using namespace std;
 // it is worth checking it out
 
 
+
+string PrintNumberWithXDecimalsDoub(const double& number, const int& precision) {
+    std::ostringstream ss;
+    ss << std::fixed << std::setprecision(precision) << number;
+    string rounded = ss.str();
+    return rounded;
+}
 
 bool compareStrings(const std::string& str1, const std::string& str2) {
   return str1 < str2;
@@ -383,28 +390,44 @@ vector<std::string> readPartialCsvFromCertainLine(const std::string& filename,
     
     std::string tick;
     bool validTick=false;
-    for (int i=0; i<elems;++i) { 
-  
-        // read an entire row and 
-        // store it in a string variable 'line' 
-        
-        if(getline(fitxer, tick, ',')){ // if you read a new element, then continue
-            if(tick == firstTick) {
+    // for (int i=0; i<elems;++i) { 
+    int i = 0;
+    while(getline(fitxer, tick, ',')) {
+        if(i==elems) break;
+
+        if(tick == firstTick) {
                 validTick=true;
-                i--;
                 continue;
             }
             if(!validTick) {
-                i--;
                 continue;
             }
-            elements.push_back(tick);
+            if (tick.length() > 2) elements.push_back(tick); // if the tick doesn't have at least 2 characters, it is not a real tick, it is an empty string or something else
     
         if(printOutput) cout << "ticker que hem llegit: " << tick << endl;
-        } 
-        else break; // if no new line, then exit loop, it means we reached the end of the ticker file!
-        // so we should also reinitiate the last ticker file to ""
+
+        i++;
     }
+        // read an entire row and 
+        // store it in a string variable 'line' 
+        
+    //     if(getline(fitxer, tick, ',')){ // if you read a new element, then continue
+    //         if(tick == firstTick) {
+    //             validTick=true;
+    //             i--;
+    //             continue;
+    //         }
+    //         if(!validTick) {
+    //             i--;
+    //             continue;
+    //         }
+    //         if (tick.length() > 2) elements.push_back(tick); // if the tick doesn't have at least 2 characters, it is not a real tick, it is an empty string or something else
+    
+    //     if(printOutput) cout << "ticker que hem llegit: " << tick << endl;
+    //     } 
+    //     else break; // if no new line, then exit loop, it means we reached the end of the ticker file!
+    //     // so we should also reinitiate the last ticker file to ""
+    // }
 
     fitxer.close();
     return(elements);

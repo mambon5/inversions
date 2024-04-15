@@ -45,11 +45,7 @@ void GetLastYearVals( std::string tick,const std::string & currentDate , double 
     closeVals = stock->getCloseVals();
     cout << "historial spots success" << endl;
 
-    
-    
 
-    
-    
     // if(extraPrint) OutputVectorDouble(closeVals);
 
     if(extraPrint) cout << "Quantitat de valors: " << LenghtOfVectorDoub(closeVals) << endl; 

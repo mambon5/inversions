@@ -15,15 +15,22 @@ using namespace std;
 #include <string.h>
 #include <experimental/filesystem>
 
+
 //There're some limitations by making the call to Yahoo Finance API: 
 // Using the Public API (without authentication), you are limited to 2,000 requests per hour per IP 
 // (or up to a total of 48,000 requests a day).
 
 // compile by the command: g++ get_dailies.cpp -o prova -lcurl
-// or using: g++ time_utils.cpp curl_utils.cpp quote.cpp spot.cpp analitza_tot.cpp -o anal_main -lcurl
+// or using: 
+// g++ time_utils.cpp curl_utils.cpp quote.cpp spot.cpp analitza_tot.cpp -o anal_tot -lcurl
 
 // if the computer makes more than 2000 requests per hour, you get an unauthorized error.
 // sometimes it doesn't happend though.
+// when it analyzes the last ticker, it starts over with the fist one again.
+
+// to do:
+//          1. implement a function that deletes the files over 3 days old. To avoid ROM memory outage
+//          2. (DONE) implement a function that ones it reaches the last ticker in "processed ticks" it starts again from the first one
 string currentDate = getCurrentDate();
 
 string dir = "/var/www/escolamatem/cpp/";
@@ -34,8 +41,8 @@ string lastTicker = dir+"lastTickerUsed.txt";
 
 // ofstream outputFile(slope_file);
 
-// string inp_file = "processed_ticks.csv";
-string inp_file = "mock_ticks.csv"; // this line is only for testing purposes
+string inp_file = dir+"processed_ticks.csv";
+// string inp_file = "mock_ticks.csv"; // this line is only for testing purposes
 
 vector<double> slope_parts {0, 0.05, 0.1, 0.15, 0.2, 0.25, 0.3, 0.35};
 
@@ -58,7 +65,7 @@ void outputPercentSlope() {
     string lastTick;
     lastTick = GetFirstLineOfFile(lastTicker, true);
     // if last ticker exists, read after it
-    if(lastTick != "") tickers = readPartialCsvFromCertainLine(inp_file, elems, lastTick, true);
+    if(lastTick != "") tickers = readPartialCsvFromCertainLine(inp_file, elems, lastTick);
     
     else tickers = readPartialCsv(inp_file, elems); // else, read the first tickers of the file
 
@@ -81,23 +88,31 @@ void outputPercentSlope() {
     // tickers = {"0A22.IL"};
     outputFile.close();
 
-    
+    cout << "ticker length: " << LenghtOfVectorStr(tickers) << endl;
+    cout << "elem length: " << elems << endl;
 
     for(string tick : tickers) {
-        cout << "analizing tickers... " << (index+1)/size(tickers)*100 << "%"<< endl;
+        
         cout << endl << "#### " << tick << ": " << endl;
+        cout << "analizing tickers... " << (index+1)/size(tickers)*100 << "%"<< endl;
         GetLastYearVals(tick, currentDate, slope, percent,   true, initialDate);
         cout << "last year vals done" << endl;
         // cout << "slope: " << slope <<", percentile: " << percent << "%" << endl;
         // only print stocks with increasing trend in last year
         if(slope>0) {
-            string line = to_string(percent) + "," + to_string(slope) + "," + tick;
+            
+            string line = PrintNumberWithXDecimalsDoub(percent,0) + "," + 
+                PrintNumberWithXDecimalsDoub(slope,3) + "," + tick;
             WriteToFileSimple(line, slope_file); // write results of pertile analysis
             cout << percent << "," << slope << "," << tick << endl;
         }
         WriteToFileOver(tick, lastTicker); // write tickername in  file
         index++;
     }
+    cout << "after the loop:" << endl;
+    cout << "ticker length: " << LenghtOfVectorStr(tickers) << endl;
+    cout << "elem length: " << elems << endl;
+    cout << "index length: " << index << endl;
 
     if(LenghtOfVectorStr(tickers) < elems) WriteToFileOver("", lastTicker); // reset last ticker to "" since we reached EOF (tickers read < we wanted to read)
 }
