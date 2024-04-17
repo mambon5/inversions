@@ -1,14 +1,21 @@
+- [Linux system admin](#linux-system-admin)
+  - [Com posar un servei systemd en marxa periòdicament](#com-posar-un-servei-systemd-en-marxa-periòdicament)
+    - [1. On es posa el servei que fa la feina, i el timer que el crida periòdicament?](#1-on-es-posa-el-servei-que-fa-la-feina-i-el-timer-que-el-crida-periòdicament)
+    - [2. Estructura del servei.](#2-estructura-del-servei)
+    - [3. Estructura del fitxer `timer`.](#3-estructura-del-fitxer-timer)
+- [Notes sobre la programació:](#notes-sobre-la-programació)
 
 
 ## Linux system admin
 
 ### Com posar un servei systemd en marxa periòdicament
 
-1. On es posa el servei que fa la feina, i el timer que el crida periòdicament?
+#### 1. On es posa el servei que fa la feina, i el timer que el crida periòdicament?
 
 El *servei* i el fitxer *timer* es posen a la carpeta de linux `/etc/systemd/system`.
 
-2. Estructura del servei. Pot ser un fitxer així molt simple:
+#### 2. Estructura del servei. 
+Pot ser un fitxer així molt simple:
 ```
 [Unit]
 Description="Get current daily percentile of stock values"
@@ -18,7 +25,8 @@ ExecStart=/starter.sh
 ```
 On simplement es posa una descripció de què fa, en el tag `[Unit]` i en el tag `[Service]` es dóna la localització del programa que s'executarà quan es cridi aquest servei.
 
-3. Estructura del fitzer `timer`. Té una estructura així:
+#### 3. Estructura del fitxer `timer`. 
+Té una estructura així:
 
 ```
 [Unit]
@@ -41,7 +49,7 @@ L'element `OnBootSec=5min` indica quant temps després de l'inici del systema, e
 
 L'element `Unit`, indica quin servei executar. Ha d'estar a la mateixa carpeta que el *timer*.
  
- L'element `OnUnitActiveSec=24h` reinicia el servei després de 24h de l'ultima execució.
+ L'element `OnUnitActiveSec=24h` reinicia el servei després de 24h de l'ultima execució. Crec que aquestà funció es solapa amb l'element `OnCalendar` que ja el crida cada 24h.
 
 ## Notes sobre la programació:
 
