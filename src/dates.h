@@ -70,7 +70,15 @@ int calcularDiesEntreDates(Date dt1, Date dt2)
     return (n2 - n1); 
 }
 
+int DiesEntreDates(const string & date1, const string & date2) // dates in format "yyyy-mm-dd" 
+{ 
+    Date dt1 = { stoi(date1.substr(8,2)), 
+    stoi(date1.substr(5,2)), stoi(date1.substr(0,4)) }; 
+    Date dt2 = { stoi(date2.substr(8,2)), 
+    stoi(date2.substr(5,2)), stoi(date2.substr(0,4)) }; 
 
+    return calcularDiesEntreDates(dt1, dt2); 
+}
 
 
 string getCurrentDate() {

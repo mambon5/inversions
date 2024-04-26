@@ -58,6 +58,7 @@
         "thread": "cpp",
         "typeinfo": "cpp",
         "filesystem": "cpp",
-        "codecvt": "cpp"
+        "codecvt": "cpp",
+        "iomanip": "cpp"
     }
 }

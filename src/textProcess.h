@@ -15,6 +15,7 @@ using namespace std;
 #include <sys/types.h>
 #include <iomanip>      // std::setprecision
 
+
 #include <curl/curl.h>
 // compile by the command: g++ yh_download_data.cpp -o prova -lcurl
 // hint: Yahoo data won't show stocks if the list is greater than 9000. Trick: inspect this 
@@ -276,6 +277,49 @@ void WriteToFile(const vector<std::string>& tickers, const std::string& outputFi
     outFile.close();
 }
 
+void DeleteOlderFiles(const string & dirname, const string & filenameSuffix, const int & daysOld, bool printAll=true) {
+    // This function: 
+    //  1. gets the file names containing the filenameSuffix.
+    //  2. Checks its date (which should be in format yyyy-mm-dd and be in the filename after the suffix)
+    //  3. returns the files that are older than the given number of days daysOld
+
+
+   DIR *dr;
+   struct dirent *en;
+   int files = 0;
+   int lastn=1;
+   dr = opendir(dirname.c_str()); //open the directory, convert first string to char
+                                  // how to use this function: https://pubs.opengroup.org/onlinepubs/009604599/functions/opendir.html
+   if(printAll) cout << "opening directory: " << dirname << endl;                               
+   if (dr) {
+      while ((en = readdir(dr)) != NULL) {
+        string filename = en->d_name;
+        // if(printAll) cout << filename << endl;
+        int n = filename.length();
+
+        if( filename.find(filenameSuffix) < n ) {
+            if(printAll) cout << filename << endl;
+            string date = filename.substr(n-14,10); //read the last 14 characters, but skip the last 4 since they are ".csv";
+            if(printAll) cout << "reading date: " << date << endl;
+            
+            string currentDate = getCurrentDate();
+            int dies = DiesEntreDates(date, currentDate);
+            if(printAll) cout << "Han passat " << dies << " dies entre la data del fitxer i avui" << endl;
+            
+            if(daysOld < dies) {
+                // delete file if it is older than daysOld days.
+                string file = dirname + filename;
+                int res = remove(file.c_str());
+                if(res == 0) cout << "file " << filename << " removed successfully" << endl;
+                else cout << "error while deleting the file " << filename << endl;
+            }
+        }
+      }
+      closedir(dr); //close the directory
+      
+   }
+
+}
 
 vector <std::string> getLastSearchGroup() {
     std::string line;

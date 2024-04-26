@@ -20,8 +20,7 @@ using namespace std;
 // Using the Public API (without authentication), you are limited to 2,000 requests per hour per IP 
 // (or up to a total of 48,000 requests a day).
 
-// compile by the command: g++ get_dailies.cpp -o prova -lcurl
-// or using: 
+// compile by the command: 
 // g++ time_utils.cpp curl_utils.cpp quote.cpp spot.cpp analitza_tot.cpp -o anal_tot -lcurl
 
 // if the computer makes more than 2000 requests per hour, you get an unauthorized error.
@@ -29,12 +28,13 @@ using namespace std;
 // when it analyzes the last ticker, it starts over with the fist one again.
 
 // to do:
-//          1. implement a function that deletes the files over 3 days old. To avoid ROM memory outage
+//          1. (DONE) implement a function that deletes the files over 3 days old. To avoid ROM memory outage. function: DeleteOlderFiles()
 //          2. (DONE) implement a function that ones it reaches the last ticker in "processed ticks" it starts again from the first one
 string currentDate = getCurrentDate();
 
 string dir = "/var/www/escolamatem/cpp/";
-string slope_file = dir+"stocks_slope_percent_"+currentDate+".csv";
+string slope_file_sufix ="stocks_slope_percent_"; // don't change this suffix without changing the function that deletes the old files of analysys
+string slope_file =  dir+slope_file_sufix + currentDate+".csv";
 ofstream outfile("test.txt");
 string lastTicker = dir+"lastTickerUsed.txt";
 // ofstream lastTiFile(lastTicker);
@@ -47,19 +47,16 @@ string inp_file = dir+"processed_ticks.csv";
 vector<double> slope_parts {0, 0.05, 0.1, 0.15, 0.2, 0.25, 0.3, 0.35};
 
 
-
-void outputPercentSlope() {
+void outputPercentSlope(const int & elems) {
     //  0. mira lultim ticker que s'ha analitzat
     //  1. Agafa els tickers que vinguin donats pel cin
     //  2. Tria una data inicial i final
     //  3. 
-    int elems;
 
     cout << "mostrant intervals de classificació del pendent de les accions: " << endl;
     OutputVectorDouble(slope_parts);
     
     cout << "escriu el nombre de tickers que vols llegir:" << endl;
-    cin >> elems;
     vector<string> tickers;
     // mira lultim ticker que s'ha analitzat:
     string lastTick;
@@ -165,6 +162,8 @@ void showBestStocks() { //read from csv created in function outputPercentSlope()
 
 
 int main() {
-    outputPercentSlope();
+    int elems = 2000;
+    DeleteOlderFiles(dir, slope_file_sufix, 10, false); // deletes files with suffix "sufix" in directory "dir" which are "12" days old or older.
+    outputPercentSlope(elems);
    
 }

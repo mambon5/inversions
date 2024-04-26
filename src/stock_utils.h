@@ -1,8 +1,9 @@
 using namespace std;
 #include "quote.hpp"
+#include "dates.h"
 #include "textProcess.h"
 #include "probab_utils.h"
-#include "dates.h"
+
 // #include "src/quote.hpp"
 
 #include <iostream>
@@ -90,20 +91,20 @@ void PrintMainStocks(const vector<std::string> &ticks, std::string & file) {
     cout << "Fecha actual: " << currentDate << endl;
     outputFile << "Fecha actual: " << currentDate << endl;
 
-    Date dt1 = { stoi(initialDate.substr(8,2)), 
-    stoi(initialDate.substr(5,2)), stoi(initialDate.substr(0,4)) }; 
-    Date dt2 = { stoi(currentDate.substr(8,2)), 
-    stoi(currentDate.substr(5,2)), stoi(currentDate.substr(0,4)) }; 
+    // Date dt1 = { stoi(initialDate.substr(8,2)), 
+    // stoi(initialDate.substr(5,2)), stoi(initialDate.substr(0,4)) }; 
+    // Date dt2 = { stoi(currentDate.substr(8,2)), 
+    // stoi(currentDate.substr(5,2)), stoi(currentDate.substr(0,4)) }; 
   
     // Function call 
-    int dies = calcularDiesEntreDates(dt1, dt2);
+    // int dies = calcularDiesEntreDates(dt1, dt2);
+    int dies = DiesEntreDates(initialDate, currentDate);
     cout << "Quantitat de dies entre les dues dates: " << dies << endl; 
     outputFile << "Quantitat de dies entre les dues dates: " << dies << endl; 
 
     // cout << "Print all daily percentiles? Yes=1, No=0"<< endl;
     // cin >> printAll;
     
-
     for(std::string tick : ticks) {
         cout << endl << "#### " << tick << ": " << endl;
         outputFile << endl << "#### " << tick << ": " << endl;
