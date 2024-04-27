@@ -277,6 +277,38 @@ void WriteToFile(const vector<std::string>& tickers, const std::string& outputFi
     outFile.close();
 }
 
+string ExtractDateFromFile(const string & filename) {
+    // we assume the filename is of format "filename_yyyy-mm-dd.XXX". That's to say, the last 15 characters of the filename must be
+    //"_yyyy-mm-dd.XXX"
+    // returns date in format "yyyy-mm-dd"
+    int n = filename.length();
+    string date = filename.substr(n-14,10);
+    return date;
+}
+
+bool TodayFileExists(const string & dirname, const string & filenameSuffix) {
+    // check whether a file in directory "dirname" with file suffix filenameSuffix, containing the current date, exists or not
+    string currentDate = getCurrentDate();
+    string targetFile = filenameSuffix + currentDate + ".csv";
+    
+    DIR *dr;
+    struct dirent *en;
+    int files = 0;
+    int lastn=1;
+    dr = opendir(dirname.c_str()); //open the directory, convert first string to char
+                                  // how to use this function: https://pubs.opengroup.org/onlinepubs/009604599/functions/opendir.html
+    //    if(printAll) cout << "opening directory: " << dirname << endl;                               
+    if (dr) {
+        while ((en = readdir(dr)) != NULL) {
+            string filename = en->d_name;
+            
+            if( targetFile == filename ) return true;
+        }
+    }
+    else cout << "error while opening dir at TodayFileExists()" << endl;
+    return false;
+}
+
 void DeleteOlderFiles(const string & dirname, const string & filenameSuffix, const int & daysOld, bool printAll=true) {
     // This function: 
     //  1. gets the file names containing the filenameSuffix.
@@ -299,7 +331,7 @@ void DeleteOlderFiles(const string & dirname, const string & filenameSuffix, con
 
         if( filename.find(filenameSuffix) < n ) {
             if(printAll) cout << filename << endl;
-            string date = filename.substr(n-14,10); //read the last 14 characters, but skip the last 4 since they are ".csv";
+            string date = ExtractDateFromFile(filename); //read the last 14 characters, but skip the last 4 since they are ".csv";
             if(printAll) cout << "reading date: " << date << endl;
             
             string currentDate = getCurrentDate();

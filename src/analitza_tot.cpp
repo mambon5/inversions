@@ -30,6 +30,7 @@ using namespace std;
 // to do:
 //          1. (DONE) implement a function that deletes the files over 3 days old. To avoid ROM memory outage. function: DeleteOlderFiles()
 //          2. (DONE) implement a function that ones it reaches the last ticker in "processed ticks" it starts again from the first one
+//          3. Make a check function that looks if all tickers have already been processed for today, and halts current day processing if so.
 string currentDate = getCurrentDate();
 
 string dir = "/var/www/escolamatem/cpp/";
@@ -64,7 +65,8 @@ void outputPercentSlope(const int & elems) {
     // if last ticker exists, read after it
     if(lastTick != "") tickers = readPartialCsvFromCertainLine(inp_file, elems, lastTick);
     
-    else tickers = readPartialCsv(inp_file, elems); // else, read the first tickers of the file
+    else if(!TodayFileExists(dir, slope_file_sufix)) tickers = readPartialCsv(inp_file, elems); // else, read the first tickers of the file
+    // if todayfiles exists, and last tick is ="" it means the analysis of todays tickers is finished, so don't read more tickers
 
     ofstream outputFile;
     outputFile.open(slope_file, ios_base::app); // append instead of overwrite);
@@ -163,6 +165,7 @@ void showBestStocks() { //read from csv created in function outputPercentSlope()
 
 int main() {
     int elems = 2000;
+    
     DeleteOlderFiles(dir, slope_file_sufix, 10, false); // deletes files with suffix "sufix" in directory "dir" which are "12" days old or older.
     outputPercentSlope(elems);
    

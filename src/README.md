@@ -52,7 +52,8 @@ Description="run the get all the daily stock percentiles every 23min"
 
 [Timer]
 OnBootSec=5min
-OnUnitActiveSec=23min
+#OnUnitActiveSec=23min
+OnCalendar=Mon..Fri *-*-* *:00,20,40:00 # each 20 min during stock exchange days
 Unit=AnaliTotTicks.service
 
 [Install]
