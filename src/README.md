@@ -1,121 +1,80 @@
-- [Linux system admin](#linux-system-admin)
-  - [Com posar un servei systemd en marxa periòdicament](#com-posar-un-servei-systemd-en-marxa-periòdicament)
-    - [1. On es posa el servei que fa la feina, i el timer que el crida periòdicament?](#1-on-es-posa-el-servei-que-fa-la-feina-i-el-timer-que-el-crida-periòdicament)
-    - [2. Estructura del servei.](#2-estructura-del-servei)
-    - [3. Estructura del fitxer `timer`.](#3-estructura-del-fitxer-timer)
-    - [4. Com activar el servei i el timer](#4-com-activar-el-servei-i-el-timer)
-- [Notes sobre la programació:](#notes-sobre-la-programació)
+# Intro
 
+Usem les llibreries de *yahoo-finance* per crear un algoritme en cpp que calculi els percentils del valor diari de cada acció, durant el període d'1 o dos anys.
 
-## Linux system admin
+## yahoo-finance
 
-### Com posar un servei systemd en marxa periòdicament
+C++ library to get stock data from Yahoo Finance.
 
-#### 1. On es posa el servei que fa la feina, i el timer que el crida periòdicament?
+*Support Yahoo Finance Novembrer 2017 API change.*
 
-El *servei* i el fitxer *timer* es posen a la carpeta de linux `/etc/systemd/system`.
+## Dependencies
 
-#### 2. Estructura del servei. 
-Pot ser un fitxer així molt simple:
+To use the project, you'll need to install the following dependencies:
+- c++11
+- cmake >= 3.6.3
+- curl
+
+## Build
+
+Build the code using CMake by running the following commands in order:
 ```
-[Unit]
-Description="Get current daily percentile of stock values"
-
-[Service]
-ExecStart=/var/www/escolamatem/cpp/starter_main_stocks.sh
-```
-On simplement es posa una descripció de què fa, en el tag `[Unit]` i en el tag `[Service]` es dóna la localització del programa que s'executarà quan es cridi aquest servei.
-
-*Nota: Jo he anomenat `AnaliTotTicks.service` i `AnaliMainTicks.service*` als serveis que analitzen tots, i els ticks principals, respectivament.* 
-
-#### 3. Estructura del fitxer `timer`. 
-El fitxer `AnaliMainTicks.timer` té una estructura així:
-
-```
-[Unit]
-Description="run the get main daily stock percentiles every day at 12pm"
-
-[Timer]
-OnBootSec=5min
-OnCalendar=*-*-* 12:00:00
-Unit=AnaliMainTicks.service
-
-[Install]
-WantedBy=multi-user.target
+mkdir build
+cd build
+cmake ..
+make
 ```
 
-i el timer `AnaliTotTicks.timer` aquesta:
+## Unit Tests
 
+Launch unit tests using [googletest](https://github.com/google/googletest).
 ```
-[Unit]
-Description="run the get all the daily stock percentiles every 23min"
-
-[Timer]
-OnBootSec=5min
-#OnUnitActiveSec=23min
-OnCalendar=Mon..Fri *-*-* *:00,20,40:00 # each 20 min during stock exchange days
-Unit=AnaliTotTicks.service
-
-[Install]
-WantedBy=multi-user.target
+make test
 ```
 
-
-Aquí el tag `[Install]` és força important, perquè el `WantedBy` pot ser: `graphical.target`(inicia una interfaç d'usuari i el `multi-user.target`),  `sysinit.target`(al iniciar el systema) o `multi-user.target`(un servei que no necessita interfaç gràfica). Nosaltres triem l'últim encara que per defecte es posa el gràfical target.
-
-L'altre element important és `OnCalendar` ja que aquí s'ha d'especificar en format especial, l'intèrval de periodicitat que volem per al nostre servei. Llegiu aquí alguns exemples de com posar el format de periodicitat : https://www.freedesktop.org/software/systemd/man/latest/systemd.time.html i https://wiki.archlinux.org/title/systemd/Timers .
-
-L'element `OnBootSec=5min` indica quant temps després de l'inici del systema, es vol executar el servei.
-
-L'element `Unit`, indica quin servei executar. Ha d'estar a la mateixa carpeta que el *timer*.
- 
- L'element `OnUnitActiveSec=24h` reinicia el servei després de 24h de l'ultima execució. Crec que aquestà funció es solapa amb l'element `OnCalendar` que ja el crida cada 24h.
-
-*Nota: Jo he anomenat `AnaliTotTicks.timer` i `AnaliMainTicks.timer` als timers que criden cada servei, el de tots, i el dels ticks principals, respectivament.*
-
-#### 4. Com activar el servei i el timer
-
-Primer de tot hem de carregar tots els fitxers unit usant:
-
+To recompile the project before running the tests, just run:
 ```
-systemctl daemon-reload
+make all test
 ```
 
-Per activar el timer només hem d'executar:
+## Usage
 
-```
-sudo systemctl enable TIMER.timer
-```
-Això farà que al fer boot, el timer s'executi.
-Per executar el timer directament, reiniciarlo, o parar-lo, executar respectivament:
-```
-sudo systemctl start TIMER.timer
-sudo systemctl restart TIMER.timer
-sudo systemctl stop TIMER.timer
-```
-Per mirar el seu estat es pot executar:
-``` 
-systemctl status TIMER.timer
+Use the following header to import ``Quote`` class.
+```c++
+#include "quote.hpp"
 ```
 
-Documentació: https://askubuntu.com/questions/1083537/how-do-i-properly-install-a-systemd-timer-and-service
+Code sample:
+```c++
+// S&P 500
+Quote *snp500 = new Quote("^GSPC");
 
-Igualment per al servei, per demanar a l'ordinador que l'executi al inici del ordinador, executeu:
-```
-sudo systemctl enable SERVEI.service
-```
-Per executar, reiniciar o parar el servei escriviu:
-```
-sudo systemctl start SERVEI.service
-sudo systemctl restart SERVEI.service
-sudo systemctl stop SERVEI.service
-```
-I després actualitzeu els fitxers unix fent un:
-```
-systemctl daemon-reload
-```
+// Get the historical spots from Yahoo Finance
+snp500->getHistoricalSpots("2017-12-01", "2017-12-31", "1d");
 
-## Notes sobre la programació:
+// Print the spots
+snp500->printSpots();
 
-1. Al posar un for loop, i a dins un if(getline(fitxer, string, ",")) es comporta el getline malament, i llegeix 3 cops seguits la última linea si el for loop segueix en peu. 
-En canvi si posem un while loop while(getline(fitxer, string, ",")) el getlien es fa adecuadament i no es repeteix la lectura de la última línia del fitxer. Fet extrany però cert.
+// Print a spot
+try {
+  Spot spot = snp500->getSpot("2017-12-01");
+  spot.printSpot();
+} catch(const std::exception &e) {
+  std::cerr << e.what() << std::endl;
+}
+
+// Get the historical EUR/USD rates
+Quote *eurusd = new Quote("EURUSD=X");
+eurusd->getHistoricalSpots("2018-01-01", "2018-01-10", "1d");
+eurusd->printSpots();
+
+// Get the historical EUR/AUD rates
+Quote *euraud = new Quote("EURAUD=X");
+euraud->getHistoricalSpots("2018-01-01", "2018-01-10", "1d");
+euraud->printSpots();
+
+// Free memory
+delete snp500;
+delete eurusd;
+delete euraud;
+```

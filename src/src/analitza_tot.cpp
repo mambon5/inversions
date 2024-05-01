@@ -20,7 +20,7 @@ using namespace std;
 // Using the Public API (without authentication), you are limited to 2,000 requests per hour per IP 
 // (or up to a total of 48,000 requests a day).
 
-// compile by the command: 
+// compile by the command:
 // g++ time_utils.cpp curl_utils.cpp quote.cpp spot.cpp analitza_tot.cpp -o anal_tot -lcurl
 
 // if the computer makes more than 2000 requests per hour, you get an unauthorized error.
@@ -30,16 +30,14 @@ using namespace std;
 // to do:
 //          1. (DONE) implement a function that deletes the files over 3 days old. To avoid ROM memory outage. function: DeleteOlderFiles()
 //          2. (DONE) implement a function that ones it reaches the last ticker in "processed ticks" it starts again from the first one
-//          3. Make a check function that looks if all tickers have already been processed for today, and halts current day processing if so.
+//          3. (DONE) Make a check function that looks if all tickers have already been processed for today, and halts current day processing if so.
 string currentDate = getCurrentDate();
-
-string dir = "/var/www/escolamatem/cpp/";
+string dir = "/var/www/inversions/output/";
 string slope_file_sufix ="stocks_slope_percent_"; // don't change this suffix without changing the function that deletes the old files of analysys
 string slope_file =  dir+slope_file_sufix + currentDate+".csv";
 ofstream outfile("test.txt");
 string lastTicker = dir+"lastTickerUsed.txt";
 // ofstream lastTiFile(lastTicker);
-
 // ofstream outputFile(slope_file);
 
 string inp_file = dir+"processed_ticks.csv";

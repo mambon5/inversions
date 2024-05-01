@@ -1,0 +1,10 @@
+[Unit]
+Description="run the get main daily stock percentiles every day at 12pm"
+
+[Timer]
+OnBootSec=5min
+OnCalendar=*-*-* 12:00:00
+Unit=AnaliMainTicks.service
+
+[Install]
+WantedBy=multi-user.target

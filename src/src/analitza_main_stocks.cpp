@@ -21,7 +21,7 @@ using namespace std;
 // compile by the command: g++ get_dailies.cpp -o prova -lcurl
 // or using: g++ time_utils.cpp curl_utils.cpp quote.cpp spot.cpp get_dailies.cpp -o dailies -lcurl
 
-std::string file = "/var/www/escolamatem/cpp/pertiles.txt";
+std::string file = "/var/www/inversions/output/pertiles.txt";
 
 vector<std::string> main_ticks = { "^IXIC", "^GSPC", "^DJI", "META", "TSLA", "HPE", "PSX", "SU.PA", "RIOT",
 "GOOGL", "GME", "INTC", "IBM", "QCOM", "ASML", "TSM", "NVDA", "005930.KS", "NFLX", "MSFT",
