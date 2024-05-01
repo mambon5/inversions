@@ -10,7 +10,8 @@
 - [Instalar la app d'analisi d'accions de borsa](#instalar-la-app-danalisi-daccions-de-borsa)
   - [1. Descargar-se el repositori github](#1-descargar-se-el-repositori-github)
   - [2. Canviar la contrasenya del servidor](#2-canviar-la-contrasenya-del-servidor)
-  - [3. Copiar els timers i serveis](#3-copiar-els-timers-i-serveis)
+      - [3. Canviar els permisos de la carpeta output.](#3-canviar-els-permisos-de-la-carpeta-output)
+  - [4. Copiar els timers i serveis](#4-copiar-els-timers-i-serveis)
 - [Servir més d'una pàgina web al mateix servidor](#servir-més-duna-pàgina-web-al-mateix-servidor)
 
 
@@ -172,7 +173,20 @@ Descargar de https://github.com/mambon5/inversions_borsa.git
 
 El arxius `starter_all_stocks.sh` i l'arxiu `starter_main_stocks.sh` tenen a dins seu, una paràmetre que és la contrasenya del servidor. S'ha de canviar per tal de poder fer els canvis pertinents.
 
-## 3. Copiar els timers i serveis
+#### 3. Canviar els permisos de la carpeta output.
+
+Per a tal que el programa pugui funcionar i modificar i crear arxius a la carpeta `output/` és necesari donar permissos `RW-` a tota la carpeta i recursivament.
+
+Usant la commanda:
+
+```
+sudo chmod -R 666 output/ 
+```
+
+es pot fer un cop clonat el repositori.
+
+
+## 4. Copiar els timers i serveis
 
 Cal copiar els serveis i timers del systemd de linux a la carpeta correcta per a que tot funcioni. En particular, cal copiar els arxius.
 
