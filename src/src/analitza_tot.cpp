@@ -40,7 +40,7 @@ string lastTicker = dir+"lastTickerUsed.txt";
 // ofstream lastTiFile(lastTicker);
 // ofstream outputFile(slope_file);
 
-string inp_file = dir+"processed_ticks.csv";
+string inp_file = "/var/www/inversions/src/src/processed_ticks.csv";
 // string inp_file = "mock_ticks.csv"; // this line is only for testing purposes
 
 vector<double> slope_parts {0, 0.05, 0.1, 0.15, 0.2, 0.25, 0.3, 0.35};
