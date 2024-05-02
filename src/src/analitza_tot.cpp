@@ -63,8 +63,8 @@ void outputPercentSlope(const int & elems) {
     // if last ticker exists, read after it
     tickers = readPartialCsvFromCertainLine(inp_file, elems, lastTick);
     
-    // it is possible that analysis is finished for a day, and no tickers are left to analyse, if so restart if it is a new day
-    if( LenghtOfVectorStr(tickers) == 0 && !TodayFileExists(dir, slope_file_sufix)) tickers = readPartialCsv(inp_file, elems); // else, read the first tickers of the file
+    //if it is a new day, start from scratch!
+    if( !TodayFileExists(dir, slope_file_sufix)) tickers = readPartialCsv(inp_file, elems); 
 
     ofstream outputFile;
     outputFile.open(slope_file, ios_base::app); // append instead of overwrite);
