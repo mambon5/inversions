@@ -2,27 +2,8 @@
 <html>
   <meta charset="UTF-8">
   <head>
-    <script  type="text/javascript">
-
-        function escriuAccions() { // After the HTML content loads
-            var div = document.createElement("div");
-            var inner = "";
-        
-                let yourDate = new Date();
-            const offset = yourDate.getTimezoneOffset()
-           
-            yourDate = new Date(yourDate.getTime() - (offset*60*1000));
-            var avui = yourDate.toISOString().split('T')[0]
-            var filename = "output/stocks_slope_percent_"+avui + ".csv"
-        
-            inner += "<a href='"+filename+"'> Totes les accions </a>";
-            
-            div.innerHTML=inner;
-            document.body.appendChild(div); // Appends HTML to an element
-        };
-        
-        
-        </script>
+   
+    
 
     <title>Accions de borsa</title>
   </head>
@@ -32,8 +13,13 @@
     </p>
     <a href="output/pertiles.txt">Accions principals</a>
 
+    <center>
+      <h2>Anàlisi complert per dia</h2>
+    </center>
+    <ul id="llista"></ul>
 
 
-    
+    <script src="https://requirejs.org/docs/release/2.3.5/minified/require.js"></script> 
+    <script src="helper.js"></script> 
   </body>
 </html>
