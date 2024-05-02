@@ -475,36 +475,16 @@ vector<std::string> readPartialCsvFromCertainLine(const std::string& filename,
                 validTick=true;
                 continue;
             }
-            if(!validTick) {
-                continue;
-            }
-            if (tick.length() > 2) elements.push_back(tick); // if the tick doesn't have at least 2 characters, it is not a real tick, it is an empty string or something else
+        if(!validTick) {
+            continue;
+        }
+        if (tick.length() > 2) elements.push_back(tick); // if the tick doesn't have at least 2 characters, it is not a real tick, it is an empty string or something else
     
         if(printOutput) cout << "ticker que hem llegit: " << tick << endl;
 
         i++;
     }
-        // read an entire row and 
-        // store it in a string variable 'line' 
-        
-    //     if(getline(fitxer, tick, ',')){ // if you read a new element, then continue
-    //         if(tick == firstTick) {
-    //             validTick=true;
-    //             i--;
-    //             continue;
-    //         }
-    //         if(!validTick) {
-    //             i--;
-    //             continue;
-    //         }
-    //         if (tick.length() > 2) elements.push_back(tick); // if the tick doesn't have at least 2 characters, it is not a real tick, it is an empty string or something else
     
-    //     if(printOutput) cout << "ticker que hem llegit: " << tick << endl;
-    //     } 
-    //     else break; // if no new line, then exit loop, it means we reached the end of the ticker file!
-    //     // so we should also reinitiate the last ticker file to ""
-    // }
-
     fitxer.close();
     return(elements);
 }

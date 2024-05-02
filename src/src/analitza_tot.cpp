@@ -61,10 +61,10 @@ void outputPercentSlope(const int & elems) {
     string lastTick;
     lastTick = GetFirstLineOfFile(lastTicker, true);
     // if last ticker exists, read after it
-    if(lastTick != "") tickers = readPartialCsvFromCertainLine(inp_file, elems, lastTick);
+    tickers = readPartialCsvFromCertainLine(inp_file, elems, lastTick);
     
-    else if(!TodayFileExists(dir, slope_file_sufix)) tickers = readPartialCsv(inp_file, elems); // else, read the first tickers of the file
-    // if todayfiles exists, and last tick is ="" it means the analysis of todays tickers is finished, so don't read more tickers
+    // it is possible that analysis is finished for a day, and no tickers are left to analyse, if so restart if it is a new day
+    if( LenghtOfVectorStr(tickers) == 0 && !TodayFileExists(dir, slope_file_sufix)) tickers = readPartialCsv(inp_file, elems); // else, read the first tickers of the file
 
     ofstream outputFile;
     outputFile.open(slope_file, ios_base::app); // append instead of overwrite);
@@ -103,7 +103,7 @@ void outputPercentSlope(const int & elems) {
             WriteToFileSimple(line, slope_file); // write results of pertile analysis
             cout << percent << "," << slope << "," << tick << endl;
         }
-        WriteToFileOver(tick, lastTicker); // write tickername in  file
+        WriteToFileOver(tick, lastTicker); // write tickername in  file after analizing it
         index++;
     }
     cout << "after the loop:" << endl;
@@ -111,7 +111,7 @@ void outputPercentSlope(const int & elems) {
     cout << "elem length: " << elems << endl;
     cout << "index length: " << index << endl;
 
-    if(LenghtOfVectorStr(tickers) < elems) WriteToFileOver("", lastTicker); // reset last ticker to "" since we reached EOF (tickers read < we wanted to read)
+    // if(LenghtOfVectorStr(tickers) < elems) WriteToFileOver("", lastTicker); // reset last ticker to "" since we reached EOF (tickers read < we wanted to read)
 }
 
 void showBestStocks() { //read from csv created in function outputPercentSlope()
