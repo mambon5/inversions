@@ -1,24 +1,25 @@
 function escriuAccions() { // After the HTML content loads
    
 
-    let yourDate = new Date();
     
-    let data2 = yourDate;
-    data2.setDate(data2.getDate() - 1);
-
-    var avui = formatejaData(yourDate)
-    var ahir = formatejaData(data2)
+    for (let i = 0; i < 10; i++) {
+        let data = new Date();
+        var dateOffset = (24*60*60*1000) * i;
+        
+        data.setTime(data.getTime() - dateOffset);
+        var dia = formatejaData(data)
+        
+        escriu_accio(dia);
+      } 
     
-    escriu_accio(avui);
-    escriu_accio(ahir);
 };
 
 function formatejaData(data) {
    
     const offset = data.getTimezoneOffset()
    
-    yourDate = new Date(yourDate.getTime() - (offset*60*1000));
-    var dataForm = yourDate.toISOString().split('T')[0]
+    data = new Date(data.getTime() - (offset*60*1000));
+    var dataForm = data.toISOString().split('T')[0]
 
     return dataForm;
 }
