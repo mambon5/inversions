@@ -101,7 +101,8 @@ void PrintMainStocks(const vector<std::string> &ticks, std::string & file) {
     int dies = DiesEntreDates(initialDate, currentDate);
     cout << "Quantitat de dies entre les dues dates: " << dies << endl; 
     outputFile << "Quantitat de dies entre les dues dates: " << dies << endl; 
-
+    cout << "Quantitat de valors bursàtils analitzats: " << LenghtOfVectorStr(ticks) << endl;
+    outputFile << "Quantitat de valors bursàtils analitzats: " << LenghtOfVectorStr(ticks) << endl;
     cout << "Format dels resultats: percentil  |  pendent anual  | etiqueta " << endl << endl;
     outputFile << "Format dels resultats: percentil  |  pendent anual  | etiqueta "  << endl << endl;
 
