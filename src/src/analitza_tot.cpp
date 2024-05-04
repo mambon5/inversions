@@ -114,52 +114,6 @@ void outputPercentSlope(const int & elems) {
     // if(LenghtOfVectorStr(tickers) < elems) WriteToFileOver("", lastTicker); // reset last ticker to "" since we reached EOF (tickers read < we wanted to read)
 }
 
-void showBestStocks() { //read from csv created in function outputPercentSlope()
-
-    vector<double> percents;
-    vector<vector<double>> slope_00, slope_01, slope_02, slope_03;
-    double percent, slope;
-    double index=0;
-    vector<double> triplet = {percent, slope, index};
-        if(slope >= 0 && slope < 0.1) {
-            slope_00.push_back(triplet);
-        } else if(slope >= 0.1 && slope < 0.2) {
-            slope_01.push_back(triplet);
-        } else if(slope >= 0.2 && slope < 0.3) {
-            slope_02.push_back(triplet);
-        } else if(slope >= 0.3) {
-            slope_03.push_back(triplet);
-        }
-
-    cout << "showing best stocks: " << endl;
-    cout << "size of slope_00: " << size(slope_00) << endl;
-    cout << "size of slope_01: " << size(slope_01) << endl;
-    cout << "size of slope_02: " << size(slope_02) << endl;
-    cout << "size of slope_03: " << size(slope_03) << endl;
-
-    int showFirst=5;
-
-    cout << "showing elements of vector slope_00: " <<endl;
-    vector<string> tickers;
-    Output2Dvector_custom1(slope_00, tickers);
-    vD_sortByCol(slope_00);
-
-    cout << "showing sorted elements of vector slope_00: " <<endl;
-    Output2Dvector_firstFew(slope_00, tickers, showFirst);
-
-    vD_sortByCol(slope_01);
-    cout << "showing sorted elements of vector slope_01: " <<endl;
-    Output2Dvector_firstFew(slope_01, tickers, showFirst);
-
-    vD_sortByCol(slope_02);
-    cout << "showing sorted elements of vector slope_02: " <<endl;
-    Output2Dvector_firstFew(slope_02, tickers, showFirst);
-
-    vD_sortByCol(slope_03);
-    cout << "showing sorted elements of vector slope_03: " <<endl;
-    Output2Dvector_firstFew(slope_03, tickers, showFirst);
-}
-
 
 int main() {
     int elems = 2000;

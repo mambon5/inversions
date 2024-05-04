@@ -166,6 +166,15 @@ int LenghtOfVectorStr(const vector<string>& tickers) {
 
 }
 
+int LenghtOfMatStr(const vector<vector<string>>& tickers) {
+    int n = 0;
+    for(vector<string> str : tickers) {
+        n++;
+    }
+    return n;
+
+}
+
 int LenghtOfVectorInt(const vector<int>& tickers) {
     int n = 0;
     for(int str : tickers) {
@@ -413,6 +422,37 @@ int getLastFileNumber() {
       
    }
    return lastn;
+}
+
+vector<vector<string>> readCsvToMatrix(const string& filename, const int & columns )
+{
+    vector<vector<string>>   result;
+    string                line;
+    ifstream file(filename);
+    
+    int index;
+    while(getline(file,line)) {
+
+        stringstream          lineStream(line);
+        string                cell;
+       
+        index = 0;
+        vector<string> liniaVec;
+        while(getline(lineStream,cell, ','))
+        {
+                liniaVec.push_back(cell);
+                index = index + 1; // hem llegit 1 columna
+        }
+        if(index == columns) {
+            result.push_back(liniaVec); // si no llegim exactament el numero de columnes, no guardis la linia
+        }
+        // This checks for a trailing comma with no data after it.
+        if (!lineStream && cell.empty())
+        {
+            // If there was a trailing comma then add nothing
+        }
+    }
+    return result;
 }
 
 vector<std::string> readCsv(const std::string& filename)
