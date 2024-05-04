@@ -9,7 +9,8 @@ function escriuAccions() { // After the HTML content loads
         data.setTime(data.getTime() - dateOffset);
         var dia = formatejaData(data)
         
-        escriu_accio(dia);
+        // escriu els dies excepte per caps de setmana, ja que no hi ha canvis de borsa gairebé, els findes
+        if(data.getDay() != 6 && data.getDay() != 0) escriu_accio(dia);
       } 
     
 };
@@ -19,7 +20,11 @@ function formatejaData(data) {
     const offset = data.getTimezoneOffset()
    
     data = new Date(data.getTime() - (offset*60*1000));
+    
     var dataForm = data.toISOString().split('T')[0]
+
+    dies = ["Diumenge", "Dilluns", "Dimarts", "Dimecres", "Dijous", "Divendres", "Dissabte"];
+    dataForm =dataForm + " " +  dies[data.getDay()] ;
 
     return dataForm;
 }
