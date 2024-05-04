@@ -18,8 +18,8 @@ using namespace std;
 
 #include <istream>
 
-// compile by the command: g++ get_dailies.cpp -o prova -lcurl
-// or using: g++ time_utils.cpp curl_utils.cpp quote.cpp spot.cpp get_dailies.cpp -o dailies -lcurl
+// compile by the command: 
+// g++ time_utils.cpp curl_utils.cpp quote.cpp spot.cpp analitza_main_stocks.cpp -o anal_main -lcurl
 
 std::string file = "/var/www/inversions/output/pertiles.txt";
 

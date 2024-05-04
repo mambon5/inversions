@@ -58,25 +58,25 @@ void showBestStocks(const string & inp_file) { //read from csv created in functi
     cout << "size of slope_02: " << size(slope_02) << endl;
     cout << "size of slope_03: " << size(slope_03) << endl;
 
-    int showFirst=10;
+    int showFirst=50;
 
     cout << "showing elements of vector slope_00: " <<endl;
     
     Output2Dvector_custom1(slope_00, tickers);
 
-    vD_sortByCol(slope_00);
+    vD_sortBy2Col(slope_00);
     cout << "showing sorted elements of vector slope_00: " <<endl;
     Output2Dvector_firstFew(slope_00, tickers, showFirst);
 
-    vD_sortByCol(slope_01);
+    vD_sortBy2Col(slope_01);
     cout << "showing sorted elements of vector slope_01: " <<endl;
     Output2Dvector_firstFew(slope_01, tickers, showFirst);
 
-    vD_sortByCol(slope_02);
+    vD_sortBy2Col(slope_02);
     cout << "showing sorted elements of vector slope_02: " <<endl;
     Output2Dvector_firstFew(slope_02, tickers, showFirst);
 
-    vD_sortByCol(slope_03);
+    vD_sortBy2Col(slope_03);
     cout << "showing sorted elements of vector slope_03: " <<endl;
     Output2Dvector_firstFew(slope_03, tickers, showFirst);
 }

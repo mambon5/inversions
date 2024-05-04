@@ -106,18 +106,16 @@ void PrintMainStocks(const vector<std::string> &ticks, std::string & file) {
     // cin >> printAll;
     
     for(std::string tick : ticks) {
-        cout << endl << "#### " << tick << ": " << endl;
-        outputFile << endl << "#### " << tick << ": " << endl;
+
         double slope, percent;
 
         GetLastYearVals(tick, currentDate, slope, percent,   true, initialDate);
 
         // Mostrar los resultados
-        cout << "last close value percentile: " << percent << endl;
-        outputFile << "last close value percentile: " << percent << endl;
+        cout << percent << " - " << PrintNumberWithXDecimalsDoub(slope,3) << " - " << tick << endl;
+        outputFile << percent << " - " << PrintNumberWithXDecimalsDoub(slope,3) << " - " << tick << endl;
 
-        cout << "Pendiente (slope): " << PrintNumberWithXDecimalsDoub(slope,3) << endl;
-        outputFile << "Pendiente (slope): " << PrintNumberWithXDecimalsDoub(slope,3) << endl;
+        
             }
 
     outputFile.close();
