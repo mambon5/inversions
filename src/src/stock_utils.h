@@ -102,6 +102,9 @@ void PrintMainStocks(const vector<std::string> &ticks, std::string & file) {
     cout << "Quantitat de dies entre les dues dates: " << dies << endl; 
     outputFile << "Quantitat de dies entre les dues dates: " << dies << endl; 
 
+    cout << "Format dels resultats: percentil  |  pendent anual  | etiqueta " << endl << endl;
+    outputFile << "Format dels resultats: percentil  |  pendent anual  | etiqueta "  << endl << endl;
+
     // cout << "Print all daily percentiles? Yes=1, No=0"<< endl;
     // cin >> printAll;
     
@@ -112,8 +115,8 @@ void PrintMainStocks(const vector<std::string> &ticks, std::string & file) {
         GetLastYearVals(tick, currentDate, slope, percent,   true, initialDate);
 
         // Mostrar los resultados
-        cout << percent << " - " << PrintNumberWithXDecimalsDoub(slope,3) << " - " << tick << endl;
-        outputFile << percent << " - " << PrintNumberWithXDecimalsDoub(slope,3) << " - " << tick << endl;
+        cout << percent << "  " << PrintNumberWithXDecimalsDoub(slope,3) << "  " << tick << endl;
+        outputFile << percent << "  " << PrintNumberWithXDecimalsDoub(slope,3) << "  " << tick << endl;
 
         
             }
