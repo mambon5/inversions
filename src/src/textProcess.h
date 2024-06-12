@@ -424,6 +424,78 @@ int getLastFileNumber() {
    return lastn;
 }
 
+
+vector<double> extractNthColumnFromString(const string& text, const int & columna) {
+    vector<double> columnData;
+    
+    stringstream file(text); // we need a stringstream to operated the getline functional
+    string line;
+
+
+    while (getline(file, line)) {
+        stringstream ss(line);
+        string item;
+        int columnIndex = 0;
+        double value;
+        
+        while (getline(ss, item, ',')) {
+            if (columnIndex == (columna-1)) {
+                try {
+                    value = stod(item);
+                    columnData.push_back(value);
+                } catch (const invalid_argument& e) {
+                    cerr << "Error de conversió a double: " << item << endl;
+                } catch (const out_of_range& e) {
+                    cerr << "Valor fora de rang per a double: " << item << endl;
+                }
+                break;
+            }
+            ++columnIndex;
+        }
+    }
+
+   
+    return columnData;
+}
+
+
+vector<double> extractNthColumn(const string& filename, const int & columna) {
+    vector<double> columnData;
+    
+    ifstream file(filename);
+    string line;
+
+    if (!file.is_open()) {
+        cerr << "No s'ha pogut obrir el fitxer: " << filename << endl;
+        return columnData;
+    }
+
+    while (getline(file, line)) {
+        stringstream ss(line);
+        string item;
+        int columnIndex = 0;
+        double value;
+        
+        while (getline(ss, item, ',')) {
+            if (columnIndex == (columna-1)) {
+                try {
+                    value = stod(item);
+                    columnData.push_back(value);
+                } catch (const invalid_argument& e) {
+                    cerr << "Error de conversió a double: " << item << endl;
+                } catch (const out_of_range& e) {
+                    cerr << "Valor fora de rang per a double: " << item << endl;
+                }
+                break;
+            }
+            ++columnIndex;
+        }
+    }
+
+    file.close();
+    return columnData;
+}
+
 vector<vector<string>> readCsvToMatrix(const string& filename, const int & columns )
 {
     vector<vector<string>>   result;
