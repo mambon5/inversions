@@ -1,4 +1,10 @@
-function escriuAccions() { // After the HTML content loads
+
+function ompleLlistes() {
+    escriuAccions("output/stocks_slope_percent_", "llista","csv")
+    escriuAccions("output/stocks_sorted_stats_", "llista2","txt")
+}
+
+function escriuAccions(filenameSufix, elementId, ext) { // After the HTML content loads
 
     for (let i = 0; i < 10; i++) {
         let data = new Date();
@@ -10,7 +16,8 @@ function escriuAccions() { // After the HTML content loads
         dies = ["Diumenge", "Dilluns", "Dimarts", "Dimecres", "Dijous", "Divendres", "Dissabte"];
         // escriu els dies excepte per caps de setmana, ja que no hi ha canvis de borsa gairebé, els findes
         nom = dia + " " + dies[data.getDay()]
-        if(data.getDay() != 6 && data.getDay() != 0) escriu_link(nom,dia);
+        filename = filenameSufix+dia + "."+ext
+        if(data.getDay() != 6 && data.getDay() != 0) escriu_link(nom, filename, elementId);
       } 
     
 };
@@ -28,14 +35,11 @@ function formatejaData(data) {
     return dataForm;
 }
 
-function escriu_link(nom, url) { // After the HTML content loads
-    let list = document.getElementById("llista");
+function escriu_link(nom,filename, elementId) { // After the HTML content loads
+    let list = document.getElementById(elementId);
     var inner = "";
 
-    
-    var filename = "output/stocks_slope_percent_"+url + ".csv"
-
-    inner += "<a href='"+filename+"'> accions dia " + nom + " </a>";
+    inner += "<a href='"+filename +"'> accions dia " + nom + " </a>";
     
     let li = document.createElement('li');
     li.innerHTML =inner;
