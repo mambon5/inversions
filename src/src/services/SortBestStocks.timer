@@ -4,7 +4,7 @@ Description="Sort the best stocks from previous day once a day (it is fast) 1am 
 [Timer]
 # once a day usually at night
 OnCalendar=Tue..Sat *-*-* 03:05:00  
-Unit=SortBestStocks.timer
+Unit=SortBestStocks.service
 
 [Install]
 WantedBy=multi-user.target
