@@ -23,7 +23,7 @@ string dir = "/var/www/inversions/output/";
 string slope_file_sufix ="stocks_slope_percent_"; 
 string inpFile =  dir + slope_file_sufix + date+".csv";
 string stats_file_sufix ="stocks_sorted_stats_"; // don't change this suffix without changing the function that deletes the old files of analysys
-string outFile = dir + stats_file_sufix + date + ".csv";
+string outFile = dir + stats_file_sufix + date + ".txt";
 
 
 void showBestStocks(const string & inp_file) { //read from csv created in function outputPercentSlope()
