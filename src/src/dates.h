@@ -92,3 +92,20 @@ string getCurrentDate() {
     return buffer;
 }
 
+string yesterday() {
+    // Obtener la fecha y hora actual
+    time_t now = time(0);
+    struct tm *currentTime = localtime(&now);
+
+    // Restar un día (24 horas) a la fecha actual
+    currentTime->tm_mday -= 1;
+
+    // Volver a normalizar la estructura tm
+    mktime(currentTime);
+
+    // Formatear la fecha en el formato deseado
+    char buffer[11];  // Suficiente espacio para "YYYY-MM-DD" y el carácter nulo
+    strftime(buffer, sizeof(buffer), "%Y-%m-%d", currentTime);
+    return buffer;
+}
+

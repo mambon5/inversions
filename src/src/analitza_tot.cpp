@@ -40,7 +40,8 @@ string lastTicker = dir+"lastTickerUsed.txt";
 // ofstream lastTiFile(lastTicker);
 // ofstream outputFile(slope_file);
 
-string inp_file = "/var/www/inversions/src/src/processed_ticks.csv";
+string inp_file = "/var/www/inversions/input/processed_ticks.csv"; // this analyses all stock values yahoo finance has in the world (around 180k)
+string inp_file = "/var/www/inversions/input/yfin_etoroTicks_clean.csv"; // this analyses all stock values eToro has and that we could properly translate to Yahoo finance ticks
 // string inp_file = "mock_ticks.csv"; // this line is only for testing purposes
 
 vector<double> slope_parts {0, 0.05, 0.1, 0.15, 0.2, 0.25, 0.3, 0.35};
@@ -52,8 +53,7 @@ void outputPercentSlope(const int & elems) {
     //  2. Tria una data inicial i final
     //  3. 
 
-    cout << "mostrant intervals de classificació del pendent de les accions: " << endl;
-    OutputVectorDouble(slope_parts);
+    
     
     cout << "escriu el nombre de tickers que vols llegir:" << endl;
     vector<string> tickers;
@@ -68,6 +68,8 @@ void outputPercentSlope(const int & elems) {
 
     ofstream outputFile;
     outputFile.open(slope_file, ios_base::app); // append instead of overwrite);
+
+
     bool printAll=false;
     string initialDate = "2023-01-01";
 

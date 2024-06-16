@@ -17,15 +17,22 @@ using namespace std;
 
 // g++ time_utils.cpp curl_utils.cpp quote.cpp spot.cpp sort_stocks.cpp -o sort_stock_groups -lcurl
 
+
+string date = yesterday();
+string dir = "/var/www/inversions/output/";
+string slope_file_sufix ="stocks_slope_percent_"; 
+string inpFile =  dir + slope_file_sufix + date+".csv";
+string stats_file_sufix ="stocks_sorted_stats_"; // don't change this suffix without changing the function that deletes the old files of analysys
+string outFile = dir + stats_file_sufix + date + ".csv";
+
+
 void showBestStocks(const string & inp_file) { //read from csv created in function outputPercentSlope()
 // show the best performing stocks, selecting by minimal anual percentile, and max daily parameters from linear regression over 1 year time.
 
     vector<double> percents;
     vector<vector<double>> slope_00, slope_01, slope_02, slope_03;
     double percent, slope;
-    
-    
-    
+
     vector<vector<string>> triplets = readCsvToMatrix(inp_file, 3); // tres columnes per fila
     cout << "numero de files de la matriu: " << LenghtOfMatStr(triplets) << endl;
     cout << "numero de columnes de la matriu: " << LenghtOfVectorStr(triplets[0]) << endl;
@@ -52,39 +59,37 @@ void showBestStocks(const string & inp_file) { //read from csv created in functi
         index = index + 1;
     }
 
-    cout << "showing best stocks: " << endl;
-    cout << "size of slope_00: " << size(slope_00) << endl;
-    cout << "size of slope_01: " << size(slope_01) << endl;
-    cout << "size of slope_02: " << size(slope_02) << endl;
-    cout << "size of slope_03: " << size(slope_03) << endl;
+    WriteToFileSimple("showing best stocks: ",outFile);
+    WriteToFileSimple("size of slope_00: " + to_string(size(slope_00)),outFile);
+    WriteToFileSimple("size of slope_01: " + to_string(size(slope_01)),outFile);
+    WriteToFileSimple("size of slope_02: " + to_string(size(slope_02)),outFile);
+    WriteToFileSimple("size of slope_03: " + to_string(size(slope_03)),outFile);
 
-    int showFirst=50;
+    int showFirst=10;
 
-    cout << "showing elements of vector slope_00: " <<endl;
-    
-    Output2Dvector_custom1(slope_00, tickers);
-
+    WriteToFileSimple("Output format: ",outFile);
+    WriteToFileSimple("percentile - yearly slope - yfin ticker ",outFile);
     vD_sortBy2Col(slope_00);
-    cout << "showing sorted elements of vector slope_00: " <<endl;
-    Output2Dvector_firstFew(slope_00, tickers, showFirst);
+    WriteToFileSimple("showing sorted elements of vector slope_00: ",outFile);
+    Write2Dvector_firstFew(slope_00, tickers, outFile, showFirst);
 
     vD_sortBy2Col(slope_01);
-    cout << "showing sorted elements of vector slope_01: " <<endl;
-    Output2Dvector_firstFew(slope_01, tickers, showFirst);
+    WriteToFileSimple("showing sorted elements of vector slope_01: ",outFile);
+    Write2Dvector_firstFew(slope_01, tickers, outFile, showFirst);
 
     vD_sortBy2Col(slope_02);
-    cout << "showing sorted elements of vector slope_02: " <<endl;
-    Output2Dvector_firstFew(slope_02, tickers, showFirst);
+    WriteToFileSimple("showing sorted elements of vector slope_02: ",outFile);
+    Write2Dvector_firstFew(slope_02, tickers, outFile, showFirst);
 
     vD_sortBy2Col(slope_03);
-    cout << "showing sorted elements of vector slope_03: " <<endl;
-    Output2Dvector_firstFew(slope_03, tickers, showFirst);
+    WriteToFileSimple("showing sorted elements of vector slope_03: ",outFile);
+    Write2Dvector_firstFew(slope_03, tickers, outFile, showFirst);
 }
 
 int main() {
-  
-  string filename = "stocks_slope_percent_2024-05-02.csv";
-   showBestStocks(filename);
+      
+    DeleteOlderFiles(dir, stats_file_sufix, 10, false); // deletes files with suffix "sufix" in directory "dir" which are "12" days old or older.
+    showBestStocks(inpFile);
     
    
 

@@ -243,6 +243,21 @@ void Output2Dvector_firstFew( const vector<vector<double>>& matrix, const vector
     }
 }
 
+void Write2Dvector_firstFew(const vector<vector<double>>& matrix, const vector<string>& strings, const std::string& outputFile, int show=5){
+    ofstream outFile;
+    outFile.open(outputFile, ios_base::app); // append instead of overwrite
+    if (!outFile.is_open()) {
+        cerr << "Failed to open the output file: " << outputFile << endl;
+        return;
+    }
+    for (vector<double> vect : matrix) {
+        if(show==0) return;
+        outFile << vect[0] << " - " << vect[1] << " - " << strings[int(vect[2])] << endl;
+        show --;
+    }
+    outFile.close();
+}
+
 void WriteToFileSimple( const std::string& output, const std::string& outputFile, bool printall=false) {
     ofstream outFile;
     outFile.open(outputFile, ios_base::app); // append instead of overwrite
@@ -267,8 +282,9 @@ void WriteToFileOver( const std::string& output, const std::string& outputFile, 
     outFile.close();
 }
 
-void WriteToFile(const vector<std::string>& tickers, const std::string& outputFile) {
+void WriteToFile(const vector<std::string>& tickers, const std::string& outputFile, bool showVector=false) {
     ofstream outFile;
+    bool first=true;
     outFile.open(outputFile, ios_base::app); // append instead of overwrite
     if (!outFile.is_open()) {
         cerr << "Failed to open the output file: " << outputFile << endl;
@@ -280,10 +296,22 @@ void WriteToFile(const vector<std::string>& tickers, const std::string& outputFi
     // tickers = sort(tickers.begin(), tickers.end());
     // Write tickers to the output file
     for (const std::string& ticker : tickers) {
-        cout << ticker << ", ";
-        outFile << ticker << ",";
+        if(showVector) cout << ticker << ", ";
+        if(first) { 
+            outFile << ticker;
+            first = false;
+        }
+        else outFile << "," << ticker;
     }
     outFile.close();
+}
+
+string vectorDoubleToString(const vector<double> & vector) {
+    string resp;
+    for(double num : vector) {
+        resp = resp+", " + to_string(num);
+    }
+    return resp;
 }
 
 string ExtractDateFromFile(const string & filename) {
@@ -459,8 +487,9 @@ vector<double> extractNthColumnFromString(const string& text, const int & column
 }
 
 
-vector<double> extractNthColumn(const string& filename, const int & columna) {
-    vector<double> columnData;
+vector<string> extractNthColumnFromCsvString(const string& filename, const int & columna, 
+const char sep = ',', bool deleteFirstRow=false) {
+    vector<string> columnData;
     
     ifstream file(filename);
     string line;
@@ -469,22 +498,22 @@ vector<double> extractNthColumn(const string& filename, const int & columna) {
         cerr << "No s'ha pogut obrir el fitxer: " << filename << endl;
         return columnData;
     }
+    string item;
+    int columnIndex;
 
     while (getline(file, line)) {
         stringstream ss(line);
-        string item;
-        int columnIndex = 0;
-        double value;
+        columnIndex = 0;        
         
-        while (getline(ss, item, ',')) {
+        while (getline(ss, item, sep)) {
             if (columnIndex == (columna-1)) {
                 try {
-                    value = stod(item);
-                    columnData.push_back(value);
+                    
+                    columnData.push_back(item);
                 } catch (const invalid_argument& e) {
-                    cerr << "Error de conversió a double: " << item << endl;
+                    cerr << "Error de conversió a string: " << item << endl;
                 } catch (const out_of_range& e) {
-                    cerr << "Valor fora de rang per a double: " << item << endl;
+                    cerr << "Valor fora de rang per a string: " << item << endl;
                 }
                 break;
             }
@@ -493,6 +522,10 @@ vector<double> extractNthColumn(const string& filename, const int & columna) {
     }
 
     file.close();
+
+    if(deleteFirstRow) columnData.erase(columnData.begin()); // eliminem el primer element ja que no és el nom d'una companyia
+
+ 
     return columnData;
 }
 
@@ -651,6 +684,18 @@ vector<std::string> CsvFilterDuplicates(const std::string& filename)
     }
     cout << to_string(repeated) << " repetitions deleted." << endl;
     return result;
+}
+
+string replaceChars(string text, char const & oldChar, char const & newChar, bool elimina=false)
+{   
+    if(elimina) {
+        text.erase(remove(text.begin(), text.end(), oldChar), text.end());
+    }
+    else {
+        replace(text.begin(), text.end(), oldChar, newChar);
+    }
+    
+    return text;
 }
 
 bool file_exists(const string fileName)
