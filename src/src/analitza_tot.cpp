@@ -40,7 +40,7 @@ string lastTicker = dir+"lastTickerUsed.txt";
 // ofstream lastTiFile(lastTicker);
 // ofstream outputFile(slope_file);
 
-string inp_file = "/var/www/inversions/input/processed_ticks.csv"; // this analyses all stock values yahoo finance has in the world (around 180k)
+// string inp_file = "/var/www/inversions/input/processed_ticks.csv"; // this analyses all stock values yahoo finance has in the world (around 180k)
 string inp_file = "/var/www/inversions/input/yfin_etoroTicks_clean.csv"; // this analyses all stock values eToro has and that we could properly translate to Yahoo finance ticks
 // string inp_file = "mock_ticks.csv"; // this line is only for testing purposes
 
@@ -64,10 +64,12 @@ void outputPercentSlope(const int & elems) {
     tickers = readPartialCsvFromCertainLine(inp_file, elems, lastTick);
     
     //if it is a new day, start from scratch!
+    cout << "input file: " << inp_file << endl;
     if( !TodayFileExists(dir, slope_file_sufix)) tickers = readPartialCsv(inp_file, elems); 
 
     ofstream outputFile;
     outputFile.open(slope_file, ios_base::app); // append instead of overwrite);
+    cout << "ticker first and second: " << tickers[0] << ", " << tickers[1] << endl;
 
 
     bool printAll=false;
