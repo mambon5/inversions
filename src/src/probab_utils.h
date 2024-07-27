@@ -9,7 +9,6 @@
 using namespace Eigen;
 using namespace std;
 
-
 void regression( vector<double>& x_vals,  vector<double>& y_vals, double& slope, double& intercept) {
     
     // Transformar el vector<double> en VectorXd
@@ -78,6 +77,14 @@ vector<double> calcularPercentilVector(const std::vector<double>& dist, vector<d
     
 
     return percentils;
+}
+
+double volatilitat(vector<double>& valors) {
+    // per calcular la volatilitat en trading, calculem (max-min)/max. Expresada en %
+    double maxi = *max_element(valors.begin(), valors.end());
+    double mini = *min_element(valors.begin(), valors.end());
+    // cout << "maxim : " << maxi << ", minim: " << mini << endl;
+    return 100*(maxi-mini)/maxi;
 }
 
 

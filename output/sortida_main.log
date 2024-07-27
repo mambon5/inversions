@@ -1,0 +1,216 @@
+initial date: 2023-01-01
+Fecha actual: 2024-07-27
+Quantitat de dies entre les dues dates: 573
+Quantitat de valors bursàtils analitzats: 30
+Format dels resultats: percentil(%)  |  pendent anual  | volatilitat(%) |  etiqueta 
+
+quote created from tick
+https://query1.finance.yahoo.com/v7/finance/download/^IXIC?period1=1672531200&period2=1722038400&interval=1d&events=history
+historial spots success
+historial spots success
+Quantitat de valors: 393
+maxim : 18647.4, minim: 10305.2
+93  0.243  45%  ^IXIC
+quote created from tick
+https://query1.finance.yahoo.com/v7/finance/download/^GSPC?period1=1672531200&period2=1722038400&interval=1d&events=history
+historial spots success
+historial spots success
+Quantitat de valors: 393
+maxim : 5667.2, minim: 3808.1
+94  0.242  33%  ^GSPC
+quote created from tick
+https://query1.finance.yahoo.com/v7/finance/download/^DJI?period1=1672531200&period2=1722038400&interval=1d&events=history
+historial spots success
+historial spots success
+Quantitat de valors: 393
+maxim : 41198.1, minim: 31819.1
+99  0.222  23%  ^DJI
+quote created from tick
+https://query1.finance.yahoo.com/v7/finance/download/META?period1=1672531200&period2=1722038400&interval=1d&events=history
+historial spots success
+historial spots success
+Quantitat de valors: 393
+maxim : 539.91, minim: 124.74
+73  0.246  77%  META
+quote created from tick
+https://query1.finance.yahoo.com/v7/finance/download/TSLA?period1=1672531200&period2=1722038400&interval=1d&events=history
+historial spots success
+historial spots success
+Quantitat de valors: 393
+maxim : 293.34, minim: 108.1
+61  0.001  63%  TSLA
+quote created from tick
+https://query1.finance.yahoo.com/v7/finance/download/HPE?period1=1672531200&period2=1722038400&interval=1d&events=history
+historial spots success
+historial spots success
+Quantitat de valors: 393
+maxim : 21.84, minim: 13.78
+92  0.147  37%  HPE
+quote created from tick
+https://query1.finance.yahoo.com/v7/finance/download/PSX?period1=1672531200&period2=1722038400&interval=1d&events=history
+historial spots success
+historial spots success
+Quantitat de valors: 393
+maxim : 172.71, minim: 90.81
+79  0.221  47%  PSX
+quote created from tick
+https://query1.finance.yahoo.com/v7/finance/download/SU.PA?period1=1672531200&period2=1722038400&interval=1d&events=history
+historial spots success
+historial spots success
+Quantitat de valors: 401
+maxim : 238.2, minim: 132.74
+85  0.218  44%  SU.PA
+quote created from tick
+https://query1.finance.yahoo.com/v7/finance/download/RIOT?period1=1672531200&period2=1722038400&interval=1d&events=history
+historial spots success
+historial spots success
+Quantitat de valors: 393
+maxim : 20.29, minim: 3.37
+60  0.066  83%  RIOT
+quote created from tick
+https://query1.finance.yahoo.com/v7/finance/download/GOOGL?period1=1672531200&period2=1722038400&interval=1d&events=history
+historial spots success
+historial spots success
+Quantitat de valors: 393
+maxim : 191.18, minim: 86.2
+85  0.246  55%  GOOGL
+quote created from tick
+https://query1.finance.yahoo.com/v7/finance/download/GME?period1=1672531200&period2=1722038400&interval=1d&events=history
+historial spots success
+historial spots success
+Quantitat de valors: 393
+maxim : 48.75, minim: 10.01
+86  -0.051  79%  GME
+quote created from tick
+https://query1.finance.yahoo.com/v7/finance/download/INTC?period1=1672531200&period2=1722038400&interval=1d&events=history
+historial spots success
+historial spots success
+Quantitat de valors: 393
+maxim : 50.76, minim: 24.9
+34  0.124  51%  INTC
+quote created from tick
+https://query1.finance.yahoo.com/v7/finance/download/IBM?period1=1672531200&period2=1722038400&interval=1d&events=history
+historial spots success
+historial spots success
+Quantitat de valors: 393
+maxim : 197.78, minim: 120.9
+97  0.220  39%  IBM
+quote created from tick
+https://query1.finance.yahoo.com/v7/finance/download/QCOM?period1=1672531200&period2=1722038400&interval=1d&events=history
+historial spots success
+historial spots success
+Quantitat de valors: 393
+maxim : 227.09, minim: 103.02
+85  0.184  55%  QCOM
+quote created from tick
+https://query1.finance.yahoo.com/v7/finance/download/ASML?period1=1672531200&period2=1722038400&interval=1d&events=history
+historial spots success
+historial spots success
+Quantitat de valors: 393
+maxim : 1098.95, minim: 549.57
+71  0.191  50%  ASML
+quote created from tick
+https://query1.finance.yahoo.com/v7/finance/download/TSM?period1=1672531200&period2=1722038400&interval=1d&events=history
+historial spots success
+historial spots success
+Quantitat de valors: 393
+maxim : 191.05, minim: 74.03
+91  0.210  61%  TSM
+quote created from tick
+https://query1.finance.yahoo.com/v7/finance/download/NVDA?period1=1672531200&period2=1722038400&interval=1d&events=history
+historial spots success
+historial spots success
+Quantitat de valors: 393
+maxim : 135.58, minim: 14.265
+90  0.248  89%  NVDA
+quote created from tick
+https://query1.finance.yahoo.com/v7/finance/download/005930.KS?period1=1672531200&period2=1722038400&interval=1d&events=history
+historial spots success
+historial spots success
+Quantitat de valors: 386
+maxim : 87800, minim: 55400
+90  0.239  37%  005930.KS
+quote created from tick
+https://query1.finance.yahoo.com/v7/finance/download/NFLX?period1=1672531200&period2=1722038400&interval=1d&events=history
+historial spots success
+historial spots success
+Quantitat de valors: 393
+maxim : 690.65, minim: 292.76
+88  0.238  58%  NFLX
+quote created from tick
+https://query1.finance.yahoo.com/v7/finance/download/MSFT?period1=1672531200&period2=1722038400&interval=1d&events=history
+historial spots success
+historial spots success
+Quantitat de valors: 393
+maxim : 467.56, minim: 222.31
+89  0.244  52%  MSFT
+quote created from tick
+https://query1.finance.yahoo.com/v7/finance/download/LPL?period1=1672531200&period2=1722038400&interval=1d&events=history
+historial spots success
+historial spots success
+Quantitat de valors: 393
+maxim : 6.65, minim: 3.47
+17  -0.219  48%  LPL
+quote created from tick
+https://query1.finance.yahoo.com/v7/finance/download/HLF?period1=1672531200&period2=1722038400&interval=1d&events=history
+historial spots success
+historial spots success
+Quantitat de valors: 393
+maxim : 21.27, minim: 7.65
+38  -0.206  64%  HLF
+quote created from tick
+https://query1.finance.yahoo.com/v7/finance/download/AAPL?period1=1672531200&period2=1722038400&interval=1d&events=history
+historial spots success
+historial spots success
+Quantitat de valors: 393
+maxim : 234.82, minim: 125.02
+96  0.164  47%  AAPL
+quote created from tick
+https://query1.finance.yahoo.com/v7/finance/download/0P0000XV9S.BO?period1=1672531200&period2=1722038400&interval=1d&events=history
+historial spots success
+historial spots success
+Quantitat de valors: 382
+maxim : 1142.11, minim: 1134.65
+11  0.009  1%  0P0000XV9S.BO
+quote created from tick
+https://query1.finance.yahoo.com/v7/finance/download/BTC-EUR?period1=1672531200&period2=1722038400&interval=1d&events=history
+historial spots success
+historial spots success
+Quantitat de valors: 574
+maxim : 66723.9, minim: 15528.4
+93  0.159  77%  BTC-EUR
+quote created from tick
+https://query1.finance.yahoo.com/v7/finance/download/ADA-EUR?period1=1672531200&period2=1722038400&interval=1d&events=history
+historial spots success
+historial spots success
+Quantitat de valors: 574
+maxim : 0.710617, minim: 0.22505
+63  0.095  68%  ADA-EUR
+quote created from tick
+https://query1.finance.yahoo.com/v7/finance/download/ETH-EUR?period1=1672531200&period2=1722038400&interval=1d&events=history
+historial spots success
+historial spots success
+Quantitat de valors: 574
+maxim : 3720.22, minim: 1121.74
+82  0.149  70%  ETH-EUR
+quote created from tick
+https://query1.finance.yahoo.com/v7/finance/download/EUR=X?period1=1672531200&period2=1722038400&interval=1d&events=history
+historial spots success
+historial spots success
+Quantitat de valors: 410
+maxim : 0.9549, minim: 0.88987
+41  0.002  7%  EUR=X
+quote created from tick
+https://query1.finance.yahoo.com/v7/finance/download/GC=F?period1=1672531200&period2=1722038400&interval=1d&events=history
+historial spots success
+historial spots success
+Quantitat de valors: 394
+maxim : 2462.4, minim: 1808.8
+95  0.207  27%  GC=F
+quote created from tick
+https://query1.finance.yahoo.com/v7/finance/download/CL=F?period1=1672531200&period2=1722038400&interval=1d&events=history
+historial spots success
+historial spots success
+Quantitat de valors: 394
+maxim : 93.68, minim: 66.74
+42  0.074  29%  CL=F

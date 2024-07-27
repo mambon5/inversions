@@ -1,0 +1,50 @@
+showing best stocks: 
+size of slope_00: 36
+size of slope_01: 46
+size of slope_02: 48
+size of slope_03: 1
+
+Output format: 
+percentile(%) - yearly slope - volatility(%) - yfin ticker 
+
+showing sorted elements of vector slope_00: 
+2 - 0.029 - 28 - ZR=F
+28 - 0.065 - 35 - DIS
+32 - 0.072 - 15 - ZAR=X
+37 - 0.016 - 58 - BRE3L.MI
+38 - 0.006 - 23 - ALI=F
+40 - 0.093 - 5 - SGD=X
+42 - 0.075 - 15 - EURILS=X
+42 - 0.074 - 29 - CL=F
+43 - 0 - 26 - MM6A.F
+46 - 0.017 - 7 - DKK=X
+47 - 0.052 - 42 - 1Q5.SG
+50 - 0.038 - 43 - TRIP.MX
+showing sorted elements of vector slope_01: 
+29 - 0.155 - 54 - CEXA.MU
+33 - 0.126 - 95 - RUB=X
+34 - 0.124 - 51 - INTC
+40 - 0.102 - 17 - ILS=X
+44 - 0.196 - 50 - RY4D.SG
+64 - 0.121 - 7 - DX-Y.NYB
+68 - 0.182 - 54 - C9X.BE
+68 - 0.151 - 50 - ADBE
+70 - 0.185 - 74 - VZ.BA
+71 - 0.139 - 17 - GBPILS=X
+74 - 0.141 - 31 - PA9.DU
+75 - 0.177 - 35 - SIE.F
+showing sorted elements of vector slope_02: 
+36 - 0.298 - 9 - PEPCL.SN
+46 - 0.201 - 38 - HMC
+62 - 0.228 - 49 - TOMA.SG
+63 - 0.228 - 29 - V
+67 - 0.212 - 69 - AMR
+68 - 0.228 - 29 - MA
+69 - 0.233 - 18 - NZDJPY=X
+71 - 0.235 - 94 - SMCI
+73 - 0.246 - 77 - META
+75 - 0.229 - 20 - CADJPY=X
+78 - 0.245 - 67 - MU
+80 - 0.234 - 61 - WDC
+showing sorted elements of vector slope_03: 
+84 - 3.458 - 54 - WIXN.MX

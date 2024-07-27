@@ -31,9 +31,8 @@ void showBestStocks(const string & inp_file) { //read from csv created in functi
 
     vector<double> percents;
     vector<vector<double>> slope_00, slope_01, slope_02, slope_03;
-    double percent, slope;
-
-    vector<vector<string>> triplets = readCsvToMatrix(inp_file, 3); // tres columnes per fila
+    double percent, slope, volatil;
+    vector<vector<string>> triplets = readCsvToMatrix(inp_file, 4); // quatre columnes per fila
     cout << "numero de files de la matriu: " << LenghtOfMatStr(triplets) << endl;
     cout << "numero de columnes de la matriu: " << LenghtOfVectorStr(triplets[0]) << endl;
 
@@ -43,9 +42,10 @@ void showBestStocks(const string & inp_file) { //read from csv created in functi
 
         percent = stod(tripletString[0]);
         slope = stod(tripletString[1]);
-        tickers.push_back(tripletString[2]); // guardant els stock tickers
+        volatil = stod(tripletString[2]);
+        tickers.push_back(tripletString[3]); // guardant els stock tickers
 
-        vector<double> triplet = {percent, slope, index};
+        vector<double> triplet = {percent, slope, volatil, index};
 
         if(slope >= 0 && slope < 0.1) {
             slope_00.push_back(triplet);
@@ -65,10 +65,12 @@ void showBestStocks(const string & inp_file) { //read from csv created in functi
     WriteToFileSimple("size of slope_02: " + to_string(size(slope_02)),outFile);
     WriteToFileSimple("size of slope_03: " + to_string(size(slope_03)),outFile);
 
-    int showFirst=10;
+    int showFirst=12;
 
+    WriteToFileSimple("",outFile);
     WriteToFileSimple("Output format: ",outFile);
-    WriteToFileSimple("percentile - yearly slope - yfin ticker ",outFile);
+    WriteToFileSimple("percentile(%) - yearly slope - volatility(%) - yfin ticker ",outFile);
+    WriteToFileSimple("",outFile);
     vD_sortBy2Col(slope_00);
     WriteToFileSimple("showing sorted elements of vector slope_00: ",outFile);
     Write2Dvector_firstFew(slope_00, tickers, outFile, showFirst);

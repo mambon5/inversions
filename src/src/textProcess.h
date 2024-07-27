@@ -243,7 +243,8 @@ void Output2Dvector_firstFew( const vector<vector<double>>& matrix, const vector
     }
 }
 
-void Write2Dvector_firstFew(const vector<vector<double>>& matrix, const vector<string>& strings, const std::string& outputFile, int show=5){
+void Write2Dvector_firstFew(const vector<vector<double>>& matrix, const vector<string>& strings, 
+const std::string& outputFile, int show=5){
     ofstream outFile;
     outFile.open(outputFile, ios_base::app); // append instead of overwrite
     if (!outFile.is_open()) {
@@ -252,7 +253,7 @@ void Write2Dvector_firstFew(const vector<vector<double>>& matrix, const vector<s
     }
     for (vector<double> vect : matrix) {
         if(show==0) return;
-        outFile << vect[0] << " - " << vect[1] << " - " << strings[int(vect[2])] << endl;
+        outFile << vect[0] << " - " << vect[1] << " - " << vect[2] << " - " << strings[int(vect[3])] << endl;
         show --;
     }
     outFile.close();
@@ -531,6 +532,7 @@ const char sep = ',', bool deleteFirstRow=false) {
 
 vector<vector<string>> readCsvToMatrix(const string& filename, const int & columns )
 {
+    //aquesta funció te un truc per no guardar linies que no tenen exactament "columns" number of elements ;)
     vector<vector<string>>   result;
     string                line;
     ifstream file(filename);

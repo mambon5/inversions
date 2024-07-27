@@ -75,14 +75,14 @@ void outputPercentSlope(const int & elems) {
     bool printAll=false;
     string initialDate = "2023-01-01";
 
-    cout << "initial date: " << initialDate << endl;
-    outputFile << "initial date: " << initialDate << endl;
+    cout << "initial date: " << initialDate << ", " << "Fecha actual: " << currentDate << endl;
+    outputFile << "initial date: " << initialDate << ", " << "Fecha actual: " << currentDate << endl;
 
     
-    cout << "Fecha actual: " << currentDate << endl;
-    outputFile << "Fecha actual: " << currentDate << endl;
+    cout << "percentil(%)  -  pendent anual  - volatilitat(%) - etiqueta " << endl;
+    outputFile << "percentil(%)  -  pendent anual  - volatilitat(%) - etiqueta " << endl;
     vector<double> percents;
-    double percent, slope;
+    double percent, slope, volatil;
     double index = 0;
 
     // tickers = {"0094.Z"};
@@ -96,16 +96,16 @@ void outputPercentSlope(const int & elems) {
         
         cout << endl << "#### " << tick << ": " << endl;
         cout << "analizing tickers... " << (index+1)/size(tickers)*100 << "%"<< endl;
-        GetLastYearVals(tick, currentDate, slope, percent,   true, initialDate);
+        GetLastYearVals(tick, currentDate, slope, percent,  volatil, true, initialDate);
         cout << "last year vals done" << endl;
         // cout << "slope: " << slope <<", percentile: " << percent << "%" << endl;
         // only print stocks with increasing trend in last year
-        if(slope>0) {
-            
+        if(slope>0) {            
             string line = PrintNumberWithXDecimalsDoub(percent,0) + "," + 
-                PrintNumberWithXDecimalsDoub(slope,3) + "," + tick;
+                PrintNumberWithXDecimalsDoub(slope,3) + "," + 
+                PrintNumberWithXDecimalsDoub(volatil,0) + "," + tick;
             WriteToFileSimple(line, slope_file); // write results of pertile analysis
-            cout << percent << "," << slope << "," << tick << endl;
+            cout << percent << ", " << PrintNumberWithXDecimalsDoub(slope,3) << ", " << PrintNumberWithXDecimalsDoub(volatil,0) << "%, " << tick << endl;
         }
         WriteToFileOver(tick, lastTicker); // write tickername in  file after analizing it
         index++;
@@ -120,7 +120,7 @@ void outputPercentSlope(const int & elems) {
 
 
 int main() {
-    int elems = 2000;
+    int elems = 200;
     
     DeleteOlderFiles(dir, slope_file_sufix, 10, false); // deletes files with suffix "sufix" in directory "dir" which are "12" days old or older.
     outputPercentSlope(elems);
