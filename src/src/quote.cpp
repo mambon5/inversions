@@ -1,4 +1,6 @@
 #include "quote.hpp"
+#include "dates.h"
+#include "textProcess.h"
 #include "time_utils.hpp"
 #include "curl_utils.hpp"
 using namespace std;
@@ -76,21 +78,67 @@ void Quote::clearSpots() {
     this->spots.clear();
 }
 
-std::string Quote::getHistoricalCsv(
+std::string Quote::getHistoricalJson(
     std::time_t period1,
     std::time_t period2,
     const char *interval
 ) {
-    return downloadYahooCsv(this->symbol, period1, period2, interval);
+    return downloadYahooJson(this->symbol, period1, period2, interval);
 }
 
-void Quote::getHistoricalSpots(std::time_t period1,
+void Quote::getHistoricalSpotsJson(std::time_t period1,
+                               std::time_t period2,
+                               const char *interval) {
+    // Download the historical prices json
+    std::string json = this->getHistoricalJson(period1, period2, interval);
+
+    // temporarily we are offline so we test our parsing with a text:
+    // json = 
+    // std::istringstream csvStream(json);
+    // std::string line;
+
+    // output the result
+    // cout << "printing the curl result" << endl;
+    // cout << csv << endl;
+
+    string dates, opens, highs, lows, closes;
+    vector<string> date, open, high, low, close;
+
+    //getting the dates and saving them to a vector
+    date = JsonToStringArray(json, "timestamp"); // this works well
+    open = JsonToStringArray(json, "open");
+    high = JsonToStringArray(json, "high");
+    low = JsonToStringArray(json, "low");
+    close = JsonToStringArray(json, "close");
+
+    
+    for(int i=0; i<date.size(); ++i) {
+        if (date[i] != "empty" ) {
+            Spot spot = Spot(
+                date[i],                      // date
+                std::atof(open[i].c_str()),   // open
+                std::atof(high[i].c_str()),   // high
+                std::atof(low[i].c_str()),   // low
+                std::atof(close[i].c_str())    // close
+            );
+            this->spots.push_back(spot);
+        }
+    }
+    //    
+
+}
+
+void Quote::getHistoricalSpotsCsv(std::time_t period1,
                                std::time_t period2,
                                const char *interval) {
     // Download the historical prices Csv
-    std::string csv = this->getHistoricalCsv(period1, period2, interval);
+    std::string csv = this->getHistoricalJson(period1, period2, interval);
     std::istringstream csvStream(csv);
     std::string line;
+
+    // output the result
+    // cout << "printing the curl result" << endl;
+    // cout << csv << endl;
 
     // Remove the header line
     std::getline(csvStream, line);
@@ -117,11 +165,11 @@ void Quote::getHistoricalSpots(std::time_t period1,
     }
 }
 
-void Quote::getHistoricalSpots(const char *date1,
+void Quote::getHistoricalSpotsJson(const char *date1,
                                const char *date2,
                                const char *interval) {
     std::time_t period1 = dateToEpoch(date1);
     std::time_t period2 = dateToEpoch(date2);
 
-    this->getHistoricalSpots(period1, period2, interval);
+    this->getHistoricalSpotsJson(period1, period2, interval);
 }

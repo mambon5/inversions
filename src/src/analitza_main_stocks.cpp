@@ -19,7 +19,7 @@ using namespace std;
 #include <istream>
 
 // compile by the command: 
-// g++ time_utils.cpp curl_utils.cpp quote.cpp spot.cpp analitza_main_stocks.cpp -o anal_main -lcurl
+// g++ time_utils.cpp curl_utils.cpp quote.cpp spot.cpp dates.cpp textProcess.cpp analitza_main_stocks.cpp -o anal_main -lcurl
 
 std::string file = "/var/www/inversions/output/pertiles.txt";
 

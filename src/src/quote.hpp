@@ -75,7 +75,7 @@ public:
      *          annual "1y"
      * @return string containing the historical csv file
      */
-    std::string getHistoricalCsv(std::time_t period1,
+    std::string getHistoricalJson(std::time_t period1,
                                  std::time_t period2,
                                  const char *interval);
 
@@ -88,7 +88,20 @@ public:
      *          weekly "1wk"
      *          annual "1y"
      */
-    void getHistoricalSpots(std::time_t period1,
+    void getHistoricalSpotsCsv(std::time_t period1,
+                            std::time_t period2,
+                            const char *interval);
+
+    /**
+     * @brief Fill spots vector on a period
+     * @param period1 Begining date (POSIX timestamp)
+     * @param period2 Ending date (POSIX timestamp)
+     * @param interval Date interval for spots, examples:
+     *          daily "1d"
+     *          weekly "1wk"
+     *          annual "1y"
+     */
+    void getHistoricalSpotsJson(std::time_t period1,
                             std::time_t period2,
                             const char *interval);
 
@@ -101,7 +114,7 @@ public:
      *          weekly "1wk"
      *          annual "1y"
      */
-    void getHistoricalSpots(const char *period1,
+    void getHistoricalSpotsJson(const char *period1,
                             const char *period2,
                             const char *interval);
 

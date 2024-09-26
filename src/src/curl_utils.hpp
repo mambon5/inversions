@@ -25,7 +25,7 @@ size_t writeCallback(char *content, size_t size, size_t nmemb, void *userdata);
  *          annual "1y"
  * @return CSV file containing the spots
  */
-std::string downloadYahooCsv(
+std::string downloadYahooJson(
     std::string symbol,
     std::time_t period1,
     std::time_t period2,

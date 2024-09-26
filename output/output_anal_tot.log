@@ -1,0 +1,464 @@
+escriu el nombre de tickers que vols llegir:
+La primera línea del archivo es: ZW=F
+input file: /var/www/inversions/input/yfin_etoroTicks_clean.csv
+ticker first and second: WISGP.SI, M2K=F
+initial date: 2023-01-01, Fecha actual: 2024-09-26
+percentil(%)  -  pendent anual  - volatilitat(%) - etiqueta 
+ticker length: 190
+elem length: 200
+
+#### WISGP.SI: 
+analizing tickers... 0.526316%
+quote created from tick
+https://query2.finance.yahoo.com/v8/finance/chart/WISGP.SI?period1=1672531200&period2=1727308800&interval=1d&events=history
+ERROR in getTableStocks(): no stock data found for this url
+ERROR in getTableStocks(): no stock data found for this url
+ERROR in getTableStocks(): no stock data found for this url
+ERROR in getTableStocks(): no stock data found for this url
+historial spots success
+historial spots success
+Quantitat de valors: 0
+returned
+last year vals done
+
+#### M2K=F: 
+analizing tickers... 1.05263%
+quote created from tick
+https://query2.finance.yahoo.com/v8/finance/chart/M2K=F?period1=1672531200&period2=1727308800&interval=1d&events=history
+historial spots success
+historial spots success
+Quantitat de valors: 436
+last year vals done
+96, 0.174, 28%, M2K=F
+
+#### OJ=F: 
+analizing tickers... 1.57895%
+quote created from tick
+https://query2.finance.yahoo.com/v8/finance/chart/OJ=F?period1=1672531200&period2=1727308800&interval=1d&events=history
+historial spots success
+historial spots success
+Quantitat de valors: 436
+last year vals done
+97, 0.211, 63%, OJ=F
+
+#### ^USTTENT: 
+analizing tickers... 2.10526%
+quote created from tick
+https://query2.finance.yahoo.com/v8/finance/chart/^USTTENT?period1=1672531200&period2=1727308800&interval=1d&events=history
+historial spots success
+historial spots success
+Quantitat de valors: 1
+returned
+last year vals done
+
+#### ^USTFIVT: 
+analizing tickers... 2.63158%
+quote created from tick
+https://query2.finance.yahoo.com/v8/finance/chart/^USTFIVT?period1=1672531200&period2=1727308800&interval=1d&events=history
+historial spots success
+historial spots success
+Quantitat de valors: 1
+returned
+last year vals done
+
+#### ^USTTWOT: 
+analizing tickers... 3.15789%
+quote created from tick
+https://query2.finance.yahoo.com/v8/finance/chart/^USTTWOT?period1=1672531200&period2=1727308800&interval=1d&events=history
+historial spots success
+historial spots success
+Quantitat de valors: 1
+returned
+last year vals done
+
+#### ZR=F: 
+analizing tickers... 3.68421%
+quote created from tick
+https://query2.finance.yahoo.com/v8/finance/chart/ZR=F?period1=1672531200&period2=1727308800&interval=1d&events=history
+historial spots success
+historial spots success
+Quantitat de valors: 436
+last year vals done
+
+#### ZC=F: 
+analizing tickers... 4.21053%
+quote created from tick
+https://query2.finance.yahoo.com/v8/finance/chart/ZC=F?period1=1672531200&period2=1727308800&interval=1d&events=history
+historial spots success
+historial spots success
+Quantitat de valors: 436
+last year vals done
+
+#### 138920.KS: 
+analizing tickers... 4.73684%
+quote created from tick
+https://query2.finance.yahoo.com/v8/finance/chart/138920.KS?period1=1672531200&period2=1727308800&interval=1d&events=history
+historial spots success
+historial spots success
+Quantitat de valors: 426
+last year vals done
+
+#### F*QU.NYM: 
+analizing tickers... 5.26316%
+quote created from tick
+https://query2.finance.yahoo.com/v8/finance/chart/F*QU.NYM?period1=1672531200&period2=1727308800&interval=1d&events=history
+ERROR in getTableStocks(): no stock data found for this url
+ERROR in getTableStocks(): no stock data found for this url
+ERROR in getTableStocks(): no stock data found for this url
+ERROR in getTableStocks(): no stock data found for this url
+historial spots success
+historial spots success
+Quantitat de valors: 0
+returned
+last year vals done
+
+#### DE000ETC0860.SG: 
+analizing tickers... 5.78947%
+quote created from tick
+https://query2.finance.yahoo.com/v8/finance/chart/DE000ETC0860.SG?period1=1672531200&period2=1727308800&interval=1d&events=history
+ERROR in getTableStocks(): no stock data found for this url
+ERROR in getTableStocks(): no stock data found for this url
+ERROR in getTableStocks(): no stock data found for this url
+ERROR in getTableStocks(): no stock data found for this url
+historial spots success
+historial spots success
+Quantitat de valors: 0
+returned
+last year vals done
+
+#### LE=F: 
+analizing tickers... 6.31579%
+quote created from tick
+https://query2.finance.yahoo.com/v8/finance/chart/LE=F?period1=1672531200&period2=1727308800&interval=1d&events=history
+historial spots success
+historial spots success
+Quantitat de valors: 436
+last year vals done
+72, 0.154, 100%, LE=F
+
+#### HE=F: 
+analizing tickers... 6.84211%
+quote created from tick
+https://query2.finance.yahoo.com/v8/finance/chart/HE=F?period1=1672531200&period2=1727308800&interval=1d&events=history
+historial spots success
+historial spots success
+Quantitat de valors: 436
+last year vals done
+49, 0.053, 100%, HE=F
+
+#### LEAD: 
+analizing tickers... 7.36842%
+quote created from tick
+https://query2.finance.yahoo.com/v8/finance/chart/LEAD?period1=1672531200&period2=1727308800&interval=1d&events=history
+historial spots success
+historial spots success
+Quantitat de valors: 435
+last year vals done
+99, 0.216, 30%, LEAD
+
+#### HINDZINC.BO: 
+analizing tickers... 7.89474%
+quote created from tick
+https://query2.finance.yahoo.com/v8/finance/chart/HINDZINC.BO?period1=1672531200&period2=1727308800&interval=1d&events=history
+historial spots success
+historial spots success
+Quantitat de valors: 426
+last year vals done
+83, 0.110, 100%, HINDZINC.BO
+
+#### BRE3L.MI: 
+analizing tickers... 8.42105%
+quote created from tick
+https://query2.finance.yahoo.com/v8/finance/chart/BRE3L.MI?period1=1672531200&period2=1727308800&interval=1d&events=history
+historial spots success
+historial spots success
+Quantitat de valors: 441
+last year vals done
+
+#### LNIK.MI: 
+analizing tickers... 8.94737%
+quote created from tick
+https://query2.finance.yahoo.com/v8/finance/chart/LNIK.MI?period1=1672531200&period2=1727308800&interval=1d&events=history
+historial spots success
+historial spots success
+Quantitat de valors: 442
+last year vals done
+
+#### ALI=F: 
+analizing tickers... 9.47368%
+quote created from tick
+https://query2.finance.yahoo.com/v8/finance/chart/ALI=F?period1=1672531200&period2=1727308800&interval=1d&events=history
+historial spots success
+historial spots success
+Quantitat de valors: 436
+last year vals done
+83, 0.012, 100%, ALI=F
+
+#### ILS=X: 
+analizing tickers... 10%
+quote created from tick
+https://query2.finance.yahoo.com/v8/finance/chart/ILS=X?period1=1672531200&period2=1727308800&interval=1d&events=history
+historial spots success
+historial spots success
+Quantitat de valors: 454
+last year vals done
+72, 0.095, 17%, ILS=X
+
+#### GBPILS=X: 
+analizing tickers... 10.5263%
+quote created from tick
+https://query2.finance.yahoo.com/v8/finance/chart/GBPILS=X?period1=1672531200&period2=1727308800&interval=1d&events=history
+historial spots success
+historial spots success
+Quantitat de valors: 454
+last year vals done
+99, 0.145, 19%, GBPILS=X
+
+#### EURILS=X: 
+analizing tickers... 11.0526%
+quote created from tick
+https://query2.finance.yahoo.com/v8/finance/chart/EURILS=X?period1=1672531200&period2=1727308800&interval=1d&events=history
+historial spots success
+historial spots success
+Quantitat de valors: 454
+last year vals done
+94, 0.095, 15%, EURILS=X
+
+#### COP=X: 
+analizing tickers... 11.5789%
+quote created from tick
+https://query2.finance.yahoo.com/v8/finance/chart/COP=X?period1=1672531200&period2=1727308800&interval=1d&events=history
+historial spots success
+historial spots success
+Quantitat de valors: 454
+last year vals done
+
+#### CLP=X: 
+analizing tickers... 12.1053%
+quote created from tick
+https://query2.finance.yahoo.com/v8/finance/chart/CLP=X?period1=1672531200&period2=1727308800&interval=1d&events=history
+historial spots success
+historial spots success
+Quantitat de valors: 454
+last year vals done
+61, 0.181, 21%, CLP=X
+
+#### KRW=X: 
+analizing tickers... 12.6316%
+quote created from tick
+https://query2.finance.yahoo.com/v8/finance/chart/KRW=X?period1=1672531200&period2=1727308800&interval=1d&events=history
+historial spots success
+historial spots success
+Quantitat de valors: 454
+last year vals done
+51, 0.156, 12%, KRW=X
+
+#### BRL=X: 
+analizing tickers... 13.1579%
+quote created from tick
+https://query2.finance.yahoo.com/v8/finance/chart/BRL=X?period1=1672531200&period2=1727308800&interval=1d&events=history
+historial spots success
+historial spots success
+Quantitat de valors: 454
+last year vals done
+89, 0.079, 18%, BRL=X
+
+#### AAPL: 
+analizing tickers... 13.6842%
+quote created from tick
+https://query2.finance.yahoo.com/v8/finance/chart/AAPL?period1=1672531200&period2=1727308800&interval=1d&events=history
+historial spots success
+historial spots success
+Quantitat de valors: 435
+last year vals done
+95, 0.169, 47%, AAPL
+
+#### GOOG: 
+analizing tickers... 14.2105%
+quote created from tick
+https://query2.finance.yahoo.com/v8/finance/chart/GOOG?period1=1672531200&period2=1727308800&interval=1d&events=history
+historial spots success
+historial spots success
+Quantitat de valors: 435
+last year vals done
+80, 0.219, 55%, GOOG
+
+#### META: 
+analizing tickers... 14.7368%
+quote created from tick
+https://query2.finance.yahoo.com/v8/finance/chart/META?period1=1672531200&period2=1727308800&interval=1d&events=history
+historial spots success
+historial spots success
+Quantitat de valors: 435
+last year vals done
+100, 0.222, 78%, META
+
+#### MSFT: 
+analizing tickers... 15.2632%
+quote created from tick
+https://query2.finance.yahoo.com/v8/finance/chart/MSFT?period1=1672531200&period2=1727308800&interval=1d&events=history
+historial spots success
+historial spots success
+Quantitat de valors: 435
+last year vals done
+92, 0.216, 52%, MSFT
+
+#### AMZN: 
+analizing tickers... 15.7895%
+quote created from tick
+https://query2.finance.yahoo.com/v8/finance/chart/AMZN?period1=1672531200&period2=1727308800&interval=1d&events=history
+historial spots success
+historial spots success
+Quantitat de valors: 435
+last year vals done
+96, 0.218, 58%, AMZN
+
+#### 0HCB.L: 
+analizing tickers... 16.3158%
+quote created from tick
+https://query2.finance.yahoo.com/v8/finance/chart/0HCB.L?period1=1672531200&period2=1727308800&interval=1d&events=history
+historial spots success
+historial spots success
+Quantitat de valors: 438
+last year vals done
+
+#### AEC1D.XC: 
+analizing tickers... 16.8421%
+quote created from tick
+https://query2.finance.yahoo.com/v8/finance/chart/AEC1D.XC?period1=1672531200&period2=1727308800&interval=1d&events=history
+historial spots success
+historial spots success
+Quantitat de valors: 384
+last year vals done
+99, 0.243, 44%, AEC1D.XC
+
+#### MER-PK: 
+analizing tickers... 17.3684%
+quote created from tick
+https://query2.finance.yahoo.com/v8/finance/chart/MER-PK?period1=1672531200&period2=1727308800&interval=1d&events=history
+historial spots success
+historial spots success
+Quantitat de valors: 1
+returned
+last year vals done
+
+#### CAT1.BE: 
+analizing tickers... 17.8947%
+quote created from tick
+https://query2.finance.yahoo.com/v8/finance/chart/CAT1.BE?period1=1672531200&period2=1727308800&interval=1d&events=history
+historial spots success
+historial spots success
+Quantitat de valors: 444
+last year vals done
+98, 0.190, 46%, CAT1.BE
+
+#### CIS.SG: 
+analizing tickers... 18.4211%
+quote created from tick
+https://query2.finance.yahoo.com/v8/finance/chart/CIS.SG?period1=1672531200&period2=1727308800&interval=1d&events=history
+historial spots success
+historial spots success
+Quantitat de valors: 444
+last year vals done
+
+#### CVX: 
+analizing tickers... 18.9474%
+quote created from tick
+https://query2.finance.yahoo.com/v8/finance/chart/CVX?period1=1672531200&period2=1727308800&interval=1d&events=history
+historial spots success
+historial spots success
+Quantitat de valors: 435
+last year vals done
+
+#### DIS: 
+analizing tickers... 19.4737%
+quote created from tick
+https://query2.finance.yahoo.com/v8/finance/chart/DIS?period1=1672531200&period2=1727308800&interval=1d&events=history
+historial spots success
+historial spots success
+Quantitat de valors: 435
+last year vals done
+50, 0.023, 35%, DIS
+
+#### POR: 
+analizing tickers... 20%
+quote created from tick
+https://query2.finance.yahoo.com/v8/finance/chart/POR?period1=1672531200&period2=1727308800&interval=1d&events=history
+historial spots success
+historial spots success
+Quantitat de valors: 435
+last year vals done
+
+#### HD.VI: 
+analizing tickers... 20.5263%
+quote created from tick
+https://query2.finance.yahoo.com/v8/finance/chart/HD.VI?period1=1672531200&period2=1727308800&interval=1d&events=history
+historial spots success
+historial spots success
+Quantitat de valors: 443
+last year vals done
+99, 0.170, 29%, HD.VI
+
+#### HPE: 
+analizing tickers... 21.0526%
+quote created from tick
+https://query2.finance.yahoo.com/v8/finance/chart/HPE?period1=1672531200&period2=1727308800&interval=1d&events=history
+historial spots success
+historial spots success
+Quantitat de valors: 435
+last year vals done
+92, 0.148, 37%, HPE
+
+#### INTC: 
+analizing tickers... 21.5789%
+quote created from tick
+https://query2.finance.yahoo.com/v8/finance/chart/INTC?period1=1672531200&period2=1727308800&interval=1d&events=history
+historial spots success
+historial spots success
+Quantitat de valors: 435
+last year vals done
+9, 0.026, 63%, INTC
+
+#### 1736.TW: 
+analizing tickers... 22.1053%
+quote created from tick
+https://query2.finance.yahoo.com/v8/finance/chart/1736.TW?period1=1672531200&period2=1727308800&interval=1d&events=history
+historial spots success
+historial spots success
+Quantitat de valors: 416
+last year vals done
+100, 0.151, 58%, 1736.TW
+
+#### AMJ: 
+analizing tickers... 22.6316%
+quote created from tick
+https://query2.finance.yahoo.com/v8/finance/chart/AMJ?period1=1672531200&period2=1727308800&interval=1d&events=history
+historial spots success
+historial spots success
+Quantitat de valors: 434
+last year vals done
+0, 0.041, 100%, AMJ
+
+#### MCD: 
+analizing tickers... 23.1579%
+quote created from tick
+https://query2.finance.yahoo.com/v8/finance/chart/MCD?period1=1672531200&period2=1727308800&interval=1d&events=history
+historial spots success
+historial spots success
+Quantitat de valors: 435
+last year vals done
+
+#### MMM: 
+analizing tickers... 23.6842%
+quote created from tick
+https://query2.finance.yahoo.com/v8/finance/chart/MMM?period1=1672531200&period2=1727308800&interval=1d&events=history
+historial spots success
+historial spots success
+Quantitat de valors: 435
+last year vals done
+100, 0.087, 48%, MMM
+
+#### UI2Y.F: 
+analizing tickers... 24.2105%
+quote created from tick
+https://query2.finance.yahoo.com/v8/finance/chart/UI2Y.F?period1=1672531200&period2=1727308800&interval=1d&events=history

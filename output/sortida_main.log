@@ -1,0 +1,186 @@
+initial date: 2023-01-01
+Fecha actual: 2024-09-26
+Quantitat de dies entre les dues dates: 634
+Quantitat de valors bursàtils analitzats: 30
+Format dels resultats: percentil(%)  |  pendent anual  | volatilitat(%) |  etiqueta 
+
+quote created from tick
+https://query2.finance.yahoo.com/v8/finance/chart/^IXIC?period1=1672531200&period2=1727308800&interval=1d&events=history
+historial spots success
+historial spots success
+Quantitat de valors: 435
+98  0.221  45%  ^IXIC
+quote created from tick
+https://query2.finance.yahoo.com/v8/finance/chart/^GSPC?period1=1672531200&period2=1727308800&interval=1d&events=history
+historial spots success
+historial spots success
+Quantitat de valors: 435
+100  0.221  34%  ^GSPC
+quote created from tick
+https://query2.finance.yahoo.com/v8/finance/chart/^DJI?period1=1672531200&period2=1727308800&interval=1d&events=history
+historial spots success
+historial spots success
+Quantitat de valors: 435
+99  0.207  25%  ^DJI
+quote created from tick
+https://query2.finance.yahoo.com/v8/finance/chart/META?period1=1672531200&period2=1727308800&interval=1d&events=history
+historial spots success
+historial spots success
+Quantitat de valors: 435
+100  0.222  78%  META
+quote created from tick
+https://query2.finance.yahoo.com/v8/finance/chart/TSLA?period1=1672531200&period2=1727308800&interval=1d&events=history
+historial spots success
+historial spots success
+Quantitat de valors: 435
+89  0.014  63%  TSLA
+quote created from tick
+https://query2.finance.yahoo.com/v8/finance/chart/HPE?period1=1672531200&period2=1727308800&interval=1d&events=history
+historial spots success
+historial spots success
+Quantitat de valors: 435
+92  0.148  37%  HPE
+quote created from tick
+https://query2.finance.yahoo.com/v8/finance/chart/PSX?period1=1672531200&period2=1727308800&interval=1d&events=history
+historial spots success
+historial spots success
+Quantitat de valors: 435
+59  0.190  47%  PSX
+quote created from tick
+https://query2.finance.yahoo.com/v8/finance/chart/SU.PA?period1=1672531200&period2=1727308800&interval=1d&events=history
+historial spots success
+historial spots success
+Quantitat de valors: 444
+100  0.201  45%  SU.PA
+quote created from tick
+https://query2.finance.yahoo.com/v8/finance/chart/RIOT?period1=1672531200&period2=1727308800&interval=1d&events=history
+historial spots success
+historial spots success
+Quantitat de valors: 435
+15  0.013  83%  RIOT
+quote created from tick
+https://query2.finance.yahoo.com/v8/finance/chart/GOOGL?period1=1672531200&period2=1727308800&interval=1d&events=history
+historial spots success
+historial spots success
+Quantitat de valors: 435
+80  0.219  55%  GOOGL
+quote created from tick
+https://query2.finance.yahoo.com/v8/finance/chart/GME?period1=1672531200&period2=1727308800&interval=1d&events=history
+historial spots success
+historial spots success
+Quantitat de valors: 435
+69  -0.009  79%  GME
+quote created from tick
+https://query2.finance.yahoo.com/v8/finance/chart/INTC?period1=1672531200&period2=1727308800&interval=1d&events=history
+historial spots success
+historial spots success
+Quantitat de valors: 435
+9  0.026  63%  INTC
+quote created from tick
+https://query2.finance.yahoo.com/v8/finance/chart/IBM?period1=1672531200&period2=1727308800&interval=1d&events=history
+historial spots success
+historial spots success
+Quantitat de valors: 435
+100  0.206  45%  IBM
+quote created from tick
+https://query2.finance.yahoo.com/v8/finance/chart/QCOM?period1=1672531200&period2=1727308800&interval=1d&events=history
+historial spots success
+historial spots success
+Quantitat de valors: 435
+77  0.176  55%  QCOM
+quote created from tick
+https://query2.finance.yahoo.com/v8/finance/chart/ASML?period1=1672531200&period2=1727308800&interval=1d&events=history
+historial spots success
+historial spots success
+Quantitat de valors: 435
+64  0.173  50%  ASML
+quote created from tick
+https://query2.finance.yahoo.com/v8/finance/chart/TSM?period1=1672531200&period2=1727308800&interval=1d&events=history
+historial spots success
+historial spots success
+Quantitat de valors: 435
+98  0.198  61%  TSM
+quote created from tick
+https://query2.finance.yahoo.com/v8/finance/chart/NVDA?period1=1672531200&period2=1727308800&interval=1d&events=history
+historial spots success
+historial spots success
+Quantitat de valors: 435
+93  0.224  89%  NVDA
+quote created from tick
+https://query2.finance.yahoo.com/v8/finance/chart/005930.KS?period1=1672531200&period2=1727308800&interval=1d&events=history
+historial spots success
+historial spots success
+Quantitat de valors: 426
+19  0.186  37%  005930.KS
+quote created from tick
+https://query2.finance.yahoo.com/v8/finance/chart/NFLX?period1=1672531200&period2=1727308800&interval=1d&events=history
+historial spots success
+historial spots success
+Quantitat de valors: 435
+100  0.218  59%  NFLX
+quote created from tick
+https://query2.finance.yahoo.com/v8/finance/chart/MSFT?period1=1672531200&period2=1727308800&interval=1d&events=history
+historial spots success
+historial spots success
+Quantitat de valors: 435
+92  0.216  52%  MSFT
+quote created from tick
+https://query2.finance.yahoo.com/v8/finance/chart/LPL?period1=1672531200&period2=1727308800&interval=1d&events=history
+historial spots success
+historial spots success
+Quantitat de valors: 435
+14  -0.202  48%  LPL
+quote created from tick
+https://query2.finance.yahoo.com/v8/finance/chart/HLF?period1=1672531200&period2=1727308800&interval=1d&events=history
+historial spots success
+historial spots success
+Quantitat de valors: 435
+2  -0.195  68%  HLF
+quote created from tick
+https://query2.finance.yahoo.com/v8/finance/chart/AAPL?period1=1672531200&period2=1727308800&interval=1d&events=history
+historial spots success
+historial spots success
+Quantitat de valors: 435
+95  0.169  47%  AAPL
+quote created from tick
+https://query2.finance.yahoo.com/v8/finance/chart/0P0000XV9S.BO?period1=1672531200&period2=1727308800&interval=1d&events=history
+historial spots success
+historial spots success
+Quantitat de valors: 424
+0  0.005  1%  0P0000XV9S.BO
+quote created from tick
+https://query2.finance.yahoo.com/v8/finance/chart/BTC-EUR?period1=1672531200&period2=1727308800&interval=1d&events=history
+historial spots success
+historial spots success
+Quantitat de valors: 635
+77  0.141  77%  BTC-EUR
+quote created from tick
+https://query2.finance.yahoo.com/v8/finance/chart/ADA-EUR?period1=1672531200&period2=1727308800&interval=1d&events=history
+historial spots success
+historial spots success
+Quantitat de valors: 635
+46  0.058  68%  ADA-EUR
+quote created from tick
+https://query2.finance.yahoo.com/v8/finance/chart/ETH-EUR?period1=1672531200&period2=1727308800&interval=1d&events=history
+historial spots success
+historial spots success
+Quantitat de valors: 635
+67  0.131  70%  ETH-EUR
+quote created from tick
+https://query2.finance.yahoo.com/v8/finance/chart/EUR=X?period1=1672531200&period2=1727308800&interval=1d&events=history
+historial spots success
+historial spots success
+Quantitat de valors: 454
+3  -0.042  7%  EUR=X
+quote created from tick
+https://query2.finance.yahoo.com/v8/finance/chart/GC=F?period1=1672531200&period2=1727308800&interval=1d&events=history
+historial spots success
+historial spots success
+Quantitat de valors: 435
+100  0.199  33%  GC=F
+quote created from tick
+https://query2.finance.yahoo.com/v8/finance/chart/CL=F?period1=1672531200&period2=1727308800&interval=1d&events=history
+historial spots success
+historial spots success
+Quantitat de valors: 435
+7  0.021  30%  CL=F

@@ -13,7 +13,7 @@ size_t writeCallback(char *content, size_t size, size_t nmemb, void *userdata) {
     return size * nmemb;
 }
 
-std::string downloadYahooCsv(
+std::string downloadYahooJson(
     std::string symbol,
     std::time_t period1,
     std::time_t period2,
@@ -23,8 +23,12 @@ std::string downloadYahooCsv(
     ss1 << period1; 
     std::stringstream ss2; 
     ss2 << period2;
-
-    std::string url = "https://query1.finance.yahoo.com/v7/finance/download/"
+    // since septmeber 6th 2024, yahoo changed the format of the http query so now use:
+    std::string url = "https://query2.finance.yahoo.com/v8/finance/chart/"
+    //instead of the old:
+    //std::string url = "https://query1.finance.yahoo.com/v7/finance/download/"
+    // they changed "query1" --> "query2", "v7" for"v8" and "download" for "chart"
+    // the outcome is in json instead of csv
             + symbol
             + "?period1=" + ss1.str()
             + "&period2=" + ss2.str()

@@ -1,3 +1,6 @@
+#pragma once //fa que es compili només 1 vegada
+
+
 using namespace std;
 #include "quote.hpp"
 #include "dates.h"
@@ -38,7 +41,7 @@ void GetLastYearVals( std::string tick,const std::string & currentDate , double 
 
     cout << "quote created from tick" << endl;
 
-    stock->getHistoricalSpots(inid, currd, "1d");   
+    stock->getHistoricalSpotsJson(inid, currd, "1d");   
 
     cout << "historial spots success" << endl;
 
