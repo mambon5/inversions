@@ -13,6 +13,7 @@
       - [3. Canviar els permisos del directori.](#3-canviar-els-permisos-del-directori)
   - [4. Copiar els timers i serveis](#4-copiar-els-timers-i-serveis)
 - [Servir més d'una pàgina web al mateix servidor](#servir-més-duna-pàgina-web-al-mateix-servidor)
+      - [Forçar a fer git pull i borrar canvis locals](#forçar-a-fer-git-pull-i-borrar-canvis-locals)
 
 
 # Linux system admin
@@ -238,5 +239,12 @@ sudo apache2ctl configtest
 sudo systemctl restart apache2
 ```
 
+#### Forçar a fer git pull i borrar canvis locals
+
+Executeu
+```
+git fetch origin main
+git reset --hard origin/main
+```
 
 Bon hacking!

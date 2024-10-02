@@ -1,0 +1,37 @@
+<!doctype html>
+<html>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="estil.css">
+  <head>
+   
+    <title>Accions de borsa</title>
+  </head>
+
+  <body onload="carregaFitxer();">
+
+    <center>
+    <h2>Accions Principals</h2>
+
+    <h4 id="descr">Període del anàlisi:</h4>
+    
+
+
+<table class="styled-table" id="taula">
+
+  <tr>
+    <th>percentil actual </th> 
+    <th>creixement diari (del percentil)</th> 
+    <th>volatilitat</th>
+    <th>etiqueta de l'acció de borsa.</th>
+  </tr>
+</table>
+
+
+
+  </center>
+    <ul id="llista"></ul>
+    <script src="https://requirejs.org/docs/release/2.3.5/minified/require.js"></script> 
+    <script src="helper.js"></script> 
+
+  </body>
+</html>

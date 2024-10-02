@@ -47,3 +47,61 @@ function escriu_link(nom,filename, elementId) { // After the HTML content loads
 };
 
 
+const output = document.getElementById('main_stocks')
+
+
+// document.getElementById('file').onchange = function() {
+function carregaFitxer() {
+    var xhttp = new XMLHttpRequest();
+      xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+          // Typical action to be performed when the document is ready:
+          separaLinies(xhttp.responseText) //callback function
+          escrDates(xhttp.responseText) //callback function
+        }
+    };
+    xhttp.open("GET", "/output/pertiles.txt", true);
+    xhttp.send();
+};
+
+function escrDates(text){
+  var lines = text.split('\n');    // lines is an array of strings
+  descrip = document.getElementById("descr")
+
+  linia = lines[0].split(" ")
+  linia = linia.filter(item => item !== "") // deleting the stupid "" from the array
+  data1 = linia[2]
+
+  linia = lines[1].split(" ")
+  linia = linia.filter(item => item !== "") // deleting the stupid "" from the array
+  data2 = linia[2]
+
+  descrip.innerHTML = descrip.innerHTML +" "+ data1 + " --> " + data2;
+}
+
+function separaLinies(text) {
+  var lines = text.split('\n');    // lines is an array of strings
+  taula = document.getElementById("taula")
+
+  // Loop through all lines
+  for (var j = 0; j < lines.length; j++) {
+    linia = lines[j].split(' ')
+    linia = linia.filter(item => item !== "") // deleting the stupid "" from the array
+    if(!isNaN(linia[0])) {
+      
+      let row = taula.insertRow(-1); // Create an empty <tr> element and add it to the last position of the table:
+
+      // Insert new cells (<td> elements) at the 1st and 2nd position of the "new" <tr> element:
+      var cell1 = row.insertCell(0);
+      var cell2 = row.insertCell(1);
+      var cell3 = row.insertCell(2);
+      var cell4 = row.insertCell(3);
+
+      // Add some text to the new cells:
+      cell1.innerHTML = linia[0];
+      cell2.innerHTML = linia[1];
+      cell3.innerHTML = linia[2];
+      cell4.innerHTML = linia[3];
+    }
+  }
+}

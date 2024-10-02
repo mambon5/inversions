@@ -1,39 +1,48 @@
 initial date: 2023-01-01
-Fecha actual: 2024-09-26
-Quantitat de dies entre les dues dates: 634
-Quantitat de valors bursàtils analitzats: 30
+Fecha actual: 2024-10-02
+Quantitat de dies entre les dues dates: 640
+Quantitat de valors bursàtils analitzats: 39
 La volatilitat es calcula segons: (max-min)/max de l'acció en el període analitzat 
 El pendent es calcula usant una regressió lineal 
 El percentil és simplement el percentil actual respecte a la resta de valors el període analitzat 
 Format dels resultats: percentil(%)  |  pendent anual  | volatilitat(%) | etiqueta 
 
-98  0.221  45%  ^IXIC
-100  0.221  34%  ^GSPC
-99  0.207  25%  ^DJI
-100  0.222  78%  META
-89  0.014  63%  TSLA
+95  0.219  45%  ^IXIC
+98  0.219  34%  ^GSPC
+99  0.206  25%  ^DJI
+100  0.220  78%  META
+89  0.018  63%  TSLA
 92  0.148  37%  HPE
-59  0.190  47%  PSX
-100  0.201  45%  SU.PA
-15  0.013  83%  RIOT
-80  0.219  55%  GOOGL
-69  -0.009  79%  GME
-9  0.026  63%  INTC
-100  0.206  45%  IBM
-77  0.176  55%  QCOM
-64  0.173  50%  ASML
-98  0.198  61%  TSM
-93  0.224  89%  NVDA
-19  0.186  37%  005930.KS
-100  0.218  59%  NFLX
-92  0.216  52%  MSFT
-14  -0.202  48%  LPL
-2  -0.195  68%  HLF
-95  0.169  47%  AAPL
-0  0.005  1%  0P0000XV9S.BO
-77  0.141  77%  BTC-EUR
-46  0.058  68%  ADA-EUR
-67  0.131  70%  ETH-EUR
-3  -0.042  7%  EUR=X
-100  0.199  33%  GC=F
-7  0.021  30%  CL=F
+63  0.187  47%  PSX
+97  0.200  46%  SU.PA
+13  0.009  83%  RIOT
+85  0.217  55%  GOOGL
+67  -0.006  79%  GME
+8  0.019  63%  INTC
+98  0.205  46%  IBM
+88  0.216  58%  AMZN
+97  -0.141  44%  BABA
+97  0.219  39%  BRK-B
+87  0.223  68%  LLY
+95  0.221  70%  AVGO
+100  0.217  44%  WMT
+88  0.215  44%  JPM
+97  0.066  21%  XOM
+87  0.200  29%  V
+72  0.175  55%  QCOM
+64  0.171  50%  ASML
+92  0.197  61%  TSM
+87  0.221  89%  NVDA
+7  0.177  37%  005930.KS
+98  0.216  59%  NFLX
+81  0.214  52%  MSFT
+15  -0.200  48%  LPL
+0  -0.194  68%  HLF
+94  0.169  47%  AAPL
+28  0.000  100%  0P0000XV9S.BO
+0  0.000  100%  2222.SRBTC-EUR
+33  0.057  68%  ADA-EUR
+64  0.129  70%  ETH-EUR
+8  -0.046  7%  EUR=X
+100  0.197  100%  GC=F
+8  0.014  100%  CL=F

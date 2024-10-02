@@ -18,7 +18,18 @@ body{
     text-align: left;
 }
 
+.styled-table tr:hover {
+    background-color: lightgray;
+
+}
+
 .styled-table th,
 .styled-table td {
     padding: 12px 15px;
 }
+
+
+.center {
+    margin-left: auto;
+    margin-right: auto;
+  }
