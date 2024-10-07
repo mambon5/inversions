@@ -79,6 +79,11 @@ function escrDates(text){
   descrip.innerHTML = descrip.innerHTML +" "+ data1 + " --> " + data2;
 }
 
+linies = [] // variable global on estan totes les accions
+cols = ["percentil actual", "creixement diari (del percentil)",
+   "volatilitat",
+   "etiqueta de l'acció de borsa"] //variable global amb el nom de totes les columnes
+
 function separaLinies(text) {
   var lines = text.split('\n');    // lines is an array of strings
   linies = []
@@ -91,11 +96,19 @@ function separaLinies(text) {
       linies.push(linia)      
     }
   }
-  cols = ["percentil actual", "creixement diari (del percentil)",
-   "volatilitat",
-   "etiqueta de l'acció de borsa"]
+  
   //ordena array:
   linies.sort(ordenaMet1Array)
+  EscriuTaula(linies,cols,"taula")
+}
+
+function ordenaCol(columna) {
+  if(columna == 0) linies.sort(ordenaPerCol0)
+  if(columna == 1) linies.sort(ordenaPerCol1)
+  if(columna == 2) linies.sort(ordenaPerCol2)
+  if(columna == 3) linies.sort(ordenaPerCol3)
+  console.log("sorted out")
+
   EscriuTaula(linies,cols,"taula")
 }
 
@@ -116,7 +129,7 @@ function EscriuTaula(array, nomCols, taulaId) {
         var cell = row.insertCell(i);
 
         // Add some text to the new cells:
-        cell.innerHTML = nomCols[i];
+        cell.innerHTML = "<span onclick='ordenaCol("+i+")'>"+nomCols[i]+ "</span>";
       }
     
 
@@ -145,4 +158,20 @@ function ordenaMet1Array(arr1, arr2) {
     return arr1[0]>arr2[0];
   }
   return Math.floor(arr1[1]*10)/10 < Math.floor(arr2[1]*10)/10
+}
+
+function ordenaPerCol0(arr1, arr2) {
+  return arr1[0] > arr2[0]
+}
+
+function ordenaPerCol1(arr1, arr2) {
+  return arr1[1] < arr2[1]
+}
+
+function ordenaPerCol2(arr1, arr2) {
+  return arr1[2] < arr2[2]
+}
+
+function ordenaPerCol3(arr1, arr2) {
+  return arr1[3] < arr2[3]
 }
