@@ -81,27 +81,68 @@ function escrDates(text){
 
 function separaLinies(text) {
   var lines = text.split('\n');    // lines is an array of strings
-  taula = document.getElementById("taula")
+  linies = []
 
   // Loop through all lines
   for (var j = 0; j < lines.length; j++) {
     linia = lines[j].split(' ')
     linia = linia.filter(item => item !== "") // deleting the stupid "" from the array
     if(!isNaN(linia[0])) {
+      linies.push(linia)      
+    }
+  }
+  cols = ["percentil actual", "creixement diari (del percentil)",
+   "volatilitat",
+   "etiqueta de l'acció de borsa"]
+  //ordena array:
+  linies.sort(ordenaMet1Array)
+  EscriuTaula(linies,cols,"taula")
+}
+
+function EscriuTaula(array, nomCols, taulaId) {
+  //nomCols = array string amb noms de les m columnes
+  // array = matriu nxm amb n files 
+  //  taualID: id de la taula on escriure tota la mandanga
+
+  m = nomCols.length
+  taula = document.getElementById(taulaId)
+  taula.innerHTML = "";
+
+  // insert header
+    let row = taula.insertRow(-1); // Create an empty <tr> element and add it to the last position of the table:
+
+      for(let i=0; i<m; ++i) {
+        // Insert new cells (<td> elements) at the 1st and 2nd position of the "new" <tr> element:
+        var cell = row.insertCell(i);
+
+        // Add some text to the new cells:
+        cell.innerHTML = nomCols[i];
+      }
+    
+
+  // Loop through all lines
+  for (var j = 0; j < array.length; j++) {
       
       let row = taula.insertRow(-1); // Create an empty <tr> element and add it to the last position of the table:
 
-      // Insert new cells (<td> elements) at the 1st and 2nd position of the "new" <tr> element:
-      var cell1 = row.insertCell(0);
-      var cell2 = row.insertCell(1);
-      var cell3 = row.insertCell(2);
-      var cell4 = row.insertCell(3);
+      for(let i=0; i<m; ++i) {
+        // Insert new cells (<td> elements) at the 1st and 2nd position of the "new" <tr> element:
+        var cell = row.insertCell(i);
 
-      // Add some text to the new cells:
-      cell1.innerHTML = linia[0];
-      cell2.innerHTML = linia[1];
-      cell3.innerHTML = linia[2];
-      cell4.innerHTML = linia[3];
-    }
+        // Add some text to the new cells:
+        cell.innerHTML = array[j][i];
+      }
+    
   }
+
+}
+
+
+function ordenaMet1Array(arr1, arr2) {
+  // ordenem l'array de la següent manera: la segona columna en blocs: 0, 0.1, 0.2, >0.3
+  // un cop en blocs, s'ordena ascendentment segons la primera columna
+  if(Math.floor(arr1[1]*10)/10 == Math.floor(arr2[1]*10)/10) {
+    return arr1[0]>arr2[0];
+  }
+  return Math.floor(arr1[1]*10)/10 < Math.floor(arr2[1]*10)/10
 }
