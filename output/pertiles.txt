@@ -1,13 +1,51 @@
-data inici: 01-04-2023
-daa fi: 02-10-2024
-95 0.127 40% AMZ
-86 0.233 55% GOOG
-15 0.013 80% RIOT
-71 0.113 75% TSLA
-77 0.215 58% MSFT
-39 0.039 65% ADA
-80 0.117 80% PSX.2
-99 0.240 48% NFLX
+initial date: 2023-01-01
+Fecha actual: 2024-10-08
+Quantitat de dies entre les dues dates: 646
+Quantitat de valors bursÃ tils analitzats: 39
+La volatilitat es calcula segons: (max-min)/max de l'acciÃ³ en el perÃ­ode analitzat 
+El pendent es calcula usant una regressiÃ³ lineal 
+El percentil Ã©s simplement el percentil actual respecte a la resta de valors el perÃ­ode analitzat 
+Format dels resultats: percentil(%)  |  pendent anual  | volatilitat(%) | etiqueta 
+
+95  0.217  45%  ^IXIC
+97  0.217  34%  ^GSPC
+97  0.205  25%  ^DJI
+100  0.218  79%  META
+73  0.021  63%  TSLA
+95  0.149  37%  HPE
+74  0.185  47%  PSX
+97  0.198  46%  SU.PA
+21  0.006  83%  RIOT
+81  0.214  55%  GOOGL
+59  -0.004  79%  GME
+8  0.012  63%  INTC
+100  0.204  47%  IBM
+80  0.214  58%  AMZN
+98  -0.130  44%  BABA
+95  0.217  39%  BRK-B
+89  0.221  68%  LLY
+99  0.219  70%  AVGO
+97  0.215  44%  WMT
+94  0.213  44%  JPM
+100  0.070  23%  XOM
+77  0.198  29%  V
+73  0.173  55%  QCOM
+63  0.169  50%  ASML
+98  0.196  61%  TSM
+96  0.219  89%  NVDA
+3  0.169  37%  005930.KS
+97  0.215  59%  NFLX
+70  0.211  52%  MSFT
+11  -0.198  48%  LPL
+1  -0.193  68%  HLF
+90  0.169  47%  AAPL
+49  -0.000  100%  0P0000XV9S.BO
+0  0.000  100%  2222.SRBTC-EUR
+35  0.054  68%  ADA-EUR
+64  0.127  70%  ETH-EUR
+17  -0.049  7%  EUR=X
+98  0.196  100%  GC=F
+47  0.011  100%  CL=F
 
 
 

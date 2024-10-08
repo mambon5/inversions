@@ -155,7 +155,7 @@ function ordenaMet1Array(arr1, arr2) {
   // ordenem l'array de la següent manera: la segona columna en blocs: 0, 0.1, 0.2, >0.3
   // un cop en blocs, s'ordena ascendentment segons la primera columna
   if(Math.floor(arr1[1]*10)/10 == Math.floor(arr2[1]*10)/10) {
-    return arr1[0]>arr2[0];
+    return 1*arr1[0]>1*arr2[0];
   }
   return Math.floor(arr1[1]*10)/10 < Math.floor(arr2[1]*10)/10
 }
