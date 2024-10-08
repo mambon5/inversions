@@ -169,7 +169,9 @@ function ordenaPerCol1(arr1, arr2) {
 }
 
 function ordenaPerCol2(arr1, arr2) {
-  return parseInt(arr1[2]) < parseInt(arr2[2])
+  a = arr1[2].split("%")[0]
+  b = arr2[2].split("%")[0]
+  return a*1 < b*1
 }
 
 function ordenaPerCol3(arr1, arr2) {
