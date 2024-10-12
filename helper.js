@@ -151,24 +151,24 @@ function EscriuTaula(array, nomCols, taulaId) {
 function ordenaMet1Array(arr1, arr2) {
   // ordenem l'array de la següent manera: la segona columna en blocs: 0, 0.1, 0.2, >0.3
   // un cop en blocs, s'ordena ascendentment segons la primera columna
-  if(Math.floor(parseInt(arr1[1])*10)/10 == Math.floor(parseInt(arr2[1])*10)/10) {
-    return parseInt(arr1[0])>parseInt(arr2[0]);
+  if(Math.floor(parseFloat(arr1[1])*10)/10 == Math.floor(parseFloat(arr2[1])*10)/10) {
+    return parseFloat(arr1[0])>parseFloat(arr2[0]);
   }
-  return Math.floor(parseInt(arr1[1])*10)/10 < Math.floor(parseInt(arr2[1])*10)/10
+  return Math.floor(parseFloat(arr1[1])*10)/10 < Math.floor(parseFloat(arr2[1])*10)/10
 }
 
 function ordenaPerCol0(arr1, arr2) {
-  return parseInt(arr1[0]) > parseInt(arr2[0])
+  return parseFloat(arr1[0]) > parseFloat(arr2[0])
 }
 
 function ordenaPerCol1(arr1, arr2) {
-  return parseInt(arr1[1]) < parseInt(arr2[1])
+  return parseFloat(arr1[1]) < parseFloat(arr2[1])
 }
 
 function ordenaPerCol2(arr1, arr2) {
   a = arr1[2].split("%")[0]
   b = arr2[2].split("%")[0]
-  return parseInt(a) < parseInt(b)
+  return parseFloat(a) < parseFloat(b)
 }
 
 function ordenaPerCol3(arr1, arr2) {
