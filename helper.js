@@ -135,7 +135,6 @@ function EscriuTaula(array, nomCols, taulaId) {
 
   // Loop through all lines
   for (var j = 0; j < array.length; j++) {
-      
       let row = taula.insertRow(-1); // Create an empty <tr> element and add it to the last position of the table:
 
       for(let i=0; i<m; ++i) {
@@ -145,9 +144,7 @@ function EscriuTaula(array, nomCols, taulaId) {
         // Add some text to the new cells:
         cell.innerHTML = array[j][i];
       }
-    
   }
-
 }
 
 
@@ -155,23 +152,23 @@ function ordenaMet1Array(arr1, arr2) {
   // ordenem l'array de la següent manera: la segona columna en blocs: 0, 0.1, 0.2, >0.3
   // un cop en blocs, s'ordena ascendentment segons la primera columna
   if(Math.floor(arr1[1]*10)/10 == Math.floor(arr2[1]*10)/10) {
-    return 1*arr1[0]>1*arr2[0];
+    return parseInt(arr1[0])>parseInt(arr2[0]);
   }
   return Math.floor(arr1[1]*10)/10 < Math.floor(arr2[1]*10)/10
 }
 
 function ordenaPerCol0(arr1, arr2) {
-  return 1*arr1[0] > 1*arr2[0]
+  return parseInt(arr1[0]) > parseInt(arr2[0])
 }
 
 function ordenaPerCol1(arr1, arr2) {
-  return 1*arr1[1] < 1*arr2[1]
+  return parseInt(arr1[1]) < parseInt(arr2[1])
 }
 
 function ordenaPerCol2(arr1, arr2) {
   a = arr1[2].split("%")[0]
   b = arr2[2].split("%")[0]
-  return a*1 < b*1
+  return parseInt(a) < parseInt(b)
 }
 
 function ordenaPerCol3(arr1, arr2) {
