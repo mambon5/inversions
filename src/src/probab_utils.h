@@ -89,3 +89,5 @@ double volatilitat(vector<double>& valors) {
 
 
 
+
+

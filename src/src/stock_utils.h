@@ -6,6 +6,7 @@ using namespace std;
 #include "dates.h"
 #include "textProcess.h"
 #include "probab_utils.h"
+#include "matrix_utils.h"
 
 // #include "src/quote.hpp"
 
@@ -29,7 +30,7 @@ using namespace std;
 // or using: g++ time_utils.cpp curl_utils.cpp quote.cpp spot.cpp get_dailies.cpp -o dailies -lcurl
 
 
-void GetLastYearVals( std::string tick,const std::string & currentDate , double &slope, double &percentile, double &volatil, bool extraPrint=false, const std::string & initialDate = "2023-01-01") {
+void GetLastYearVals( std::string tick,const std::string & currentDate , double &slope, double &percentile, double &volatil, double &guanymax, bool extraPrint=false, const std::string & initialDate = "2023-01-01") {
     //volatil vol dir la volatilitat de l'acció de borsa
     // std::string tick = "^GSPC";
     // S&P 500
@@ -77,6 +78,9 @@ void GetLastYearVals( std::string tick,const std::string & currentDate , double 
     volatil = volatilitat(closeVals);
     regression(x, percent, slope, intercept);
 
+    // calcular guany màxim desde valor actual fins a màxim anual
+    guanymax = guanymaxim(closeVals);
+
     // Free memory
     delete stock;
 }
@@ -109,21 +113,23 @@ void PrintMainStocks(const vector<std::string> &ticks, std::string & file) {
     outputFile << "La volatilitat es calcula segons: (max-min)/max de l'acció en el període analitzat "  << endl;
     outputFile << "El pendent es calcula usant una regressió lineal "  << endl;
     outputFile << "El percentil és simplement el percentil actual respecte a la resta de valors el període analitzat "  << endl;
-    cout << "Format dels resultats: percentil(%)  |  pendent anual  | volatilitat(%) |  etiqueta " << endl << endl;
-    outputFile << "Format dels resultats: percentil(%)  |  pendent anual  | volatilitat(%) | etiqueta "  << endl << endl;
+    cout << "Format dels resultats: percentil(%)  |  pendent anual  | volatilitat(%) | guany esperat(%) | etiqueta " << endl << endl;
+    outputFile << "Format dels resultats: percentil(%)  |  pendent anual  | volatilitat(%) | guany esperat(%) | etiqueta "  << endl << endl;
 
     // cout << "Print all daily percentiles? Yes=1, No=0"<< endl;
     // cin >> printAll;
     
     for(std::string tick : ticks) {
         
-        double slope, percent, volatil;
+        double slope, percent, volatil, guanyMax;
 
-        GetLastYearVals(tick, currentDate, slope, percent,  volatil, true, initialDate);
+        GetLastYearVals(tick, currentDate, slope, percent,  volatil, guanyMax, true, initialDate);
 
         // Mostrar los resultados
-        cout << percent << "  " << PrintNumberWithXDecimalsDoub(slope,3) << "  " << PrintNumberWithXDecimalsDoub(volatil,0) << "%  " << tick << endl;
-        outputFile << percent << "  " << PrintNumberWithXDecimalsDoub(slope,3) << "  " << PrintNumberWithXDecimalsDoub(volatil,0) << "%  " << tick << endl;
+        cout << percent << "  " << PrintNumberWithXDecimalsDoub(slope,3) << "  " << PrintNumberWithXDecimalsDoub(volatil,0) << "%  "
+        << PrintNumberWithXDecimalsDoub(guanyMax,0) << "%  " << tick << endl;
+        outputFile << percent << "  " << PrintNumberWithXDecimalsDoub(slope,3) << "  " << PrintNumberWithXDecimalsDoub(volatil,0) << "%  " 
+        << PrintNumberWithXDecimalsDoub(guanyMax,0) << "%  " << tick << endl;
 
 
                     }

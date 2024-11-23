@@ -1,5 +1,4 @@
 #include "stock_utils.h"
-#include "matrix_utils.h"
 // #include "src/quote.hpp"
 using namespace std;
 #include <iostream>
@@ -15,7 +14,7 @@ using namespace std;
 #include <string.h>
 #include <experimental/filesystem>
 
-// g++ time_utils.cpp curl_utils.cpp quote.cpp spot.cpp sort_stocks.cpp -o sort_stock_groups -lcurl
+// g++ time_utils.cpp curl_utils.cpp quote.cpp spot.cpp dates.cpp textProcess.cpp sort_stocks.cpp -o sort_stock_groups -lcurl
 
 
 string date = yesterday();
@@ -31,8 +30,8 @@ void showBestStocks(const string & inp_file) { //read from csv created in functi
 
     vector<double> percents;
     vector<vector<double>> slope_00, slope_01, slope_02, slope_03;
-    double percent, slope, volatil;
-    vector<vector<string>> triplets = readCsvToMatrix(inp_file, 4); // quatre columnes per fila
+    double percent, slope, volatil, guanyMax;
+    vector<vector<string>> triplets = readCsvToMatrix(inp_file, 5); // quatre columnes per fila
     cout << "numero de files de la matriu: " << LenghtOfMatStr(triplets) << endl;
     cout << "numero de columnes de la matriu: " << LenghtOfVectorStr(triplets[0]) << endl;
 
@@ -43,9 +42,10 @@ void showBestStocks(const string & inp_file) { //read from csv created in functi
         percent = stod(tripletString[0]);
         slope = stod(tripletString[1]);
         volatil = stod(tripletString[2]);
-        tickers.push_back(tripletString[3]); // guardant els stock tickers
+        guanyMax = stod(tripletString[3]);
+        tickers.push_back(tripletString[4]); // guardant els stock tickers
 
-        vector<double> triplet = {percent, slope, volatil, index};
+        vector<double> triplet = {percent, slope, volatil, guanyMax, index};
 
         if(slope >= 0 && slope < 0.1) {
             slope_00.push_back(triplet);
@@ -69,7 +69,7 @@ void showBestStocks(const string & inp_file) { //read from csv created in functi
 
     WriteToFileSimple("",outFile);
     WriteToFileSimple("Output format: ",outFile);
-    WriteToFileSimple("percentile(%) - yearly slope - volatility(%) - yfin ticker ",outFile);
+    WriteToFileSimple("percentile(%) - yearly slope - volatility(%) - guanyMax(%) - yfin ticker ",outFile);
     WriteToFileSimple("",outFile);
     vD_sortBy2Col(slope_00);
     WriteToFileSimple("showing sorted elements of vector slope_00: ",outFile);
@@ -91,6 +91,7 @@ void showBestStocks(const string & inp_file) { //read from csv created in functi
 int main() {
       
     DeleteOlderFiles(dir, stats_file_sufix, 10, false); // deletes files with suffix "sufix" in directory "dir" which are "12" days old or older.
+    cout << inpFile << endl;
     showBestStocks(inpFile);
     
    

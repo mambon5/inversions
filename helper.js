@@ -81,7 +81,7 @@ function escrDates(text){
 
 linies = [] // variable global on estan totes les accions
 cols = ["percentil actual", "creixement diari (del percentil)",
-   "volatilitat",
+   "volatilitat", "guany esperat",
    "etiqueta de l'acció de borsa"] //variable global amb el nom de totes les columnes
 
 function separaLinies(text) {
@@ -107,6 +107,7 @@ function ordenaCol(columna) {
   if(columna == 1) linies.sort(ordenaPerCol1)
   if(columna == 2) linies.sort(ordenaPerCol2)
   if(columna == 3) linies.sort(ordenaPerCol3)
+  if(columna == 4) linies.sort(ordenaPerCol4)
   console.log("sorted out")
 
   EscriuTaula(linies,cols,"taula")
@@ -150,9 +151,9 @@ function EscriuTaula(array, nomCols, taulaId) {
 
 function ordenaMet1Array(arr1, arr2) {
   // ordenem l'array de la següent manera: la segona columna en blocs: 0, 0.1, 0.2, >0.3
-  // un cop en blocs, s'ordena ascendentment segons la primera columna
+  // un cop en blocs, s'ordena ascendentment segons la quarta columna
   if(Math.floor(parseFloat(arr1[1])*10)/10 == Math.floor(parseFloat(arr2[1])*10)/10) {
-    return parseFloat(arr1[0])>parseFloat(arr2[0]);
+    return parseFloat(arr1[3])<parseFloat(arr2[3]);
   }
   return Math.floor(parseFloat(arr1[1])*10)/10 < Math.floor(parseFloat(arr2[1])*10)/10
 }
@@ -172,5 +173,11 @@ function ordenaPerCol2(arr1, arr2) {
 }
 
 function ordenaPerCol3(arr1, arr2) {
-  return arr1[3] < arr2[3]
+  a = arr1[3].split("%")[0]
+  b = arr2[3].split("%")[0]
+  return parseFloat(a) < parseFloat(b)
+}
+
+function ordenaPerCol4(arr1, arr2) {
+  return arr1[4] < arr2[4]
 }
