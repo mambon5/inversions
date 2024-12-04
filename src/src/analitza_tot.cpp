@@ -122,7 +122,7 @@ void outputPercentSlope(const int & elems) {
 
 
 int main() {
-    int elems = 200;
+    int elems = 500; //amount of stocks to analyse every 20 minutes, max per 20 minutes i 2000
     
     DeleteOlderFiles(dir, slope_file_sufix, 10, false); // deletes files with suffix "sufix" in directory "dir" which are "12" days old or older.
     outputPercentSlope(elems);

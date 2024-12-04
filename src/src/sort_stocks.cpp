@@ -31,7 +31,7 @@ void showBestStocks(const string & inp_file) { //read from csv created in functi
     vector<double> percents;
     vector<vector<double>> slope_00, slope_01, slope_02, slope_03;
     double percent, slope, volatil, guanyMax;
-    vector<vector<string>> triplets = readCsvToMatrix(inp_file, 5); // quatre columnes per fila
+    vector<vector<string>> triplets = readCsvToMatrix(inp_file, 5); // cinc columnes per fila
     cout << "numero de files de la matriu: " << LenghtOfMatStr(triplets) << endl;
     cout << "numero de columnes de la matriu: " << LenghtOfVectorStr(triplets[0]) << endl;
 
