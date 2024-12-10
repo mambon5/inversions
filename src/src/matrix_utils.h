@@ -19,8 +19,12 @@ double guanymaxim(vector<double>& valors) {
     // per calcular el % de guany esperat si el valor actual puja al màxim
     double maxi = *max_element(valors.begin(), valors.end());
     double val_actual = valors.back();
-    // cout << "maxim : " << maxi << ", minim: " << mini << endl;
-    return 100*( (maxi)/val_actual -1 );
+    if(val_actual == 0) val_actual = valors[valors.size()-2] ; // pilla el penúltim valor si l'últim valor és 0
+    double guany = 100*( (maxi)/val_actual -1 );
+    // cout << "maxim : " << maxi << ", valor actual: " << val_actual << ", guany: " << guany << endl;
+    // cout << "valors: " << endl;
+    // OutputVectorDouble(valors);
+    return guany;
 }
 
 
