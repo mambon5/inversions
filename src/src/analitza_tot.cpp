@@ -41,7 +41,7 @@ string lastTicker = dir+"lastTickerUsed.txt";
 // ofstream outputFile(slope_file);
 
 // string inp_file = "/var/www/inversions/input/processed_ticks.csv"; // this analyses all stock values yahoo finance has in the world (around 180k)
-string date= "02_2025"
+string date= "02_2025";
 string inp_file = "/var/www/inversions/input/yfin_etoroTicks_clean_"+date+".csv"; // this analyses all stock values eToro has and that we could properly translate to Yahoo finance ticks
 // string inp_file = "mock_ticks.csv"; // this line is only for testing purposes
 
