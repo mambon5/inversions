@@ -26,7 +26,7 @@ std::string file = "/var/www/inversions/output/pertiles.txt";
 // vector<std::string> main_ticks = {"WFGDX"  };
 
 vector<std::string> main_ticks = {"WFGDX" ,"^IXIC", "^GSPC", "^DJI", "META", 
-"TSLA", "HPE", "PSX", "SU.PA", "RIOT",
+"TSLA", "HPE", "PSX", "SU.PA", "RIOT", "SMCI",
 "GOOGL", "GME", "INTC", "IBM", "AMZN","BABA","BRK-B","LLY","AVGO",
 "WMT","JPM","XOM","V","QCOM", "ASML", "TSM", "NVDA", "005930.KS", 
 "NFLX", "MSFT",
