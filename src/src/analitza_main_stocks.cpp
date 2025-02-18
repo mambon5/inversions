@@ -31,7 +31,8 @@ vector<std::string> main_ticks = {"WFGDX" ,"^IXIC", "^GSPC", "^DJI", "META",
 "WMT","JPM","XOM","V","QCOM", "ASML", "TSM", "NVDA", "005930.KS", 
 "NFLX", "MSFT",
 "LPL", "HLF", "AAPL", "0P0000XV9S.BO","2223.SR",
-"BTC-EUR", "ADA-EUR", "ETH-EUR", "EUR=X", "GC=F", "CL=F" };
+"BTC-EUR", "ADA-EUR", "ETH-EUR", "EUR=X", "GC=F", "CL=F",
+ "CE"};
 
 int main() {
     PrintMainStocks(main_ticks, file);

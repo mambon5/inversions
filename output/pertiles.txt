@@ -1,0 +1,51 @@
+initial date: 2023-01-01
+Fecha actual: 2024-12-17
+Quantitat de dies entre les dues dates: 716
+Quantitat de valors bursàtils analitzats: 42
+La volatilitat es calcula segons: (max-min)/max de l'acció en el període analitzat 
+El pendent es calcula usant una regressió lineal 
+El percentil és simplement el percentil actual respecte a la resta de valors el període analitzat 
+Format dels resultats: percentil(%)  |  pendent anual  | volatilitat(%) | guany esperat(%) | etiqueta 
+
+90  0.146  37%  11%  WFGDX
+100  0.197  49%  0%  ^IXIC
+99  0.198  37%  0%  ^GSPC
+95  0.189  29%  3%  ^DJI
+99  0.198  80%  1%  META
+100  0.056  77%  0%  TSLA
+98  0.152  42%  10%  HPE
+40  0.151  47%  49%  PSX
+97  0.184  47%  3%  SU.PA
+86  0.014  83%  45%  RIOT
+100  0.191  56%  0%  GOOGL
+98  0.037  79%  66%  GME
+6  -0.045  63%  144%  INTC
+96  0.188  49%  4%  IBM
+100  0.195  64%  0%  AMZN
+59  -0.064  44%  40%  BABA
+88  0.197  39%  6%  BRK-B
+71  0.193  68%  23%  LLY
+100  0.198  78%  0%  AVGO
+99  0.196  52%  1%  WMT
+95  0.195  50%  4%  JPM
+37  0.090  23%  16%  XOM
+100  0.184  35%  0%  V
+61  0.156  55%  44%  QCOM
+55  0.123  50%  52%  ASML
+99  0.184  64%  2%  TSM
+90  0.199  90%  13%  NVDA
+2  0.054  43%  62%  005930.KS
+99  0.196  69%  2%  NFLX
+97  0.187  52%  4%  MSFT
+1  -0.184  53%  108%  LPL
+5  -0.180  68%  196%  HLF
+100  0.165  50%  0%  AAPL
+70  0.000  100%  0%  0P0000XV9S.BO
+16  0.031  100%  56%  2223.SR
+100  0.127  85%  0%  BTC-EUR
+98  0.054  81%  11%  ADA-EUR
+100  0.115  71%  0%  ETH-EUR
+98  -0.009  7%  0%  EUR=X
+93  0.183  100%  5%  GC=F
+17  -0.037  100%  32%  CL=F
+0  0.080  60%  152%  CE
