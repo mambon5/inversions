@@ -24,3 +24,4 @@ int calcularDiesEntreDates(Date dt1, Date dt2);
 int DiesEntreDates(const std::string & date1, const std::string & date2);
 std::string getCurrentDate();
 std::string yesterday();
+string today();

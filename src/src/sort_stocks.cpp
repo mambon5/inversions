@@ -17,7 +17,7 @@ using namespace std;
 // g++ time_utils.cpp curl_utils.cpp quote.cpp spot.cpp dates.cpp textProcess.cpp sort_stocks.cpp -o sort_stock_groups -lcurl
 
 
-string date = yesterday();
+string date = today();
 string dir = "/var/www/inversions/output/";
 string slope_file_sufix ="stocks_slope_percent_"; 
 string inpFile =  dir + slope_file_sufix + date+".csv";

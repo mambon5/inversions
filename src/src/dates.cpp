@@ -98,3 +98,20 @@ string yesterday() {
     strftime(buffer, sizeof(buffer), "%Y-%m-%d", currentTime);
     return buffer;
 }
+
+string today() {
+    // Obtener la fecha y hora actual
+    time_t now = time(0);
+    struct tm *currentTime = localtime(&now);
+
+    // Restar 0 días (0 horas) a la fecha actual
+    currentTime->tm_mday -= 0;
+
+    // Volver a normalizar la estructura tm
+    mktime(currentTime);
+
+    // Formatear la fecha en el formato deseado
+    char buffer[11];  // Suficiente espacio para "YYYY-MM-DD" y el carácter nulo
+    strftime(buffer, sizeof(buffer), "%Y-%m-%d", currentTime);
+    return buffer;
+}
