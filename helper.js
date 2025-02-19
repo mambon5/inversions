@@ -16,7 +16,6 @@ function escriuAccions(filenameSufix, elementId, ext) { // After the HTML conten
         dies = ["Diumenge", "Dilluns", "Dimarts", "Dimecres", "Dijous", "Divendres", "Dissabte"];
         // escriu els dies excepte per caps de setmana, ja que no hi ha canvis de borsa gairebé, els findes
         nom = dia + " " + dies[data.getDay()]
-        dia = dia + 1 // sumem 1 perquè si mostrem dimarts 19 al html, això es refereix a les accions del dia 18
         filename = filenameSufix+dia + "."+ext
         if(data.getDay() != 6 && data.getDay() != 0) escriu_link(nom, filename, elementId);
       } 
