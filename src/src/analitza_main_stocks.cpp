@@ -32,7 +32,7 @@ vector<std::string> main_ticks = {"WFGDX" ,"^IXIC", "^GSPC", "^DJI", "META",
 "NFLX", "MSFT",
 "LPL", "HLF", "AAPL", "0P0000XV9S.BO","2223.SR",
 "BTC-EUR", "ADA-EUR", "ETH-EUR", "EUR=X", "GC=F", "CL=F",
- "CE"};
+ "CE","KRUS","ANF","DG3.BE","RDDT","VVVNF"};
 
 int main() {
     PrintMainStocks(main_ticks, file);
