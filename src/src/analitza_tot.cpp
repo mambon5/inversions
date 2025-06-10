@@ -54,6 +54,16 @@ void outputPercentSlope(const int & elems) {
     //  2. Tria una data inicial i final
     //  3. 
 
+    // afegirm millora per guardar almenys 1 fitxer per mes per tenir un històric:
+    // Estratègia:
+    // - Llistar tots els fitxers amb el sufix.
+    // - Extreure la data de cadascun.
+    // - Agrupar per mes (yyyy-mm).
+    // - Per cada mes, identificar el fitxer més antic i marcar-lo com “a conservar”.
+    // - Només eliminar els fitxers que:
+    //     - Són més antics que daysOld.
+    //     - I no són el fitxer més antic del seu mes.
+
     
     
     cout << "escriu el nombre de tickers que vols llegir:" << endl;

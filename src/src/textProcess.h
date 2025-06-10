@@ -68,7 +68,7 @@ void WriteToFile(const vector<std::string>& tickers, const std::string& outputFi
 string vectorDoubleToString(const vector<double>& vector);
 string ExtractDateFromFile(const string& filename);
 bool TodayFileExists(const string& dirname, const string& filenameSuffix);
-void DeleteOlderFiles(const string& dirname, const string& filenameSuffix, const int& daysOld, bool printAll=true);
+void DeleteOlderFiles(const string& dirname, const string& filenameSuffix, const int& daysOld, bool printAll=true, bool keepMonthly=true);
 
 vector<std::string> getLastSearchGroup();
 int getLastFileNumber();

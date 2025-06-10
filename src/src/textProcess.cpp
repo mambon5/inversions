@@ -315,11 +315,12 @@ bool TodayFileExists(const string & dirname, const string & filenameSuffix) {
     return false;
 }
 
-void DeleteOlderFiles(const string & dirname, const string & filenameSuffix, const int & daysOld, bool printAll) {
+void DeleteOlderFiles(const string & dirname, const string & filenameSuffix, const int & daysOld, bool printAll, bool keepMonthly) {
     // This function: 
     //  1. gets the file names containing the filenameSuffix.
     //  2. Checks its date (which should be in format yyyy-mm-dd and be in the filename after the suffix)
     //  3. returns the files that are older than the given number of days daysOld
+    //  4. Només elimina els fitxer antics, i no elimina els que estan entre els dies 1 i 3 de cada mes, per tenir un històric.
 
 
    DIR *dr;
@@ -345,6 +346,16 @@ void DeleteOlderFiles(const string & dirname, const string & filenameSuffix, con
             if(printAll) cout << "Han passat " << dies << " dies entre la data del fitxer i avui" << endl;
             
             if(daysOld < dies) {
+                 // No eliminar si la data està entre el dia 1 i 3 del mes
+                 if(keepMonthly){
+                    int dia = stoi(date.substr(8, 2)); // extreu el dia (format yyyy-mm-dd)
+                    if (dia >= 1 && dia <= 3) {
+                        if (printAll) cout << "Fitxer " << filename << " no esborra perquè és entre el dia 1 i 3 del mes" << endl;
+                        continue; // salta a la següent iteració
+                    }
+                 }
+               
+
                 // delete file if it is older than daysOld days.
                 string file = dirname + filename;
                 int res = remove(file.c_str());
