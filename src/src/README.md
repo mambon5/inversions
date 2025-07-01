@@ -196,6 +196,8 @@ AnaliTotTicks.service
 AnaliTotTicks.timer
 AnaliMainTicks.service
 AnaliMainTicks.timer
+SortBestStocks.service
+SortBestStocks.timer
 ```
 
 A la carpeta `/etc/systemd/system/`. Un cop copiats cal entrar a dita carpeta i executar:
@@ -203,6 +205,7 @@ A la carpeta `/etc/systemd/system/`. Un cop copiats cal entrar a dita carpeta i 
 ```
 systemd-analyze verify AnaliTotTicks.*
 systemd-analyze verify AnaliMainTicks.*
+systemd-analyze verify SortBestStocks.*
 ```
 Per veure que no continguin cap error,
 
