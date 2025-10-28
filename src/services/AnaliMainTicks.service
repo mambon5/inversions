@@ -2,4 +2,4 @@
 Description="Get current daily percentile of main stock values"
 
 [Service]
-ExecStart=/var/www/inversions/src/src/starter_main_stocks.sh
+ExecStart=/var/www/inversions/src/scripts/starter_main_stocks.sh

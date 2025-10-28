@@ -2,4 +2,4 @@
 Description="Sort best stocks from previous day"
 
 [Service]
-ExecStart=/var/www/inversions/src/src/starter_sort_best.sh
+ExecStart=/var/www/inversions/src/scripts/starter_sort_best.sh
