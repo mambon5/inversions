@@ -25,3 +25,4 @@ int DiesEntreDates(const std::string & date1, const std::string & date2);
 std::string getCurrentDate();
 std::string yesterday();
 string today();
+string getDateTwoYearsAgo(const string& currentDate);

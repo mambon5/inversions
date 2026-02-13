@@ -84,7 +84,9 @@ void outputPercentSlope(const int & elems) {
 
 
     bool printAll=false;
-    string initialDate = "2023-01-01";
+    // string initialDate = "2023-01-01";
+    string initialDate = getDateTwoYearsAgo(currentDate); // dos anys enrere
+
 
     cout << "initial date: " << initialDate << ", " << "Fecha actual: " << currentDate << endl;
     outputFile << "initial date: " << initialDate << ", " << "Fecha actual: " << currentDate << endl;

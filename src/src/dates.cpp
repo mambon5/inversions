@@ -115,3 +115,12 @@ string today() {
     strftime(buffer, sizeof(buffer), "%Y-%m-%d", currentTime);
     return buffer;
 }
+
+
+
+string getDateTwoYearsAgo(const string& currentDate) {
+    int year = stoi(currentDate.substr(0,4));
+    string rest = currentDate.substr(4); // "-MM-DD"
+    year -= 2;
+    return to_string(year) + rest;
+}
