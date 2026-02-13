@@ -25,29 +25,36 @@ string stats_file_sufix ="stocks_sorted_stats_"; // don't change this suffix wit
 string outFile = dir + stats_file_sufix + date + ".txt";
 
 
-void showBestStocks(const string & inp_file) { //read from csv created in function outputPercentSlope()
-// show the best performing stocks, selecting by minimal anual percentile, and max daily parameters from linear regression over 1 year time.
+void showBestStocks(const string & inp_file) {
 
     vector<double> percents;
-    vector<vector<double>> slope_00, slope_01, slope_02, slope_03;
+
+    // ✅ afegit slope_neg
+    vector<vector<double>> slope_neg, slope_00, slope_01, slope_02, slope_03;
+
     double percent, slope, volatil, guanyMax;
-    vector<vector<string>> triplets = readCsvToMatrix(inp_file, 5); // cinc columnes per fila
+    vector<vector<string>> triplets = readCsvToMatrix(inp_file, 5);
+
     cout << "numero de files de la matriu: " << LenghtOfMatStr(triplets) << endl;
     cout << "numero de columnes de la matriu: " << LenghtOfVectorStr(triplets[0]) << endl;
 
     double index = 0;
     vector<string> tickers;
+
     for(vector<string> tripletString : triplets) {
 
         percent = stod(tripletString[0]);
         slope = stod(tripletString[1]);
         volatil = stod(tripletString[2]);
         guanyMax = stod(tripletString[3]);
-        tickers.push_back(tripletString[4]); // guardant els stock tickers
+        tickers.push_back(tripletString[4]);
 
         vector<double> triplet = {percent, slope, volatil, guanyMax, index};
 
-        if(slope >= 0 && slope < 0.1) {
+        // ✅ nou grup negatiu
+        if(slope >= -0.2 && slope < 0.0) {
+            slope_neg.push_back(triplet);
+        } else if(slope >= 0 && slope < 0.1) {
             slope_00.push_back(triplet);
         } else if(slope >= 0.1 && slope < 0.2) {
             slope_01.push_back(triplet);
@@ -56,10 +63,14 @@ void showBestStocks(const string & inp_file) { //read from csv created in functi
         } else if(slope >= 0.3) {
             slope_03.push_back(triplet);
         }
+
         index = index + 1;
     }
 
     WriteToFileSimple("showing best stocks: ",outFile);
+
+    // ✅ mida del nou grup
+    WriteToFileSimple("size of slope_neg: " + to_string(size(slope_neg)),outFile);
     WriteToFileSimple("size of slope_00: " + to_string(size(slope_00)),outFile);
     WriteToFileSimple("size of slope_01: " + to_string(size(slope_01)),outFile);
     WriteToFileSimple("size of slope_02: " + to_string(size(slope_02)),outFile);
@@ -71,6 +82,12 @@ void showBestStocks(const string & inp_file) { //read from csv created in functi
     WriteToFileSimple("Output format: ",outFile);
     WriteToFileSimple("percentile(%) - yearly slope - volatility(%) - guanyMax(%) - yfin ticker ",outFile);
     WriteToFileSimple("",outFile);
+
+    // ✅ imprimir nou grup primer
+    vD_sortBy2Col(slope_neg);
+    WriteToFileSimple("showing sorted elements of vector slope_neg (-0.2 <= slope < 0.0): ",outFile);
+    Write2Dvector_firstFew(slope_neg, tickers, outFile, showFirst);
+
     vD_sortBy2Col(slope_00);
     WriteToFileSimple("showing sorted elements of vector slope_00: ",outFile);
     Write2Dvector_firstFew(slope_00, tickers, outFile, showFirst);
@@ -87,6 +104,7 @@ void showBestStocks(const string & inp_file) { //read from csv created in functi
     WriteToFileSimple("showing sorted elements of vector slope_03: ",outFile);
     Write2Dvector_firstFew(slope_03, tickers, outFile, showFirst);
 }
+
 
 int main() {
       
