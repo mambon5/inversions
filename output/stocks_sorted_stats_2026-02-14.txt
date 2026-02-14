@@ -1,0 +1,114 @@
+showing best stocks: 
+size slope < -0.2: 0
+size -0.2 <= slope < -0.1: 0
+size -0.1 <= slope < 0: 0
+size slope_00: 84
+size slope_01: 189
+size slope_02: 1
+size slope_03: 1
+
+Output format: 
+percentile(%) - yearly slope - volatility(%) - guanyMax(%) - perduaMax(%) - yfin ticker 
+
+showing slope < -0.2: 
+showing -0.2 <= slope < -0.1: 
+showing -0.1 <= slope < 0: 
+showing slope_00: 
+0 - 0.002 - 100 - 278 - 0 - WIXN.MX
+0 - 0.069 - 64 - 175 - -2 - ODD
+0 - 0.029 - 62 - 164 - -0 - KVYO
+84 - 0.071 - 77 - 154 - -74 - ^VIX
+0 - 0.088 - 51 - 99 - -3 - PYPL.BA
+15 - 0.042 - 62 - 92 - -36 - LY0.F
+61 - 0.097 - 73 - 75 - -113 - CAR
+34 - 0.001 - 100 - 72 - -44 - 0HRR.L
+9 - 0.088 - 49 - 65 - -20 - ADSK.MX
+7 - 0.097 - 42 - 63 - -6 - SAP.DE
+17 - 0.011 - 57 - 63 - -43 - SHAK.MX
+6 - 0.087 - 39 - 54 - -7 - 1Q5.SG
+showing slope_01: 
+71 - 0.145 - 100 - 241 - -18 - GPRO.MX
+55 - 0.145 - 100 - 130 - -106 - NG=F
+57 - 0.144 - 69 - 110 - -52 - VVVNF
+42 - 0.155 - 67 - 105 - -48 - ORCL
+52 - 0.177 - 86 - 94 - -257 - RDDT
+30 - 0.139 - 59 - 83 - -34 - ARKB
+30 - 0.139 - 59 - 83 - -34 - IBIT
+47 - 0.146 - 79 - 79 - -167 - 3CP.MU
+37 - 0.158 - 59 - 74 - -40 - NFLX
+72 - 0.124 - 100 - 64 - -20 - ^CLTBLOUIS
+86 - 0.182 - 85 - 51 - -343 - LMND
+20 - 0.102 - 40 - 51 - -12 - ABT.MX
+showing slope_02: 
+99 - 0.203 - 82 - 2 - -458 - Y5C.SG
+showing slope_03: 
+60 - 18 - 3 - 1 - -2 - ABBNE.SW
+showing best stocks: 
+size slope < -0.2: 0
+size -0.2 <= slope < -0.1: 41
+size -0.1 <= slope < 0: 33
+size slope_00: 133
+size slope_01: 245
+size slope_02: 1
+size slope_03: 1
+
+Output format: 
+percentile(%) - yearly slope - volatility(%) - guanyMax(%) - perduaMax(%) - yfin ticker 
+
+showing slope < -0.2: 
+showing -0.2 <= slope < -0.1: 
+2 - -0.199 - 100 - 1.81323e+06 - -200 - BIGGQ
+2 - -0.191 - 92 - 1012 - -8 - 6OM.BE
+3 - -0.13 - 89 - 460 - -67 - PVGB.F
+13 - -0.19 - 81 - 337 - -18 - DG3.BE
+1 - -0.167 - 71 - 210 - -10 - MOH
+14 - -0.152 - 75 - 177 - -47 - NWL.SG
+5 - -0.175 - 73 - 177 - -34 - LTD0.BE
+8 - -0.168 - 61 - 126 - -12 - PVH.F
+38 - -0.185 - 73 - 120 - -71 - HTR.F
+0 - -0.121 - 56 - 118 - -5 - CRM.VI
+11 - -0.135 - 100 - 118 - -29 - 0HTQ.L
+0 - -0.171 - 51 - 103 - 0 - K6B.F
+showing -0.1 <= slope < 0: 
+26 - -0.087 - 100 - 329414 - -5 - ^CLTBPUDGY
+0 - -0.085 - 78 - 352 - -1 - FISV.VI
+12 - -0.037 - 59 - 94 - -26 - CHTR.MX
+63 - -0.09 - 66 - 62 - -83 - AWN.MU
+1 - -0.038 - 41 - 59 - -7 - MTT.MU
+0 - -0.097 - 37 - 56 - -2 - MSN.F
+8 - -0.075 - 49 - 54 - -26 - NTA.DU
+45 - -0.03 - 48 - 51 - -28 - O1KE34.SA
+11 - -0.032 - 38 - 51 - -7 - AWG.SG
+78 - -0.015 - 65 - 49 - -95 - VFC.VI
+7 - -0.088 - 37 - 47 - -8 - AB4.F
+23 - -0.089 - 44 - 45 - -24 - HO2.BE
+showing slope_00: 
+0 - 0 - 81 - 337 - -18 - SPR
+0 - 0.002 - 100 - 278 - 0 - WIXN.MX
+0 - 0 - 71 - 210 - -10 - DC7.BE
+0 - 0.069 - 64 - 175 - -2 - ODD
+0 - 0.029 - 62 - 164 - -0 - KVYO
+84 - 0.071 - 77 - 154 - -74 - ^VIX
+55 - 0.041 - 79 - 107 - -135 - GME
+0 - 0.088 - 51 - 99 - -3 - PYPL.BA
+15 - 0.042 - 62 - 92 - -36 - LY0.F
+61 - 0.097 - 73 - 75 - -113 - CAR
+34 - 0.001 - 100 - 72 - -44 - 0HRR.L
+9 - 0.088 - 49 - 65 - -20 - ADSK.MX
+showing slope_01: 
+71 - 0.145 - 100 - 241 - -18 - GPRO.MX
+55 - 0.145 - 100 - 130 - -106 - NG=F
+57 - 0.144 - 69 - 110 - -52 - VVVNF
+42 - 0.155 - 67 - 105 - -48 - ORCL
+52 - 0.177 - 86 - 94 - -257 - RDDT
+30 - 0.139 - 59 - 83 - -34 - IBIT
+30 - 0.139 - 59 - 83 - -34 - ARKB
+47 - 0.146 - 79 - 79 - -167 - 3CP.MU
+37 - 0.158 - 59 - 74 - -40 - NFLX
+15 - 0.1 - 48 - 65 - -18 - GAV.F
+72 - 0.124 - 100 - 64 - -20 - ^CLTBLOUIS
+86 - 0.182 - 85 - 51 - -343 - LMND
+showing slope_02: 
+99 - 0.203 - 82 - 2 - -458 - Y5C.SG
+showing slope_03: 
+60 - 18 - 3 - 1 - -2 - ABBNE.SW

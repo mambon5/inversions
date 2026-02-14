@@ -113,16 +113,15 @@ void outputPercentSlope(const int & elems) {
         cout << "last year vals done" << endl;
         // cout << "slope: " << slope <<", percentile: " << percent << "%" << endl;
         // only print stocks with increasing trend in last year
-        if(slope>0) {            
-            string line = PrintNumberWithXDecimalsDoub(percent,0) + "," + 
-                PrintNumberWithXDecimalsDoub(slope,3) + "," + 
-                PrintNumberWithXDecimalsDoub(volatil,0) + "," + 
-                PrintNumberWithXDecimalsDoub(guanyMax,0) + "," + 
-                PrintNumberWithXDecimalsDoub(perduaMax,0) + "," + tick;
-            WriteToFileSimple(line, slope_file); // write results of pertile analysis
-            cout << percent << ", " << PrintNumberWithXDecimalsDoub(slope,3) << ", " << PrintNumberWithXDecimalsDoub(volatil,0) << "%, " 
-            << PrintNumberWithXDecimalsDoub(guanyMax,0) << "%, " << PrintNumberWithXDecimalsDoub(perduaMax,0) << "%, " << tick << endl;
-        }
+        string line = PrintNumberWithXDecimalsDoub(percent,0) + "," + 
+            PrintNumberWithXDecimalsDoub(slope,3) + "," + 
+            PrintNumberWithXDecimalsDoub(volatil,0) + "," + 
+            PrintNumberWithXDecimalsDoub(guanyMax,0) + "," + 
+            PrintNumberWithXDecimalsDoub(perduaMax,0) + "," + tick;
+        WriteToFileSimple(line, slope_file); // write results of pertile analysis
+        cout << percent << ", " << PrintNumberWithXDecimalsDoub(slope,3) << ", " << PrintNumberWithXDecimalsDoub(volatil,0) << "%, " 
+        << PrintNumberWithXDecimalsDoub(guanyMax,0) << "%, " << PrintNumberWithXDecimalsDoub(perduaMax,0) << "%, " << tick << endl;
+
         WriteToFileOver(tick, lastTicker); // write tickername in  file after analizing it
         index++;
     }
