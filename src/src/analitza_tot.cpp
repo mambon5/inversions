@@ -95,7 +95,7 @@ void outputPercentSlope(const int & elems) {
     cout << "percentil(%)  -  pendent anual  - volatilitat(%) - guany esperat(%) - etiqueta " << endl;
     outputFile << "percentil(%)  -  pendent anual  - volatilitat(%) - guany esperat(%) - etiqueta " << endl;
     vector<double> percents;
-    double percent, slope, volatil, guanyMax;
+    double percent, slope, volatil, guanyMax, perduaMax;
     double index = 0;
 
     // tickers = {"0094.Z"};
@@ -109,7 +109,7 @@ void outputPercentSlope(const int & elems) {
         
         cout << endl << "#### " << tick << ": " << endl;
         cout << "analizing tickers... " << (index+1)/size(tickers)*100 << "%"<< endl;
-        GetLastYearVals(tick, currentDate, slope, percent,  volatil, guanyMax, true, initialDate);
+        GetLastYearVals(tick, currentDate, slope, percent,  volatil, guanyMax, perduaMax, true, initialDate);
         cout << "last year vals done" << endl;
         // cout << "slope: " << slope <<", percentile: " << percent << "%" << endl;
         // only print stocks with increasing trend in last year
@@ -117,10 +117,11 @@ void outputPercentSlope(const int & elems) {
             string line = PrintNumberWithXDecimalsDoub(percent,0) + "," + 
                 PrintNumberWithXDecimalsDoub(slope,3) + "," + 
                 PrintNumberWithXDecimalsDoub(volatil,0) + "," + 
-                PrintNumberWithXDecimalsDoub(guanyMax,0) + "," + tick;
+                PrintNumberWithXDecimalsDoub(guanyMax,0) + "," + 
+                PrintNumberWithXDecimalsDoub(perduaMax,0) + "," + tick;
             WriteToFileSimple(line, slope_file); // write results of pertile analysis
             cout << percent << ", " << PrintNumberWithXDecimalsDoub(slope,3) << ", " << PrintNumberWithXDecimalsDoub(volatil,0) << "%, " 
-            << PrintNumberWithXDecimalsDoub(guanyMax,0) << "%, " << tick << endl;
+            << PrintNumberWithXDecimalsDoub(guanyMax,0) << "%, " << PrintNumberWithXDecimalsDoub(perduaMax,0) << "%, " << tick << endl;
         }
         WriteToFileOver(tick, lastTicker); // write tickername in  file after analizing it
         index++;

@@ -221,7 +221,7 @@ const std::string& outputFile, int show){
     }
     for (vector<double> vect : matrix) {
         if(show==0) return;
-        outFile << vect[0] << " - " << vect[1] << " - " << vect[2] << " - " << vect[3] << " - " << strings[int(vect[4])] << endl;
+        outFile << vect[0] << " - " << vect[1] << " - " << vect[2] << " - " << vect[3] << " - " << vect[4] << " - " << strings[int(vect[5])] << endl;
         show --;
     }
     outFile.close();

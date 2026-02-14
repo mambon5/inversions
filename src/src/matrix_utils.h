@@ -50,6 +50,41 @@ double guanymaxim(vector<double>& valors) {
     return guany;
 }
 
+double perduamaxima(vector<double>& valors) {
+
+    if(valors.size() < 2) return -1; // NAN
+
+    // busca últim valor vàlid (>0)
+    double val_actual = -1;
+    for(int i = valors.size()-1; i >= 0; i--) {
+        if(std::isfinite(valors[i]) && valors[i] > 0) {
+            val_actual = valors[i];
+            break;
+        }
+    }
+
+    if(val_actual <= 0) return -1; // evita divisió per zero
+
+    // busca mínim vàlid
+    double mini = 999999999; // valor molt gran inicial
+    bool foundObj = false;
+    for(double v : valors) {
+        if(std::isfinite(v) && v > 0 && v < mini) {
+            mini = v;
+            foundObj = true;
+        }
+    }
+
+    if(!foundObj) return -1;
+
+    double perdua = 100 * (1 - val_actual / mini);
+
+    // evita infinits o números absurds
+    if(!std::isfinite(perdua)) return -1;
+
+    return perdua;
+}
+
 
 // antic codi amb errors de INF
 // double guanymaxim(vector<double>& valors) {

@@ -29,11 +29,12 @@ void showBestStocks(const string & inp_file) {
 
     vector<double> percents;
 
-    // ✅ afegit slope_neg
-    vector<vector<double>> slope_neg, slope_00, slope_01, slope_02, slope_03;
+    // ✅ nous grups negatius
+    vector<vector<double>> slope_neg2, slope_neg1, slope_neg0;
+    vector<vector<double>> slope_00, slope_01, slope_02, slope_03;
 
-    double percent, slope, volatil, guanyMax;
-    vector<vector<string>> triplets = readCsvToMatrix(inp_file, 5);
+    double percent, slope, volatil, guanyMax, perduaMax;
+    vector<vector<string>> triplets = readCsvToMatrix(inp_file, 6);
 
     cout << "numero de files de la matriu: " << LenghtOfMatStr(triplets) << endl;
     cout << "numero de columnes de la matriu: " << LenghtOfVectorStr(triplets[0]) << endl;
@@ -47,13 +48,18 @@ void showBestStocks(const string & inp_file) {
         slope = stod(tripletString[1]);
         volatil = stod(tripletString[2]);
         guanyMax = stod(tripletString[3]);
-        tickers.push_back(tripletString[4]);
+        perduaMax = stod(tripletString[4]);
+        tickers.push_back(tripletString[5]);
 
-        vector<double> triplet = {percent, slope, volatil, guanyMax, index};
+        vector<double> triplet = {percent, slope, volatil, guanyMax, perduaMax, index};
 
-        // ✅ nou grup negatiu
-        if(slope >= -0.2 && slope < 0.0) {
-            slope_neg.push_back(triplet);
+        // ✅ classificació nova
+        if(slope < -0.2) {
+            slope_neg2.push_back(triplet);
+        } else if(slope >= -0.2 && slope < -0.1) {
+            slope_neg1.push_back(triplet);
+        } else if(slope >= -0.1 && slope < 0.0) {
+            slope_neg0.push_back(triplet);
         } else if(slope >= 0 && slope < 0.1) {
             slope_00.push_back(triplet);
         } else if(slope >= 0.1 && slope < 0.2) {
@@ -69,41 +75,53 @@ void showBestStocks(const string & inp_file) {
 
     WriteToFileSimple("showing best stocks: ",outFile);
 
-    // ✅ mida del nou grup
-    WriteToFileSimple("size of slope_neg: " + to_string(size(slope_neg)),outFile);
-    WriteToFileSimple("size of slope_00: " + to_string(size(slope_00)),outFile);
-    WriteToFileSimple("size of slope_01: " + to_string(size(slope_01)),outFile);
-    WriteToFileSimple("size of slope_02: " + to_string(size(slope_02)),outFile);
-    WriteToFileSimple("size of slope_03: " + to_string(size(slope_03)),outFile);
+    // ✅ mides dels grups
+    WriteToFileSimple("size slope < -0.2: " + to_string(size(slope_neg2)),outFile);
+    WriteToFileSimple("size -0.2 <= slope < -0.1: " + to_string(size(slope_neg1)),outFile);
+    WriteToFileSimple("size -0.1 <= slope < 0: " + to_string(size(slope_neg0)),outFile);
+    WriteToFileSimple("size slope_00: " + to_string(size(slope_00)),outFile);
+    WriteToFileSimple("size slope_01: " + to_string(size(slope_01)),outFile);
+    WriteToFileSimple("size slope_02: " + to_string(size(slope_02)),outFile);
+    WriteToFileSimple("size slope_03: " + to_string(size(slope_03)),outFile);
 
-    int showFirst=12;
+    int showFirst = 12;
 
     WriteToFileSimple("",outFile);
     WriteToFileSimple("Output format: ",outFile);
-    WriteToFileSimple("percentile(%) - yearly slope - volatility(%) - guanyMax(%) - yfin ticker ",outFile);
+    WriteToFileSimple("percentile(%) - yearly slope - volatility(%) - guanyMax(%) - perduaMax(%) - yfin ticker ",outFile);
     WriteToFileSimple("",outFile);
 
-    // ✅ imprimir nou grup primer
-    vD_sortBy2Col(slope_neg);
-    WriteToFileSimple("showing sorted elements of vector slope_neg (-0.2 <= slope < 0.0): ",outFile);
-    Write2Dvector_firstFew(slope_neg, tickers, outFile, showFirst);
+    // ✅ imprimir negatius forts
+    vD_sortBy2Col(slope_neg2);
+    WriteToFileSimple("showing slope < -0.2: ",outFile);
+    Write2Dvector_firstFew(slope_neg2, tickers, outFile, showFirst);
 
+    vD_sortBy2Col(slope_neg1);
+    WriteToFileSimple("showing -0.2 <= slope < -0.1: ",outFile);
+    Write2Dvector_firstFew(slope_neg1, tickers, outFile, showFirst);
+
+    vD_sortBy2Col(slope_neg0);
+    WriteToFileSimple("showing -0.1 <= slope < 0: ",outFile);
+    Write2Dvector_firstFew(slope_neg0, tickers, outFile, showFirst);
+
+    // ✅ positius (igual que abans)
     vD_sortBy2Col(slope_00);
-    WriteToFileSimple("showing sorted elements of vector slope_00: ",outFile);
+    WriteToFileSimple("showing slope_00: ",outFile);
     Write2Dvector_firstFew(slope_00, tickers, outFile, showFirst);
 
     vD_sortBy2Col(slope_01);
-    WriteToFileSimple("showing sorted elements of vector slope_01: ",outFile);
+    WriteToFileSimple("showing slope_01: ",outFile);
     Write2Dvector_firstFew(slope_01, tickers, outFile, showFirst);
 
     vD_sortBy2Col(slope_02);
-    WriteToFileSimple("showing sorted elements of vector slope_02: ",outFile);
+    WriteToFileSimple("showing slope_02: ",outFile);
     Write2Dvector_firstFew(slope_02, tickers, outFile, showFirst);
 
     vD_sortBy2Col(slope_03);
-    WriteToFileSimple("showing sorted elements of vector slope_03: ",outFile);
+    WriteToFileSimple("showing slope_03: ",outFile);
     Write2Dvector_firstFew(slope_03, tickers, outFile, showFirst);
 }
+
 
 
 int main() {
