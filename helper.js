@@ -73,7 +73,7 @@ async function renderReportPage(fileName) {
 
 function parseCsvReport(text) {
   const lines = text.trim().split('\n');
-  const headers = ["Percentil", "Pendent", "Volatilitat", "Guany Max", "Perdua Max", "Ticker"];
+  const headers = ["Percentil", "Pendent", "Volatilitat", "Guany esperat", "Perdua esperada", "Ticker"];
   const rows = [];
 
   // Skip potential header lines in the CSV if they exist
@@ -109,10 +109,10 @@ function normalizeLabel(label) {
 
 function parseStatsReport(text) {
   const lines = text.split('\n');
-  const headers = ["%", "Pendent", "Volat.", "Guany", "Perdua", "Ticker"];
-  const rows = [];
+  const headers = ["Percentil", "Pendent", "Volat.", "Guany esperat", "Perdua esperada", "Ticker"];
+  const groups = [];
   const summary = [];
-  const seenCategories = new Set();
+  let currentGroup = null;
 
   lines.forEach(line => {
     let trimmed = line.trim();
@@ -143,15 +143,20 @@ function parseStatsReport(text) {
       if (trimmed.includes('best stocks')) return;
       const label = "showing " + normalizeLabel(trimmed) + ":";
 
-      // Only add category if we haven't seen it yet (prevents duplicates from messy files)
-      if (!seenCategories.has(label)) {
-        rows.push({ name: label, isCategory: true });
-        seenCategories.add(label);
-      }
+      currentGroup = {
+        name: label,
+        rows: [],
+        visibleCount: 10
+      };
+      groups.push(currentGroup);
     } else if (trimmed.includes(' - ')) {
       const parts = trimmed.split(' - ').map(p => p.trim());
       if (parts.length >= 6) {
-        rows.push({
+        if (!currentGroup) {
+          currentGroup = { name: "Altres", rows: [], visibleCount: 10 };
+          groups.push(currentGroup);
+        }
+        currentGroup.rows.push({
           values: parts,
           isCategory: false
         });
@@ -159,7 +164,7 @@ function parseStatsReport(text) {
     }
   });
 
-  return { headers, rows, summary };
+  return { headers, groups, summary };
 }
 
 let currentTableData = null;
@@ -179,57 +184,86 @@ function renderTable(data) {
   }
 
   const head = document.getElementById('table-head');
-  const body = document.getElementById('table-body');
-
   head.innerHTML = `<tr>${data.headers.map((h, i) => `<th onclick="sortTable(${i})">${h}</th>`).join('')}</tr>`;
 
-  renderRows(data.rows);
+  renderGroups();
 }
 
-function renderRows(rows) {
+function renderGroups() {
   const body = document.getElementById('table-body');
   body.innerHTML = '';
 
-  rows.forEach(row => {
-    const tr = document.createElement('tr');
-    if (row.isCategory) {
-      tr.innerHTML = `<td colspan="${currentTableData.headers.length}" class="category-header">${row.name}</td>`;
-    } else {
+  currentTableData.groups.forEach((group, groupIdx) => {
+    // Skip empty groups unless they are special
+    if (group.rows.length === 0 && !group.name.includes("showing")) return;
+
+    // Category Header Row
+    const headerTr = document.createElement('tr');
+    headerTr.innerHTML = `<td colspan="${currentTableData.headers.length}" class="category-header">${group.name} (${group.rows.length} accions)</td>`;
+    body.appendChild(headerTr);
+
+    // Data Rows
+    const visibleRows = group.rows.slice(0, group.visibleCount);
+    visibleRows.forEach(row => {
+      const tr = document.createElement('tr');
       tr.innerHTML = row.values.map((v, i) => {
         let cellBody = v;
-        if (i === 1) { // Slope coloring
-          const val = parseFloat(v);
+        const val = parseFloat(v);
+
+        // Add % to Percentile, Volatility, Gain, Loss
+        if (i === 0 || i === 2 || i === 3 || i === 4) {
+          cellBody = `${v}%`;
+        }
+
+        if (i === 1) { // Slope coloring: Green > 0.1, Red < 0
           const colorClass = val > 0.1 ? 'badge-positive' : (val < 0 ? 'badge-negative' : '');
           cellBody = `<span class="badge ${colorClass}">${v}</span>`;
+        } else if (i === 3) { // Guany esperat coloring: Green > 50
+          if (val > 50) {
+            cellBody = `<span class="badge badge-positive">${v}%</span>`;
+          }
+        } else if (i === 4) { // Perdua esperada coloring: Red > 50 (abs)
+          if (Math.abs(val) > 50) {
+            cellBody = `<span class="badge badge-negative">${v}%</span>`;
+          }
         }
         return `<td>${cellBody}</td>`;
       }).join('');
+      body.appendChild(tr);
+    });
+
+    // Show More Row
+    if (group.rows.length > group.visibleCount) {
+      const moreTr = document.createElement('tr');
+      moreTr.innerHTML = `
+                <td colspan="${currentTableData.headers.length}" style="text-align: center; padding: 1rem;">
+                    <button class="badge" style="background: var(--primary); color: white; border: none; cursor: pointer; padding: 0.5rem 1.5rem;" onclick="showMore(${groupIdx})">
+                        Mostra més accions (+10)
+                    </button>
+                </td>
+            `;
+      body.appendChild(moreTr);
     }
-    body.appendChild(tr);
   });
 }
 
+function showMore(groupIdx) {
+  currentTableData.groups[groupIdx].visibleCount += 10;
+  renderGroups();
+}
+
 function sortTable(colIndex) {
-  // Only sort data rows, keep categories in place? 
-  // Usually it's better to flatten or just sort within categories.
-  // For simplicity, let's flatten data and sort all stocks together if requested
+  // Sort within each group
+  currentTableData.groups.forEach(group => {
+    if (group.rows.length === 0) return;
+    const isNumeric = !isNaN(parseFloat(group.rows[0].values[colIndex]));
 
-  const dataRows = currentTableData.rows.filter(r => !r.isCategory);
-  const isNumeric = !isNaN(parseFloat(dataRows[0].values[colIndex]));
-
-  dataRows.sort((a, b) => {
-    let valA = a.values[colIndex];
-    let valB = b.values[colIndex];
-
-    if (isNumeric) {
-      return parseFloat(valB) - parseFloat(valA); // Default Descending
-    }
-    return valA.localeCompare(valB);
+    group.rows.sort((a, b) => {
+      let valA = a.values[colIndex];
+      let valB = b.values[colIndex];
+      if (isNumeric) return parseFloat(valB) - parseFloat(valA);
+      return valA.localeCompare(valB);
+    });
   });
-
-  // When sorting, categories might lose meaning, so we show a "Sorted View"
-  renderRows([
-    { name: "Resultats Ordenats (Vista sense categories)", isCategory: true },
-    ...dataRows
-  ]);
+  renderGroups();
 }

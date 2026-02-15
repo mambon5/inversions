@@ -96,7 +96,7 @@ void showBestStocks(const string & inp_file) {
     WriteToFileSimple("size -0.2 <= slope < -0.1: " + to_string(size(slope_neg1)),outFile);
     WriteToFileSimple("size slope < -0.2: " + to_string(size(slope_neg2)),outFile);
 
-    int showFirst = 12;
+    int showFirst = 9999;
 
     WriteToFileSimple("",outFile);
     WriteToFileSimple("Output format: ",outFile);
