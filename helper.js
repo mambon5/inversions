@@ -52,7 +52,8 @@ async function renderReportPage(fileName) {
     titleEl.innerText = displayTitle;
     metaEl.innerText = `Fitxer: ${fileName}`;
 
-    const response = await fetch(fileName);
+    // Cache busting to ensure we get the latest data
+    const response = await fetch(fileName + '?t=' + new Date().getTime());
     if (!response.ok) throw new Error("File not found");
     const text = await response.text();
 
@@ -63,7 +64,7 @@ async function renderReportPage(fileName) {
     statusEl.style.display = 'none';
   } catch (err) {
     titleEl.innerText = "Error carregant l'informe";
-    metaEl.innerText = `No s'ha pogut trobar el fitxer: ${fileName}`;
+    metaEl.innerText = `No s'ha pogut trobar o processar el fitxer: ${fileName}`;
     statusEl.innerText = "Error";
     statusEl.className = "badge badge-negative";
     console.error(err);
@@ -89,11 +90,29 @@ function parseCsvReport(text) {
   return { headers, rows };
 }
 
+function normalizeLabel(label) {
+  let l = label.toLowerCase()
+    .replace('showing ', '')
+    .replace('size ', '')
+    .replace(/:$/, '')
+    .trim();
+
+  // Map old labels to new ones
+  if (l === 'slope_00') return '0.0 <= slope < 0.1';
+  if (l === 'slope_01') return '0.1 <= slope < 0.2';
+  if (l === 'slope_02') return '0.2 <= slope < 0.3';
+  if (l === 'slope_03') return 'slope >= 0.3';
+
+  // Ensure consistent decimal points
+  return l.replace('< 0', '< 0.0');
+}
+
 function parseStatsReport(text) {
   const lines = text.split('\n');
   const headers = ["%", "Pendent", "Volat.", "Guany", "Perdua", "Ticker"];
   const rows = [];
   const summary = [];
+  const seenCategories = new Set();
 
   lines.forEach(line => {
     let trimmed = line.trim();
@@ -103,8 +122,9 @@ function parseStatsReport(text) {
     if (trimmed.toLowerCase().startsWith('size ')) {
       const parts = trimmed.split(':');
       if (parts.length === 2) {
+        const label = normalizeLabel(parts[0]);
         summary.push({
-          label: parts[0].replace('size ', '').trim(),
+          label: label,
           count: parts[1].trim()
         });
       }
@@ -121,8 +141,13 @@ function parseStatsReport(text) {
 
     if (trimmed.startsWith('showing ')) {
       if (trimmed.includes('best stocks')) return;
-      const label = trimmed.replace(/:$/, '').trim();
-      rows.push({ name: label, isCategory: true });
+      const label = "showing " + normalizeLabel(trimmed) + ":";
+
+      // Only add category if we haven't seen it yet (prevents duplicates from messy files)
+      if (!seenCategories.has(label)) {
+        rows.push({ name: label, isCategory: true });
+        seenCategories.add(label);
+      }
     } else if (trimmed.includes(' - ')) {
       const parts = trimmed.split(' - ').map(p => p.trim());
       if (parts.length >= 6) {
@@ -144,7 +169,7 @@ function renderTable(data) {
 
   // Render Summary
   const summaryEl = document.getElementById('report-summary');
-  if (summaryEl && data.summary) {
+  if (summaryEl && data.summary && data.summary.length > 0) {
     summaryEl.innerHTML = data.summary.map(s => `
             <div class="card" style="padding: 1rem; cursor: default;">
                 <span class="card-meta" style="font-size: 0.7rem; text-transform: uppercase;">${s.label}</span>
