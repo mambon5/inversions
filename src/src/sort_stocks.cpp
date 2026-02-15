@@ -51,6 +51,9 @@ void showBestStocks(const string & inp_file) {
         perduaMax = stod(tripletString[4]);
         tickers.push_back(tripletString[5]);
 
+        // ✅ filtre de dades buides (junk)
+        if(percent == 0 && slope == 0) continue;
+
         vector<double> triplet = {percent, slope, volatil, guanyMax, perduaMax, index};
 
         // ✅ classificació nova
@@ -73,7 +76,7 @@ void showBestStocks(const string & inp_file) {
         index = index + 1;
     }
 
-    WriteToFileSimple("showing best stocks: ",outFile);
+    WriteToFileOver("showing best stocks: ",outFile);
 
     // ✅ mides dels grups
     WriteToFileSimple("size slope < -0.2: " + to_string(size(slope_neg2)),outFile);
@@ -106,19 +109,19 @@ void showBestStocks(const string & inp_file) {
 
     // ✅ positius (igual que abans)
     vD_sortBy2Col(slope_00);
-    WriteToFileSimple("showing slope_00: ",outFile);
+    WriteToFileSimple("showing 0.0 <= slope < 0.1: ",outFile);
     Write2Dvector_firstFew(slope_00, tickers, outFile, showFirst);
 
     vD_sortBy2Col(slope_01);
-    WriteToFileSimple("showing slope_01: ",outFile);
+    WriteToFileSimple("showing 0.1 <= slope < 0.2: ",outFile);
     Write2Dvector_firstFew(slope_01, tickers, outFile, showFirst);
 
     vD_sortBy2Col(slope_02);
-    WriteToFileSimple("showing slope_02: ",outFile);
+    WriteToFileSimple("showing 0.2 <= slope < 0.3: ",outFile);
     Write2Dvector_firstFew(slope_02, tickers, outFile, showFirst);
 
     vD_sortBy2Col(slope_03);
-    WriteToFileSimple("showing slope_03: ",outFile);
+    WriteToFileSimple("showing slope >= 0.3: ",outFile);
     Write2Dvector_firstFew(slope_03, tickers, outFile, showFirst);
 }
 

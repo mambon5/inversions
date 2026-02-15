@@ -221,7 +221,12 @@ const std::string& outputFile, int show){
     }
     for (vector<double> vect : matrix) {
         if(show==0) return;
-        outFile << vect[0] << " - " << vect[1] << " - " << vect[2] << " - " << vect[3] << " - " << vect[4] << " - " << strings[int(vect[5])] << endl;
+        outFile << PrintNumberWithXDecimalsDoub(vect[0], 0) << " - " 
+                << PrintNumberWithXDecimalsDoub(vect[1], 3) << " - " 
+                << PrintNumberWithXDecimalsDoub(vect[2], 0) << " - " 
+                << PrintNumberWithXDecimalsDoub(vect[3], 0) << " - " 
+                << PrintNumberWithXDecimalsDoub(vect[4], 0) << " - " 
+                << strings[int(vect[5])] << endl;
         show --;
     }
     outFile.close();
