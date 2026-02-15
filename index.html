@@ -1,42 +1,45 @@
-<!doctype html>
-<html>
+<head>
   <meta charset="UTF-8">
-  <link rel="stylesheet" href="estil.css">
-  <head>
-   
-    
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Stock Analytics | Premium Dashboard</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700&display=swap">
+  <link rel="stylesheet" href="estil.css?v=1.1">
+</head>
 
-    <title>Accions de borsa</title>
-  </head>
-  <body onload="ompleLlistes()">
-    <center>
-    <p>Format dels resultats de l'ànalisi:
-      
-    <table class="styled-table">
-      <tr>
-        <td>percentil anual </td> 
-        <td>creixement diari (del percentil)</td> 
-        <td>etiqueta de l'acció de borsa.</td>
-      </tr>
-    </table>
-    </p>
-    <h3><a href="main_stocks.html">Accions principals</a></h3>
-    
+<body onload="ompleLlistes()">
+  <div class="container">
+    <header class="header-flex">
+      <h1>Stock Analytics</h1>
+      <a href="main_stocks.html" class="btn-back">Accions Principals</a>
+    </header>
 
-    
-    <h2>Anàlisi millors accions per dia:</h2>
-    
-  </center>
-    <ul id="llista2"></ul>
-    
-    <center>
-      <h2>Anàlisi complert per dia</h2>
-    </center>
-    <p>Cada fitxer de l'anàlisi complerta, pesa més o menys 1MB.</p>
-    <ul id="llista"></ul>
+    <section class="section">
+      <div class="header-flex">
+        <h2>Anàlisi de Millors Oportunitats</h2>
+        <span class="card-meta">Darrers 10 dies hàbils</span>
+      </div>
+      <div id="llista2" class="card-grid">
+        <!-- Cards will be injected here -->
+      </div>
+    </section>
 
+    <section class="section">
+      <div class="header-flex">
+        <h2>Anàlisi Complerta</h2>
+        <span class="card-meta">Fitxers de dades brutes (~1MB)</span>
+      </div>
+      <div id="llista" class="card-grid">
+        <!-- Cards will be injected here -->
+      </div>
+    </section>
 
-    <script src="https://requirejs.org/docs/release/2.3.5/minified/require.js"></script> 
-    <script src="helper.js"></script> 
-  </body>
+    <footer
+      style="margin-top: 4rem; padding-top: 2rem; border-top: 1px solid var(--border); color: var(--text-dim); font-size: 0.8rem;">
+      © 2026 Stock Inversions Analytics System
+    </footer>
+  </div>
+
+  <script src="helper.js?v=1.1"></script>
+</body>
+
 </html>

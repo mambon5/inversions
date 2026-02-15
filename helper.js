@@ -1,183 +1,210 @@
 
 function ompleLlistes() {
-    escriuAccions("output/stocks_slope_percent_", "llista","csv")
-    escriuAccions("output/stocks_sorted_stats_", "llista2","txt")
+  escriuAccions("output/stocks_slope_percent_", "llista", "csv");
+  escriuAccions("output/stocks_sorted_stats_", "llista2", "txt");
 }
 
-function escriuAccions(filenameSufix, elementId, ext) { // After the HTML content loads
+function escriuAccions(filenameSufix, elementId, ext) {
+  const list = document.getElementById(elementId);
+  if (!list) return;
 
-    for (let i = 0; i < 10; i++) {
-        let data = new Date();
-        var dateOffset = (24*60*60*1000) * i;
-        
-        data.setTime(data.getTime() - dateOffset);
-        var dia = formatejaData(data)
-        
-        dies = ["Diumenge", "Dilluns", "Dimarts", "Dimecres", "Dijous", "Divendres", "Dissabte"];
-        // escriu els dies excepte per caps de setmana, ja que no hi ha canvis de borsa gairebé, els findes
-        nom = dia + " " + dies[data.getDay()]
-        filename = filenameSufix+dia + "."+ext
-        if(data.getDay() != 6 && data.getDay() != 0) escriu_link(nom, filename, elementId);
-      } 
-    
-};
+  for (let i = 0; i < 15; i++) {
+    let data = new Date();
+    var dateOffset = (24 * 60 * 60 * 1000) * i;
+    data.setTime(data.getTime() - dateOffset);
+
+    if (data.getDay() === 0 || data.getDay() === 6) continue; // Skip weekends
+
+    const dia = formatejaData(data);
+    const nom = dia;
+    const filename = filenameSufix + dia + "." + ext;
+
+    const diesSetmana = ["Diumenge", "Dilluns", "Dimarts", "Dimecres", "Dijous", "Divendres", "Dissabte"];
+    const nomDia = diesSetmana[data.getDay()];
+
+    const card = document.createElement('div');
+    card.className = 'card';
+    card.onclick = () => window.location.href = `view_report.html?file=${filename}`;
+    card.innerHTML = `
+            <span class="card-title">${nomDia}, ${nom}</span>
+            <span class="card-meta">Prem per veure l'anàlisi</span>
+        `;
+    list.appendChild(card);
+  }
+}
 
 function formatejaData(data) {
-   
-    const offset = data.getTimezoneOffset()
-   
-    data = new Date(data.getTime() - (offset*60*1000));
-    
-    var dataForm = data.toISOString().split('T')[0]
-
-    
-
-    return dataForm;
+  const offset = data.getTimezoneOffset();
+  const d = new Date(data.getTime() - (offset * 60 * 1000));
+  return d.toISOString().split('T')[0];
 }
 
-function escriu_link(nom,filename, elementId) { // After the HTML content loads
-    let list = document.getElementById(elementId);
-    var inner = "";
+async function renderReportPage(fileName) {
+  const titleEl = document.getElementById('report-title');
+  const metaEl = document.getElementById('report-meta');
+  const statusEl = document.getElementById('loading-status');
 
-    inner += "<a href='"+filename +"'> accions dia " + nom + " </a>";
-    
-    let li = document.createElement('li');
-    li.innerHTML =inner;
-    list.appendChild(li); // Appends HTML to an element
-};
+  try {
+    const displayTitle = fileName.split('/').pop()
+      .replace('.txt', '').replace('.csv', '')
+      .replace(/_/g, ' ');
 
+    titleEl.innerText = displayTitle;
+    metaEl.innerText = `Fitxer: ${fileName}`;
 
-const output = document.getElementById('main_stocks')
+    const response = await fetch(fileName);
+    if (!response.ok) throw new Error("File not found");
+    const text = await response.text();
 
+    const isStats = fileName.includes('sorted_stats');
+    const data = isStats ? parseStatsReport(text) : parseCsvReport(text);
 
-// document.getElementById('file').onchange = function() {
-function carregaFitxer() {
-    var xhttp = new XMLHttpRequest();
-      xhttp.onreadystatechange = function() {
-        if (this.readyState == 4 && this.status == 200) {
-          // Typical action to be performed when the document is ready:
-          separaLinies(xhttp.responseText) //callback function
-          escrDates(xhttp.responseText) //callback function
-        }
-    };
-    xhttp.open("GET", "/output/pertiles.txt", true);
-    xhttp.send();
-};
-
-function escrDates(text){
-  var lines = text.split('\n');    // lines is an array of strings
-  descrip = document.getElementById("descr")
-
-  linia = lines[0].split(" ")
-  linia = linia.filter(item => item !== "") // deleting the stupid "" from the array
-  data1 = linia[2]
-
-  linia = lines[1].split(" ")
-  linia = linia.filter(item => item !== "") // deleting the stupid "" from the array
-  data2 = linia[2]
-
-  descrip.innerHTML = descrip.innerHTML +" "+ data1 + " --> " + data2;
+    renderTable(data);
+    statusEl.style.display = 'none';
+  } catch (err) {
+    titleEl.innerText = "Error carregant l'informe";
+    metaEl.innerText = `No s'ha pogut trobar el fitxer: ${fileName}`;
+    statusEl.innerText = "Error";
+    statusEl.className = "badge badge-negative";
+    console.error(err);
+  }
 }
 
-linies = [] // variable global on estan totes les accions
-cols = ["percentil actual", "creixement diari (del percentil)",
-   "volatilitat", "guany esperat",
-   "etiqueta de l'acció de borsa"] //variable global amb el nom de totes les columnes
+function parseCsvReport(text) {
+  const lines = text.trim().split('\n');
+  const headers = ["Percentil", "Pendent", "Volatilitat", "Guany Max", "Perdua Max", "Ticker"];
+  const rows = [];
 
-function separaLinies(text) {
-  var lines = text.split('\n');    // lines is an array of strings
-  linies = []
-
-  // Loop through all lines
-  for (var j = 0; j < lines.length; j++) {
-    linia = lines[j].split(' ')
-    linia = linia.filter(item => item !== "") // deleting the stupid "" from the array
-    if(!isNaN(linia[0])) {
-      linies.push(linia)      
+  // Skip potential header lines in the CSV if they exist
+  lines.forEach(line => {
+    const parts = line.split(',');
+    if (parts.length >= 6 && !isNaN(parseFloat(parts[0]))) {
+      rows.push({
+        values: parts.map(p => p.trim()),
+        isCategory: false
+      });
     }
-  }
-  
-  //ordena array:
-  linies.sort(ordenaMet1Array)
-  EscriuTaula(linies,cols,"taula")
+  });
+
+  return { headers, rows };
 }
 
-function ordenaCol(columna) {
-  if(columna == 0) linies.sort(ordenaPerCol0)
-  if(columna == 1) linies.sort(ordenaPerCol1)
-  if(columna == 2) linies.sort(ordenaPerCol2)
-  if(columna == 3) linies.sort(ordenaPerCol3)
-  if(columna == 4) linies.sort(ordenaPerCol4)
-  console.log("sorted out")
+function parseStatsReport(text) {
+  const lines = text.split('\n');
+  const headers = ["%", "Pendent", "Volat.", "Guany", "Perdua", "Ticker"];
+  const rows = [];
+  const summary = [];
 
-  EscriuTaula(linies,cols,"taula")
-}
+  lines.forEach(line => {
+    let trimmed = line.trim();
+    if (!trimmed) return;
 
-function EscriuTaula(array, nomCols, taulaId) {
-  //nomCols = array string amb noms de les m columnes
-  // array = matriu nxm amb n files 
-  //  taualID: id de la taula on escriure tota la mandanga
-
-  m = nomCols.length
-  taula = document.getElementById(taulaId)
-  taula.innerHTML = "";
-
-  // insert header
-    let row = taula.insertRow(-1); // Create an empty <tr> element and add it to the last position of the table:
-
-      for(let i=0; i<m; ++i) {
-        // Insert new cells (<td> elements) at the 1st and 2nd position of the "new" <tr> element:
-        var cell = row.insertCell(i);
-
-        // Add some text to the new cells:
-        cell.innerHTML = "<span onclick='ordenaCol("+i+")'>"+nomCols[i]+ "</span>";
+    // Extract summary counts
+    if (trimmed.toLowerCase().startsWith('size ')) {
+      const parts = trimmed.split(':');
+      if (parts.length === 2) {
+        summary.push({
+          label: parts[0].replace('size ', '').trim(),
+          count: parts[1].trim()
+        });
       }
-    
+      return;
+    }
 
-  // Loop through all lines
-  for (var j = 0; j < array.length; j++) {
-      let row = taula.insertRow(-1); // Create an empty <tr> element and add it to the last position of the table:
+    // Filter out metadata
+    if (trimmed.toLowerCase().startsWith('output format') ||
+      trimmed.includes('% - yearly') ||
+      trimmed.includes('percentile(%)') ||
+      trimmed.includes('yearly slope')) {
+      return;
+    }
 
-      for(let i=0; i<m; ++i) {
-        // Insert new cells (<td> elements) at the 1st and 2nd position of the "new" <tr> element:
-        var cell = row.insertCell(i);
-
-        // Add some text to the new cells:
-        cell.innerHTML = array[j][i];
+    if (trimmed.startsWith('showing ')) {
+      if (trimmed.includes('best stocks')) return;
+      const label = trimmed.replace(/:$/, '').trim();
+      rows.push({ name: label, isCategory: true });
+    } else if (trimmed.includes(' - ')) {
+      const parts = trimmed.split(' - ').map(p => p.trim());
+      if (parts.length >= 6) {
+        rows.push({
+          values: parts,
+          isCategory: false
+        });
       }
+    }
+  });
+
+  return { headers, rows, summary };
+}
+
+let currentTableData = null;
+
+function renderTable(data) {
+  currentTableData = data;
+
+  // Render Summary
+  const summaryEl = document.getElementById('report-summary');
+  if (summaryEl && data.summary) {
+    summaryEl.innerHTML = data.summary.map(s => `
+            <div class="card" style="padding: 1rem; cursor: default;">
+                <span class="card-meta" style="font-size: 0.7rem; text-transform: uppercase;">${s.label}</span>
+                <span class="card-title" style="margin: 0; font-size: 1.5rem; color: var(--primary);">${s.count}</span>
+            </div>
+        `).join('');
   }
+
+  const head = document.getElementById('table-head');
+  const body = document.getElementById('table-body');
+
+  head.innerHTML = `<tr>${data.headers.map((h, i) => `<th onclick="sortTable(${i})">${h}</th>`).join('')}</tr>`;
+
+  renderRows(data.rows);
 }
 
+function renderRows(rows) {
+  const body = document.getElementById('table-body');
+  body.innerHTML = '';
 
-function ordenaMet1Array(arr1, arr2) {
-  // ordenem l'array de la següent manera: la segona columna en blocs: 0, 0.1, 0.2, >0.3
-  // un cop en blocs, s'ordena ascendentment segons la quarta columna
-  if(Math.floor(parseFloat(arr1[1])*10)/10 == Math.floor(parseFloat(arr2[1])*10)/10) {
-    return parseFloat(arr1[3])<parseFloat(arr2[3]);
-  }
-  return Math.floor(parseFloat(arr1[1])*10)/10 < Math.floor(parseFloat(arr2[1])*10)/10
+  rows.forEach(row => {
+    const tr = document.createElement('tr');
+    if (row.isCategory) {
+      tr.innerHTML = `<td colspan="${currentTableData.headers.length}" class="category-header">${row.name}</td>`;
+    } else {
+      tr.innerHTML = row.values.map((v, i) => {
+        let cellBody = v;
+        if (i === 1) { // Slope coloring
+          const val = parseFloat(v);
+          const colorClass = val > 0.1 ? 'badge-positive' : (val < 0 ? 'badge-negative' : '');
+          cellBody = `<span class="badge ${colorClass}">${v}</span>`;
+        }
+        return `<td>${cellBody}</td>`;
+      }).join('');
+    }
+    body.appendChild(tr);
+  });
 }
 
-function ordenaPerCol0(arr1, arr2) {
-  return parseFloat(arr1[0]) > parseFloat(arr2[0])
-}
+function sortTable(colIndex) {
+  // Only sort data rows, keep categories in place? 
+  // Usually it's better to flatten or just sort within categories.
+  // For simplicity, let's flatten data and sort all stocks together if requested
 
-function ordenaPerCol1(arr1, arr2) {
-  return parseFloat(arr1[1]) < parseFloat(arr2[1])
-}
+  const dataRows = currentTableData.rows.filter(r => !r.isCategory);
+  const isNumeric = !isNaN(parseFloat(dataRows[0].values[colIndex]));
 
-function ordenaPerCol2(arr1, arr2) {
-  a = arr1[2].split("%")[0]
-  b = arr2[2].split("%")[0]
-  return parseFloat(a) < parseFloat(b)
-}
+  dataRows.sort((a, b) => {
+    let valA = a.values[colIndex];
+    let valB = b.values[colIndex];
 
-function ordenaPerCol3(arr1, arr2) {
-  a = arr1[3].split("%")[0]
-  b = arr2[3].split("%")[0]
-  return parseFloat(a) < parseFloat(b)
-}
+    if (isNumeric) {
+      return parseFloat(valB) - parseFloat(valA); // Default Descending
+    }
+    return valA.localeCompare(valB);
+  });
 
-function ordenaPerCol4(arr1, arr2) {
-  return arr1[4] < arr2[4]
+  // When sorting, categories might lose meaning, so we show a "Sorted View"
+  renderRows([
+    { name: "Resultats Ordenats (Vista sense categories)", isCategory: true },
+    ...dataRows
+  ]);
 }

@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="ca">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Report Viewer | Stock Analytics</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700&display=swap">
+    <link rel="stylesheet" href="estil.css?v=1.1">
+</head>
+
+<body>
+    <div class="container">
+        <header class="header-flex">
+            <div>
+                <a href="index.html"
+                    style="font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.5rem; display: block;">←
+                    Tornar al Dashboard</a>
+                <h1 id="report-title">Carregant Informe...</h1>
+                <p id="report-meta" class="card-meta"></p>
+            </div>
+            <div id="loading-status" class="badge">Processant...</div>
+        </header>
+
+        <div id="report-summary" class="section card-grid" style="margin-bottom: 2rem;">
+            <!-- Summary cards will be injected here -->
+        </div>
+
+        <div class="table-container">
+            <table class="styled-table" id="report-table">
+                <thead id="table-head">
+                    <!-- Headers injected here -->
+                </thead>
+                <tbody id="table-body">
+                    <!-- Data injected here -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script src="helper.js?v=1.1"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const fileName = urlParams.get('file');
+            if (fileName) {
+                renderReportPage(fileName);
+            } else {
+                document.getElementById('report-title').innerText = "Informe no trobat";
+            }
+        });
+    </script>
+</body>
+
+</html>
