@@ -64,7 +64,7 @@ double Spot::getClose() {
     return this->close;
 }
 
-double Spot::getVolume() {
+double Spot::getVolume() const {
     return this->volume;
 }
 

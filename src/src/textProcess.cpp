@@ -229,7 +229,9 @@ const std::string& outputFile, int show){
                 << PrintNumberWithXDecimalsDoub(vect[5], 0) << " - " 
                 << PrintNumberWithXDecimalsDoub(vect[6], 0) << " - " 
                 << PrintNumberWithXDecimalsDoub(vect[7], 0) << " - " 
-                << strings[int(vect[8])] << endl;
+                << PrintNumberWithXDecimalsDoub(vect[8], 1) << " - " 
+                << PrintNumberWithXDecimalsDoub(vect[9], 2) << " - " 
+                << strings[int(vect[10])] << endl;
         show --;
     }
     outFile.close();

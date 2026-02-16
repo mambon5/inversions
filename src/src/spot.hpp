@@ -85,7 +85,7 @@ public:
      * @return Price at closing
      */
     double getClose();
-    double getVolume();
+    double getVolume() const;
 
       /**
      * @brief Close price getter as const

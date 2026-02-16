@@ -34,8 +34,8 @@ void showBestStocks(const string & inp_file) {
     vector<vector<double>> slope_neg2, slope_neg1, slope_neg0;
     vector<vector<double>> slope_00, slope_01, slope_02, slope_03;
 
-    double percent, slope, slope_6m, slope_1m, slope_6d, volatil, guanyMax, perduaMax;
-    vector<vector<string>> triplets = readCsvToMatrix(inp_file, 9);
+    double percent, slope, slope_6m, slope_1m, slope_6d, volatil, guanyMax, perduaMax, rsi14, relVol30;
+    vector<vector<string>> triplets = readCsvToMatrix(inp_file, 11);
 
     cout << "numero de files de la matriu: " << LenghtOfMatStr(triplets) << endl;
     cout << "numero de columnes de la matriu: " << LenghtOfVectorStr(triplets[0]) << endl;
@@ -55,12 +55,14 @@ void showBestStocks(const string & inp_file) {
             volatil = stod(tripletString[5]);
             guanyMax = stod(tripletString[6]);
             perduaMax = stod(tripletString[7]);
-            string ticker = tripletString[8];
+            rsi14 = stod(tripletString[8]);
+            relVol30 = stod(tripletString[9]);
+            string ticker = tripletString[10];
 
             // ✅ filtre de dades buides (junk) o repetides
             if(percent == 0 && slope == 0) continue;
             
-            uniqueStocks[ticker] = {percent, slope, slope_6m, slope_1m, slope_6d, volatil, guanyMax, perduaMax};
+            uniqueStocks[ticker] = {percent, slope, slope_6m, slope_1m, slope_6d, volatil, guanyMax, perduaMax, rsi14, relVol30};
         } catch(...) {
             continue; // salta la línia si no es pot convertir a número (com la capçalera)
         }
@@ -71,7 +73,7 @@ void showBestStocks(const string & inp_file) {
     index = 0;
     for(auto const& [ticker, valors] : uniqueStocks) {
         tickers.push_back(ticker);
-        vector<double> triplet = {valors[0], valors[1], valors[2], valors[3], valors[4], valors[5], valors[6], valors[7], index};
+        vector<double> triplet = {valors[0], valors[1], valors[2], valors[3], valors[4], valors[5], valors[6], valors[7], valors[8], valors[9], index};
 
         // ✅ classificació nova (usant els mateixos rangs que a la visualització)
         if(triplet[1] < -0.2) {
@@ -107,7 +109,7 @@ void showBestStocks(const string & inp_file) {
 
     WriteToFileSimple("",outFile);
     WriteToFileSimple("Output format: ",outFile);
-    WriteToFileSimple("percentile(%) - 2 year slope - slope 6m - slope 1m - slope 6d - volatility(%) - guanyMax(%) - perduaMax(%) - yfin ticker ",outFile);
+    WriteToFileSimple("percentile(%) - 2 year slope - slope 6m - slope 1m - slope 6d - volatility(%) - guanyMax(%) - perduaMax(%) - rsi14 - relVol30 - yfin ticker ",outFile);
     WriteToFileSimple("",outFile);
 
     // ✅ imprimir ORDENATS DESCENDENT

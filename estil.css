@@ -88,7 +88,6 @@ a:hover {
     background: var(--card-bg);
     backdrop-filter: blur(12px);
     border-radius: 1rem;
-    overflow: hidden;
     border: 1px solid var(--border);
 }
 
@@ -99,7 +98,11 @@ a:hover {
 }
 
 .styled-table th {
-    background: var(--glass);
+    position: sticky;
+    top: 0;
+    background: #0f172a;
+    /* Solid background matching card-bg for sticky header visibility */
+    z-index: 10;
     padding: 1rem 1.5rem;
     text-align: left;
     font-weight: 600;
@@ -109,7 +112,8 @@ a:hover {
     letter-spacing: 0.05em;
     cursor: pointer;
     user-select: none;
-    border-bottom: 1px solid var(--border);
+    border-bottom: 2px solid var(--primary);
+    /* Enhanced border for the fixed header */
 }
 
 .styled-table th:hover {
