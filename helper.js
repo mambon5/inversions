@@ -73,13 +73,13 @@ async function renderReportPage(fileName) {
 
 function parseCsvReport(text) {
   const lines = text.trim().split('\n');
-  const headers = ["Percentil", "Pendent", "Volatilitat", "Guany esperat", "Perdua esperada", "Ticker"];
+  const headers = ["Percentil", "Pendent 2y", "Pendent 6m", "Slope 1m", "Slope 6d", "Volatilitat", "Guany esperat", "Perdua esperada", "Ticker"];
   const rows = [];
 
   // Skip potential header lines in the CSV if they exist
   lines.forEach(line => {
     const parts = line.split(',');
-    if (parts.length >= 6 && !isNaN(parseFloat(parts[0]))) {
+    if (parts.length >= 9 && !isNaN(parseFloat(parts[0]))) {
       rows.push({
         values: parts.map(p => p.trim()),
         isCategory: false
@@ -109,7 +109,7 @@ function normalizeLabel(label) {
 
 function parseStatsReport(text) {
   const lines = text.split('\n');
-  const headers = ["Percentil", "Pendent", "Volat.", "Guany esperat", "Perdua esperada", "Ticker"];
+  const headers = ["Percentil", "Pendent 2y", "Pendent 6m", "Slope 1m", "Slope 6d", "Volat.", "Guany esperat", "Perdua esperada", "Ticker"];
   const groups = [];
   const summary = [];
   let currentGroup = null;
@@ -149,9 +149,10 @@ function parseStatsReport(text) {
         visibleCount: 10
       };
       groups.push(currentGroup);
-    } else if (trimmed.includes(' - ')) {
-      const parts = trimmed.split(' - ').map(p => p.trim());
-      if (parts.length >= 6) {
+    } else if (trimmed.includes(' - ') || (trimmed.includes(',') && trimmed.split(',').length >= 9)) {
+      const sep = trimmed.includes(' - ') ? ' - ' : ',';
+      const parts = trimmed.split(sep).map(p => p.trim());
+      if (parts.length >= 9) {
         if (!currentGroup) {
           currentGroup = { name: "Altres", rows: [], visibleCount: 10 };
           groups.push(currentGroup);
@@ -211,18 +212,18 @@ function renderGroups() {
         const val = parseFloat(v);
 
         // Add % to Percentile, Volatility, Gain, Loss
-        if (i === 0 || i === 2 || i === 3 || i === 4) {
+        if (i === 0 || i === 5 || i === 6 || i === 7) {
           cellBody = `${v}%`;
         }
 
-        if (i === 1) { // Slope coloring: Green > 0.1, Red < 0
+        if (i >= 1 && i <= 4) { // Slope coloring: Green > 0.1, Red < 0
           const colorClass = val > 0.1 ? 'badge-positive' : (val < 0 ? 'badge-negative' : '');
           cellBody = `<span class="badge ${colorClass}">${v}</span>`;
-        } else if (i === 3) { // Guany esperat coloring: Green > 50
+        } else if (i === 6) { // Guany esperat coloring: Green > 50
           if (val > 50) {
             cellBody = `<span class="badge badge-positive">${v}%</span>`;
           }
-        } else if (i === 4) { // Perdua esperada coloring: Red > 50 (abs)
+        } else if (i === 7) { // Perdua esperada coloring: Red > 50 (abs)
           if (Math.abs(val) > 50) {
             cellBody = `<span class="badge badge-negative">${v}%</span>`;
           }

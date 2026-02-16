@@ -34,8 +34,8 @@ void showBestStocks(const string & inp_file) {
     vector<vector<double>> slope_neg2, slope_neg1, slope_neg0;
     vector<vector<double>> slope_00, slope_01, slope_02, slope_03;
 
-    double percent, slope, volatil, guanyMax, perduaMax;
-    vector<vector<string>> triplets = readCsvToMatrix(inp_file, 6);
+    double percent, slope, slope_6m, slope_1m, slope_6d, volatil, guanyMax, perduaMax;
+    vector<vector<string>> triplets = readCsvToMatrix(inp_file, 9);
 
     cout << "numero de files de la matriu: " << LenghtOfMatStr(triplets) << endl;
     cout << "numero de columnes de la matriu: " << LenghtOfVectorStr(triplets[0]) << endl;
@@ -46,17 +46,24 @@ void showBestStocks(const string & inp_file) {
     map<string, vector<double>> uniqueStocks;
 
     for(vector<string> tripletString : triplets) {
-        percent = stod(tripletString[0]);
-        slope = stod(tripletString[1]);
-        volatil = stod(tripletString[2]);
-        guanyMax = stod(tripletString[3]);
-        perduaMax = stod(tripletString[4]);
-        string ticker = tripletString[5];
+        try {
+            percent = stod(tripletString[0]);
+            slope = stod(tripletString[1]);
+            slope_6m = stod(tripletString[2]);
+            slope_1m = stod(tripletString[3]);
+            slope_6d = stod(tripletString[4]);
+            volatil = stod(tripletString[5]);
+            guanyMax = stod(tripletString[6]);
+            perduaMax = stod(tripletString[7]);
+            string ticker = tripletString[8];
 
-        // ✅ filtre de dades buides (junk) o repetides
-        if(percent == 0 && slope == 0) continue;
-        
-        uniqueStocks[ticker] = {percent, slope, volatil, guanyMax, perduaMax};
+            // ✅ filtre de dades buides (junk) o repetides
+            if(percent == 0 && slope == 0) continue;
+            
+            uniqueStocks[ticker] = {percent, slope, slope_6m, slope_1m, slope_6d, volatil, guanyMax, perduaMax};
+        } catch(...) {
+            continue; // salta la línia si no es pot convertir a número (com la capçalera)
+        }
     }
 
     // Netejar tickers vells i reconstruir des del map per assegurar unicitat
@@ -64,7 +71,7 @@ void showBestStocks(const string & inp_file) {
     index = 0;
     for(auto const& [ticker, valors] : uniqueStocks) {
         tickers.push_back(ticker);
-        vector<double> triplet = {valors[0], valors[1], valors[2], valors[3], valors[4], index};
+        vector<double> triplet = {valors[0], valors[1], valors[2], valors[3], valors[4], valors[5], valors[6], valors[7], index};
 
         // ✅ classificació nova (usant els mateixos rangs que a la visualització)
         if(triplet[1] < -0.2) {
@@ -100,7 +107,7 @@ void showBestStocks(const string & inp_file) {
 
     WriteToFileSimple("",outFile);
     WriteToFileSimple("Output format: ",outFile);
-    WriteToFileSimple("percentile(%) - yearly slope - volatility(%) - guanyMax(%) - perduaMax(%) - yfin ticker ",outFile);
+    WriteToFileSimple("percentile(%) - 2 year slope - slope 6m - slope 1m - slope 6d - volatility(%) - guanyMax(%) - perduaMax(%) - yfin ticker ",outFile);
     WriteToFileSimple("",outFile);
 
     // ✅ imprimir ORDENATS DESCENDENT

@@ -92,8 +92,8 @@ void outputPercentSlope(const int & elems) {
     outputFile << "initial date: " << initialDate << ", " << "Fecha actual: " << currentDate << endl;
 
     
-    cout << "percentil(%)  -  pendent anual  - volatilitat(%) - guany esperat(%) - etiqueta " << endl;
-    outputFile << "percentil(%)  -  pendent anual  - volatilitat(%) - guany esperat(%) - etiqueta " << endl;
+    cout << "percentil(%),pendent2y,pendent6m,slope1m,slope6d,volatilitat(%),guany esperat(%),perdua max(%),etiqueta" << endl;
+    outputFile << "percentil(%),pendent2y,pendent6m,slope1m,slope6d,volatilitat(%),guany esperat(%),perdua max(%),etiqueta" << endl;
     vector<double> percents;
     double percent, slope, volatil, guanyMax, perduaMax;
     double index = 0;
@@ -109,17 +109,21 @@ void outputPercentSlope(const int & elems) {
         
         cout << endl << "#### " << tick << ": " << endl;
         cout << "analizing tickers... " << (index+1)/size(tickers)*100 << "%"<< endl;
-        GetLastYearVals(tick, currentDate, slope, percent,  volatil, guanyMax, perduaMax, true, initialDate);
+        double slope_6m, slope_1m, slope_6d;
+        GetLastYearVals(tick, currentDate, slope, slope_6m, slope_1m, slope_6d, percent,  volatil, guanyMax, perduaMax, true, initialDate);
         cout << "last year vals done" << endl;
         // cout << "slope: " << slope <<", percentile: " << percent << "%" << endl;
         // only print stocks with increasing trend in last year
         string line = PrintNumberWithXDecimalsDoub(percent,0) + "," + 
             PrintNumberWithXDecimalsDoub(slope,3) + "," + 
+            PrintNumberWithXDecimalsDoub(slope_6m,3) + "," + 
+            PrintNumberWithXDecimalsDoub(slope_1m,3) + "," + 
+            PrintNumberWithXDecimalsDoub(slope_6d,3) + "," + 
             PrintNumberWithXDecimalsDoub(volatil,0) + "," + 
             PrintNumberWithXDecimalsDoub(guanyMax,0) + "," + 
             PrintNumberWithXDecimalsDoub(perduaMax,0) + "," + tick;
         WriteToFileSimple(line, slope_file); // write results of pertile analysis
-        cout << percent << ", " << PrintNumberWithXDecimalsDoub(slope,3) << ", " << PrintNumberWithXDecimalsDoub(volatil,0) << "%, " 
+        cout << percent << ", " << PrintNumberWithXDecimalsDoub(slope,3) << " (" << PrintNumberWithXDecimalsDoub(slope_6m,3) << ", " << PrintNumberWithXDecimalsDoub(slope_1m,3) << ", " << PrintNumberWithXDecimalsDoub(slope_6d,3) << "), " << PrintNumberWithXDecimalsDoub(volatil,0) << "%, " 
         << PrintNumberWithXDecimalsDoub(guanyMax,0) << "%, " << PrintNumberWithXDecimalsDoub(perduaMax,0) << "%, " << tick << endl;
 
         WriteToFileOver(tick, lastTicker); // write tickername in  file after analizing it

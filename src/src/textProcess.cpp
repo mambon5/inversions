@@ -223,10 +223,13 @@ const std::string& outputFile, int show){
         if(show==0) return;
         outFile << PrintNumberWithXDecimalsDoub(vect[0], 0) << " - " 
                 << PrintNumberWithXDecimalsDoub(vect[1], 3) << " - " 
-                << PrintNumberWithXDecimalsDoub(vect[2], 0) << " - " 
-                << PrintNumberWithXDecimalsDoub(vect[3], 0) << " - " 
-                << PrintNumberWithXDecimalsDoub(vect[4], 0) << " - " 
-                << strings[int(vect[5])] << endl;
+                << PrintNumberWithXDecimalsDoub(vect[2], 3) << " - " 
+                << PrintNumberWithXDecimalsDoub(vect[3], 3) << " - " 
+                << PrintNumberWithXDecimalsDoub(vect[4], 3) << " - " 
+                << PrintNumberWithXDecimalsDoub(vect[5], 0) << " - " 
+                << PrintNumberWithXDecimalsDoub(vect[6], 0) << " - " 
+                << PrintNumberWithXDecimalsDoub(vect[7], 0) << " - " 
+                << strings[int(vect[8])] << endl;
         show --;
     }
     outFile.close();

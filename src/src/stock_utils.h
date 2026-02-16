@@ -30,7 +30,7 @@ using namespace std;
 // or using: g++ time_utils.cpp curl_utils.cpp quote.cpp spot.cpp get_dailies.cpp -o dailies -lcurl
 
 
-void GetLastYearVals( std::string tick,const std::string & currentDate , double &slope, double &percentile, double &volatil, double &guanymax, double &perduamax, bool extraPrint=false, const std::string & initialDate = "2023-01-01") {
+void GetLastYearVals( std::string tick,const std::string & currentDate , double &slope, double &slope_6m, double &slope_1m, double &slope_6d, double &percentile, double &volatil, double &guanymax, double &perduamax, bool extraPrint=false, const std::string & initialDate = "2023-01-01") {
     //volatil vol dir la volatilitat de l'acció de borsa
     // std::string tick = "^GSPC";
     // S&P 500
@@ -56,6 +56,9 @@ void GetLastYearVals( std::string tick,const std::string & currentDate , double 
     if(size(closeVals) < 5) {
         cout << "returned" << endl;
         slope = 0;
+        slope_6m = 0;
+        slope_1m = 0;
+        slope_6d = 0;
         percentile = 0;
         return;
     }
@@ -76,6 +79,48 @@ void GetLastYearVals( std::string tick,const std::string & currentDate , double 
     }
     volatil = volatilitat(closeVals);
     regression(x, percent, slope, intercept);
+
+    // Calcular regressió per períodes: 6 mesos (aprox 126 dies), 1 mes (21 dies), 6 dies
+    int n_all = percent.size();
+    
+    // 6 mesos
+    int n6m = 126;
+    if (n_all >= n6m) {
+        vector<double> x6m, y6m;
+        for (int i = 0; i < n6m; ++i) {
+            x6m.push_back(i + 1);
+            y6m.push_back(percent[n_all - n6m + i]);
+        }
+        regression(x6m, y6m, slope_6m, intercept);
+    } else {
+        slope_6m = slope; // default to annual if not enough data
+    }
+
+    // 1 mes
+    int n1m = 21;
+    if (n_all >= n1m) {
+        vector<double> x1m, y1m;
+        for (int i = 0; i < n1m; ++i) {
+            x1m.push_back(i + 1);
+            y1m.push_back(percent[n_all - n1m + i]);
+        }
+        regression(x1m, y1m, slope_1m, intercept);
+    } else {
+        slope_1m = slope;
+    }
+
+    // 6 dies
+    int n6d = 6;
+    if (n_all >= n6d) {
+        vector<double> x6d, y6d;
+        for (int i = 0; i < n6d; ++i) {
+            x6d.push_back(i + 1);
+            y6d.push_back(percent[n_all - n6d + i]);
+        }
+        regression(x6d, y6d, slope_6d, intercept);
+    } else {
+        slope_6d = slope;
+    }
 
     // calcular guany màxim desde valor actual fins a màxim anual
     guanymax = guanymaxim(closeVals);
@@ -121,14 +166,14 @@ void PrintMainStocks(const vector<std::string> &ticks, std::string & file) {
     
     for(std::string tick : ticks) {
         
-         double slope, percent, volatil, guanyMax, perduaMax;
+         double slope, slope_6m, slope_1m, slope_6d, percent, volatil, guanyMax, perduaMax;
 
-        GetLastYearVals(tick, currentDate, slope, percent,  volatil, guanyMax, perduaMax, true, initialDate);
+        GetLastYearVals(tick, currentDate, slope, slope_6m, slope_1m, slope_6d, percent,  volatil, guanyMax, perduaMax, true, initialDate);
 
         // Mostrar los resultados
-        cout << percent << "  " << PrintNumberWithXDecimalsDoub(slope,3) << "  " << PrintNumberWithXDecimalsDoub(volatil,0) << "%  "
+        cout << percent << "  " << PrintNumberWithXDecimalsDoub(slope,3) << " (" << PrintNumberWithXDecimalsDoub(slope_6m,3) << ", " << PrintNumberWithXDecimalsDoub(slope_1m,3) << ", " << PrintNumberWithXDecimalsDoub(slope_6d,3) << ")  " << PrintNumberWithXDecimalsDoub(volatil,0) << "%  "
         << PrintNumberWithXDecimalsDoub(guanyMax,0) << "%  " << PrintNumberWithXDecimalsDoub(perduaMax,0) << "%  " << tick << endl;
-        outputFile << percent << "  " << PrintNumberWithXDecimalsDoub(slope,3) << "  " << PrintNumberWithXDecimalsDoub(volatil,0) << "%  " 
+        outputFile << percent << "  " << PrintNumberWithXDecimalsDoub(slope,3) << "  " << PrintNumberWithXDecimalsDoub(slope_6m,3) << "  " << PrintNumberWithXDecimalsDoub(slope_1m,3) << "  " << PrintNumberWithXDecimalsDoub(slope_6d,3) << "  " << PrintNumberWithXDecimalsDoub(volatil,0) << "%  " 
         << PrintNumberWithXDecimalsDoub(guanyMax,0) << "%  " << PrintNumberWithXDecimalsDoub(perduaMax,0) << "%  " << tick << endl;
 
 
