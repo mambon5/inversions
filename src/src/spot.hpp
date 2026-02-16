@@ -19,7 +19,7 @@ public:
      * @param low Lowest price value
      * @param close Price at closing
      */
-    Spot(std::time_t date, double open, double high, double low, double close);
+    Spot(std::time_t date, double open, double high, double low, double close, double volume);
 
     /**
      * @brief Spot constructor
@@ -29,7 +29,7 @@ public:
      * @param low Lowest price value
      * @param close Price at closing
      */
-    Spot(std::string date, double open, double high, double low, double close);
+    Spot(std::string date, double open, double high, double low, double close, double volume);
 
     /**
     *@brief Spot constructor
@@ -85,6 +85,7 @@ public:
      * @return Price at closing
      */
     double getClose();
+    double getVolume();
 
       /**
      * @brief Close price getter as const
@@ -129,6 +130,7 @@ private:
      * @brief Price at closing
      */
     double close;
+    double volume;
 
 };
 

@@ -4,20 +4,22 @@
 #include <iostream>
 #include <sstream>
 
-Spot::Spot(std::time_t date, double open, double high, double low, double close) {
+Spot::Spot(std::time_t date, double open, double high, double low, double close, double volume) {
     this->date = date;
     this->open = open;
     this->high = high;
     this->low = low;
     this->close = close;
+    this->volume = volume;
 }
 
-Spot::Spot(std::string date, double open, double high, double low, double close) {
+Spot::Spot(std::string date, double open, double high, double low, double close, double volume) {
     this->date = dateToEpoch(date.c_str());
     this->open = open;
     this->high = high;
     this->low = low;
     this->close = close;
+    this->volume = volume;
 }
 
 Spot::Spot(std::time_t date, double price){
@@ -60,6 +62,10 @@ double Spot::getLow() {
 
 double Spot::getClose() {
     return this->close;
+}
+
+double Spot::getVolume() {
+    return this->volume;
 }
 
 double Spot::getCloseConst() const{

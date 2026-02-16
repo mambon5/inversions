@@ -73,13 +73,13 @@ async function renderReportPage(fileName) {
 
 function parseCsvReport(text) {
   const lines = text.trim().split('\n');
-  const headers = ["Percentil", "Pendent 2y", "Pendent 6m", "Slope 1m", "Slope 6d", "Volatilitat", "Guany esperat", "Perdua esperada", "Ticker"];
+  const headers = ["Percentil", "Slope 2y", "Slope 6m", "Slope 1m", "Slope 6d", "Volatilitat", "Guany esperat", "Perdua esperada", "RSI14", "RelVol30", "Ticker"];
   const rows = [];
 
   // Skip potential header lines in the CSV if they exist
   lines.forEach(line => {
     const parts = line.split(',');
-    if (parts.length >= 9 && !isNaN(parseFloat(parts[0]))) {
+    if (parts.length >= 11 && !isNaN(parseFloat(parts[0]))) {
       rows.push({
         values: parts.map(p => p.trim()),
         isCategory: false
@@ -109,7 +109,7 @@ function normalizeLabel(label) {
 
 function parseStatsReport(text) {
   const lines = text.split('\n');
-  const headers = ["Percentil", "Pendent 2y", "Pendent 6m", "Slope 1m", "Slope 6d", "Volat.", "Guany esperat", "Perdua esperada", "Ticker"];
+  const headers = ["Percentil", "Pendent 2y", "Pendent 6m", "Slope 1m", "Slope 6d", "Volat.", "Guany esperat", "Perdua esperada", "RSI14", "RelVol30", "Ticker"];
   const groups = [];
   const summary = [];
   let currentGroup = null;
@@ -149,10 +149,10 @@ function parseStatsReport(text) {
         visibleCount: 10
       };
       groups.push(currentGroup);
-    } else if (trimmed.includes(' - ') || (trimmed.includes(',') && trimmed.split(',').length >= 9)) {
+    } else if (trimmed.includes(' - ') || (trimmed.includes(',') && trimmed.split(',').length >= 11)) {
       const sep = trimmed.includes(' - ') ? ' - ' : ',';
       const parts = trimmed.split(sep).map(p => p.trim());
-      if (parts.length >= 9) {
+      if (parts.length >= 11) {
         if (!currentGroup) {
           currentGroup = { name: "Altres", rows: [], visibleCount: 10 };
           groups.push(currentGroup);
@@ -216,8 +216,8 @@ function renderGroups() {
           cellBody = `${v}%`;
         }
 
-        if (i >= 1 && i <= 4) { // Slope coloring: Green > 0.1, Red < 0
-          const colorClass = val > 0.1 ? 'badge-positive' : (val < 0 ? 'badge-negative' : '');
+        if (i >= 1 && i <= 4) { // Slope coloring: Green > 0.1, Red < -0.1
+          const colorClass = val > 0.1 ? 'badge-positive' : (val < -0.1 ? 'badge-negative' : '');
           cellBody = `<span class="badge ${colorClass}">${v}</span>`;
         } else if (i === 6) { // Guany esperat coloring: Green > 50
           if (val > 50) {
@@ -227,6 +227,12 @@ function renderGroups() {
           if (Math.abs(val) > 50) {
             cellBody = `<span class="badge badge-negative">${v}%</span>`;
           }
+        } else if (i === 8) { // RSI14 coloring: Red > 70, Green < 30
+          const colorClass = val > 70 ? 'badge-negative' : (val < 30 && val !== -1 ? 'badge-positive' : '');
+          cellBody = `<span class="badge ${colorClass}">${v}</span>`;
+        } else if (i === 9) { // RelVol30 coloring: Green > 2
+          const colorClass = val > 2 ? 'badge-positive' : '';
+          cellBody = `<span class="badge ${colorClass}">${v}</span>`;
         }
         return `<td>${cellBody}</td>`;
       }).join('');

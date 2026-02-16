@@ -59,6 +59,7 @@ public:
      * @brief return double vector of close values
      */
     std::vector<double> getCloseVals();
+    std::vector<double> getVolumeVals();
 
     /**
      * @brief Clear all the spots

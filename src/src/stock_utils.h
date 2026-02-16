@@ -29,8 +29,48 @@ using namespace std;
 // compile by the command: g++ get_dailies.cpp -o prova -lcurl
 // or using: g++ time_utils.cpp curl_utils.cpp quote.cpp spot.cpp get_dailies.cpp -o dailies -lcurl
 
+double calcRSI14(const vector<double>& prices) {
+    if (prices.size() < 15) return -1;
 
-void GetLastYearVals( std::string tick,const std::string & currentDate , double &slope, double &slope_6m, double &slope_1m, double &slope_6d, double &percentile, double &volatil, double &guanymax, double &perduamax, bool extraPrint=false, const std::string & initialDate = "2023-01-01") {
+    double gain = 0, loss = 0;
+
+    for (int i = prices.size() - 14; i < prices.size(); i++) {
+        double delta = prices[i] - prices[i-1];
+
+        if (delta > 0)
+            gain += delta;
+        else
+            loss -= delta;
+    }
+
+    double avg_gain = gain / 14.0;
+    double avg_loss = loss / 14.0;
+
+    if (avg_loss == 0) return 100;
+    if (avg_gain == 0) return 0;
+
+    double rs = avg_gain / avg_loss;
+    return 100 - (100 / (1 + rs));
+}
+
+double calcRelativeVolume30(const vector<double>& volumes) {
+    if (volumes.size() < 31) return -1;
+
+    double sum = 0;
+
+    for (int i = volumes.size() - 31; i < volumes.size() - 1; i++) {
+        sum += volumes[i];
+    }
+
+    double avg = sum / 30.0;
+    double today = volumes.back();
+
+    if (avg == 0) return -1;
+
+    return today / avg;
+}
+
+void GetLastYearVals( std::string tick,const std::string & currentDate , double &slope, double &slope_6m, double &slope_1m, double &slope_6d, double &percentile, double &volatil, double &guanymax, double &perduamax, double &rsi14, double &relVol30, bool extraPrint=false, const std::string & initialDate = "2023-01-01") {
     //volatil vol dir la volatilitat de l'acció de borsa
     // std::string tick = "^GSPC";
     // S&P 500
@@ -126,6 +166,11 @@ void GetLastYearVals( std::string tick,const std::string & currentDate , double 
     guanymax = guanymaxim(closeVals);
     perduamax = perduamaxima(closeVals);
 
+    // RSI14 i RV30
+    rsi14 = calcRSI14(closeVals);
+    vector<double> volumeVals = stock->getVolumeVals();
+    relVol30 = calcRelativeVolume30(volumeVals);
+
     // Free memory
     delete stock;
 }
@@ -166,15 +211,15 @@ void PrintMainStocks(const vector<std::string> &ticks, std::string & file) {
     
     for(std::string tick : ticks) {
         
-         double slope, slope_6m, slope_1m, slope_6d, percent, volatil, guanyMax, perduaMax;
+         double slope, slope_6m, slope_1m, slope_6d, percent, volatil, guanyMax, perduaMax, rsi14, relVol30;
 
-        GetLastYearVals(tick, currentDate, slope, slope_6m, slope_1m, slope_6d, percent,  volatil, guanyMax, perduaMax, true, initialDate);
+        GetLastYearVals(tick, currentDate, slope, slope_6m, slope_1m, slope_6d, percent,  volatil, guanyMax, perduaMax, rsi14, relVol30, true, initialDate);
 
         // Mostrar los resultados
         cout << percent << "  " << PrintNumberWithXDecimalsDoub(slope,3) << " (" << PrintNumberWithXDecimalsDoub(slope_6m,3) << ", " << PrintNumberWithXDecimalsDoub(slope_1m,3) << ", " << PrintNumberWithXDecimalsDoub(slope_6d,3) << ")  " << PrintNumberWithXDecimalsDoub(volatil,0) << "%  "
-        << PrintNumberWithXDecimalsDoub(guanyMax,0) << "%  " << PrintNumberWithXDecimalsDoub(perduaMax,0) << "%  " << tick << endl;
+        << PrintNumberWithXDecimalsDoub(guanyMax,0) << "%  " << PrintNumberWithXDecimalsDoub(perduaMax,0) << "%  " << PrintNumberWithXDecimalsDoub(rsi14,1) << "  " << PrintNumberWithXDecimalsDoub(relVol30,2) << "  " << tick << endl;
         outputFile << percent << "  " << PrintNumberWithXDecimalsDoub(slope,3) << "  " << PrintNumberWithXDecimalsDoub(slope_6m,3) << "  " << PrintNumberWithXDecimalsDoub(slope_1m,3) << "  " << PrintNumberWithXDecimalsDoub(slope_6d,3) << "  " << PrintNumberWithXDecimalsDoub(volatil,0) << "%  " 
-        << PrintNumberWithXDecimalsDoub(guanyMax,0) << "%  " << PrintNumberWithXDecimalsDoub(perduaMax,0) << "%  " << tick << endl;
+        << PrintNumberWithXDecimalsDoub(guanyMax,0) << "%  " << PrintNumberWithXDecimalsDoub(perduaMax,0) << "%  " << PrintNumberWithXDecimalsDoub(rsi14,1) << "  " << PrintNumberWithXDecimalsDoub(relVol30,2) << "  " << tick << endl;
 
 
                     }

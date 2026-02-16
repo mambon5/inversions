@@ -74,6 +74,18 @@ vector<double> Quote::getCloseVals() {
     return closeValues;
 }
 
+vector<double> Quote::getVolumeVals() {
+    std::vector<double> volumeValues;
+
+    for (std::vector<Spot>::const_iterator it = this -> spots.begin();
+         it != this -> spots.end();
+         ++it) {
+        volumeValues.push_back(it->getVolume());
+    }
+
+    return volumeValues;
+}
+
 void Quote::clearSpots() {
     this->spots.clear();
 }
@@ -101,8 +113,8 @@ void Quote::getHistoricalSpotsJson(std::time_t period1,
     // cout << "printing the curl result" << endl;
     // cout << csv << endl;
 
-    string dates, opens, highs, lows, closes;
-    vector<string> date, open, high, low, close;
+    string dates, opens, highs, lows, closes, volumes;
+    vector<string> date, open, high, low, close, volume;
 
     //getting the dates and saving them to a vector
     date = JsonToStringArray(json, "timestamp"); // this works well
@@ -110,6 +122,7 @@ void Quote::getHistoricalSpotsJson(std::time_t period1,
     high = JsonToStringArray(json, "high");
     low = JsonToStringArray(json, "low");
     close = JsonToStringArray(json, "close");
+    volume = JsonToStringArray(json, "volume");
 
     
     for(int i=0; i<date.size(); ++i) {
@@ -119,7 +132,8 @@ void Quote::getHistoricalSpotsJson(std::time_t period1,
                 std::atof(open[i].c_str()),   // open
                 std::atof(high[i].c_str()),   // high
                 std::atof(low[i].c_str()),   // low
-                std::atof(close[i].c_str())    // close
+                std::atof(close[i].c_str()),    // close
+                std::atof(volume[i].c_str())    // volume
             );
             this->spots.push_back(spot);
         }
@@ -158,7 +172,8 @@ void Quote::getHistoricalSpotsCsv(std::time_t period1,
                 std::atof(spotVector[1].c_str()),   // open
                 std::atof(spotVector[2].c_str()),   // high
                 std::atof(spotVector[3].c_str()),   // low
-                std::atof(spotVector[4].c_str())    // close
+                std::atof(spotVector[4].c_str()),    // close
+                std::atof(spotVector[6].c_str())    // volume (Yahoo CSV has Adj Close at 5, Volume at 6)
             );
             this->spots.push_back(spot);
         }
