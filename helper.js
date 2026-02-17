@@ -78,7 +78,9 @@ function parseCsvReport(text) {
 
   // Skip potential header lines in the CSV if they exist
   lines.forEach(line => {
-    const parts = line.split(',');
+    let trimmed = line.trim();
+    if (!trimmed) return;
+    const parts = trimmed.split(',');
     if (parts.length >= 11 && !isNaN(parseFloat(parts[0]))) {
       rows.push({
         values: parts.map(p => p.trim()),
@@ -171,6 +173,14 @@ function parseStatsReport(text) {
 let currentTableData = null;
 
 function renderTable(data) {
+  // If no groups, create a default group for flat CSV data
+  if (!data.groups && data.rows) {
+    data.groups = [{
+      name: "Llista d'accions",
+      rows: data.rows,
+      visibleCount: 50 // Show more by default for flat lists
+    }];
+  }
   currentTableData = data;
 
   // Render Summary
@@ -211,8 +221,8 @@ function renderGroups() {
         let cellBody = v;
         const val = parseFloat(v);
 
-        // Add % to Percentile, Volatility, Gain, Loss
-        if (i === 0 || i === 5 || i === 6 || i === 7) {
+        // Add % to Percentile, Volatility, Gain, Loss, RSI14
+        if (i === 0 || i === 5 || i === 6 || i === 7 || i === 8) {
           cellBody = `${v}%`;
         }
 

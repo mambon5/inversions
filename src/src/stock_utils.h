@@ -181,13 +181,6 @@ void PrintMainStocks(const vector<std::string> &ticks, std::string & file) {
     bool printAll=false;
     std::string initialDate = "2023-01-01";
 
-    cout << "initial date: " << initialDate << endl;
-    outputFile << "initial date: " << initialDate << endl;
-
-    std::string currentDate = getCurrentDate();
-    cout << "Fecha actual: " << currentDate << endl;
-    outputFile << "Fecha actual: " << currentDate << endl;
-
     // Date dt1 = { stoi(initialDate.substr(8,2)), 
     // stoi(initialDate.substr(5,2)), stoi(initialDate.substr(0,4)) }; 
     // Date dt2 = { stoi(currentDate.substr(8,2)), 
@@ -195,16 +188,11 @@ void PrintMainStocks(const vector<std::string> &ticks, std::string & file) {
   
     // Function call 
     // int dies = calcularDiesEntreDates(dt1, dt2);
-    int dies = DiesEntreDates(initialDate, currentDate);
-    cout << "Quantitat de dies entre les dues dates: " << dies << endl; 
-    outputFile << "Quantitat de dies entre les dues dates: " << dies << endl; 
-    cout << "Quantitat de valors bursàtils analitzats: " << LenghtOfVectorStr(ticks) << endl;
-    outputFile << "Quantitat de valors bursàtils analitzats: " << LenghtOfVectorStr(ticks) << endl;
-    outputFile << "La volatilitat es calcula segons: (max-min)/max de l'acció en el període analitzat "  << endl;
-    outputFile << "El pendent es calcula usant una regressió lineal "  << endl;
-    outputFile << "El percentil és simplement el percentil actual respecte a la resta de valors el període analitzat "  << endl;
-    cout << "Format dels resultats: percentil(%)  |  pendent anual  | volatilitat(%) | guany esperat(%) | perdua max(%) | etiqueta " << endl << endl;
-    outputFile << "Format dels resultats: percentil(%)  |  pendent anual  | volatilitat(%) | guany esperat(%) | perdua max(%) | etiqueta "  << endl << endl;
+
+    std::string currentDate = getCurrentDate();
+
+    // Write CSV Header
+    outputFile << "Percentil,Slope 2y,Slope 6m,Slope 1m,Slope 6d,Volatilitat,Guany esperat,Perdua esperada,RSI14,RelVol30,Ticker" << endl;
 
     // cout << "Print all daily percentiles? Yes=1, No=0"<< endl;
     // cin >> printAll;
@@ -216,10 +204,10 @@ void PrintMainStocks(const vector<std::string> &ticks, std::string & file) {
         GetLastYearVals(tick, currentDate, slope, slope_6m, slope_1m, slope_6d, percent,  volatil, guanyMax, perduaMax, rsi14, relVol30, true, initialDate);
 
         // Mostrar los resultados
-        cout << percent << "  " << PrintNumberWithXDecimalsDoub(slope,3) << " (" << PrintNumberWithXDecimalsDoub(slope_6m,3) << ", " << PrintNumberWithXDecimalsDoub(slope_1m,3) << ", " << PrintNumberWithXDecimalsDoub(slope_6d,3) << ")  " << PrintNumberWithXDecimalsDoub(volatil,0) << "%  "
-        << PrintNumberWithXDecimalsDoub(guanyMax,0) << "%  " << PrintNumberWithXDecimalsDoub(perduaMax,0) << "%  " << PrintNumberWithXDecimalsDoub(rsi14,1) << "  " << PrintNumberWithXDecimalsDoub(relVol30,2) << "  " << tick << endl;
-        outputFile << percent << "  " << PrintNumberWithXDecimalsDoub(slope,3) << "  " << PrintNumberWithXDecimalsDoub(slope_6m,3) << "  " << PrintNumberWithXDecimalsDoub(slope_1m,3) << "  " << PrintNumberWithXDecimalsDoub(slope_6d,3) << "  " << PrintNumberWithXDecimalsDoub(volatil,0) << "%  " 
-        << PrintNumberWithXDecimalsDoub(guanyMax,0) << "%  " << PrintNumberWithXDecimalsDoub(perduaMax,0) << "%  " << PrintNumberWithXDecimalsDoub(rsi14,1) << "  " << PrintNumberWithXDecimalsDoub(relVol30,2) << "  " << tick << endl;
+        cout << percent << "," << PrintNumberWithXDecimalsDoub(slope,3) << "," << PrintNumberWithXDecimalsDoub(slope_6m,3) << "," << PrintNumberWithXDecimalsDoub(slope_1m,3) << "," << PrintNumberWithXDecimalsDoub(slope_6d,3) << "," << PrintNumberWithXDecimalsDoub(volatil,0) << ","
+        << PrintNumberWithXDecimalsDoub(guanyMax,0) << "," << PrintNumberWithXDecimalsDoub(perduaMax,0) << "," << PrintNumberWithXDecimalsDoub(rsi14,1) << "," << PrintNumberWithXDecimalsDoub(relVol30,2) << "," << tick << endl;
+        outputFile << percent << "," << PrintNumberWithXDecimalsDoub(slope,3) << "," << PrintNumberWithXDecimalsDoub(slope_6m,3) << "," << PrintNumberWithXDecimalsDoub(slope_1m,3) << "," << PrintNumberWithXDecimalsDoub(slope_6d,3) << "," << PrintNumberWithXDecimalsDoub(volatil,0) << "," 
+        << PrintNumberWithXDecimalsDoub(guanyMax,0) << "," << PrintNumberWithXDecimalsDoub(perduaMax,0) << "," << PrintNumberWithXDecimalsDoub(rsi14,1) << "," << PrintNumberWithXDecimalsDoub(relVol30,2) << "," << tick << endl;
 
 
                     }

@@ -1,39 +1,46 @@
 <!doctype html>
-<html>
+<html lang="ca">
+
+<head>
   <meta charset="UTF-8">
-  <link rel="stylesheet" href="estil.css">
-  <head>
-   
-    <title >Accions de borsa</title>
-  </head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Accions Principals | Stock Analytics</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700&display=swap">
+  <link rel="stylesheet" href="estil.css?v=1.2">
+</head>
 
-  <body onload="carregaFitxer();">
+<body>
+  <div class="container">
+    <header class="header-flex">
+      <div>
+        <a href="index.html"
+          style="font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.5rem; display: block;">←
+          Tornar al Dashboard</a>
+        <h1>Accions Principals</h1>
+        <p class="card-meta">Anàlisi de les carteres principals (inversió total: 1600$)</p>
+      </div>
+      <div id="loading-status" class="badge">Processant...</div>
+    </header>
 
-    <center>
-    <h2 onclick="carregaFitxer()">Accions Principals</h2>
-    <p>invertit 1600$ en total</p>
+    <div class="table-container">
+      <table class="styled-table" id="report-table">
+        <thead id="table-head">
+          <!-- Headers injected here -->
+        </thead>
+        <tbody id="table-body">
+          <!-- Data injected here -->
+        </tbody>
+      </table>
+    </div>
+  </div>
 
-    <h4 id="descr">Període del anàlisi:</h4>
-    
+  <script src="helper.js?v=1.2"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // Main stocks uses a fixed filename
+      renderReportPage('output/pertiles.csv');
+    });
+  </script>
+</body>
 
-
-<table class="styled-table" id="taula">
-
-  <tr>
-    <th>percentil actual </th> 
-    <th>creixement diari (del percentil)</th> 
-    <th>volatilitat</th>
-    <th>guany anual esperat</th>
-    <th>etiqueta de l'acció de borsa.</th>
-  </tr>
-</table>
-
-
-
-  </center>
-    <ul id="llista"></ul>
-    <script src="https://requirejs.org/docs/release/2.3.5/minified/require.js"></script> 
-    <script src="helper.js"></script> 
-
-  </body>
 </html>

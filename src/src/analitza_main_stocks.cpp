@@ -21,7 +21,7 @@ using namespace std;
 // compile by the command: 
 // g++ time_utils.cpp curl_utils.cpp quote.cpp spot.cpp dates.cpp textProcess.cpp analitza_main_stocks.cpp -o anal_main -lcurl
 
-std::string file = "/var/www/inversions/output/pertiles.txt";
+std::string file = "/var/www/inversions/output/pertiles.csv";
 
 // vector<std::string> main_ticks = {"WFGDX"  };
 

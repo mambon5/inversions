@@ -78,3 +78,35 @@ delete snp500;
 delete eurusd;
 delete euraud;
 ```
+
+# Stocks interessans
+
+## A partir de la versió v2
+
+17 febrer 2026
+
+Stocks amb indicadors que semblen interessants:
+
+GPRO
+ORCL
+VVVNF
+WIXN.MX
+SHAK.MX
+1Q5.SG
+^CLTBAZUKI
+^CLTBWOWOM
+TRIP.MX
+BYSI
+0JOQ.IL
+OWL
+TTAN
+SB=F
+GSOL
+XOS
+VFSWW
+SLNAF
+XIFR
+OJ=F
+UNH
+SDHC
+S
