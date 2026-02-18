@@ -16,11 +16,15 @@
         <a href="index.html"
           style="font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.5rem; display: block;">←
           Tornar al Dashboard</a>
-        <h1>Accions Principals</h1>
-        <p class="card-meta">Anàlisi de les carteres principals (inversió total: 1600$)</p>
+        <h1 id="report-title">Accions Principals</h1>
+        <p id="report-meta" class="card-meta">Anàlisi de les carteres principals (inversió total: 1600$)</p>
       </div>
       <div id="loading-status" class="badge">Processant...</div>
     </header>
+
+    <div id="report-summary" class="section card-grid" style="margin-bottom: 2rem;">
+        <!-- Summary cards will be injected here -->
+    </div>
 
     <div class="table-container">
       <table class="styled-table" id="report-table">
