@@ -278,7 +278,13 @@ function sortTable(colIndex) {
     group.rows.sort((a, b) => {
       let valA = a.values[colIndex];
       let valB = b.values[colIndex];
-      if (isNumeric) return parseFloat(valB) - parseFloat(valA);
+      if (isNumeric) {
+        // RSI14 is at index 8. User wants it sorted from small to large.
+        if (colIndex === 8) {
+          return parseFloat(valA) - parseFloat(valB);
+        }
+        return parseFloat(valB) - parseFloat(valA);
+      }
       return valA.localeCompare(valB);
     });
   });
