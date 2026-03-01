@@ -7,6 +7,9 @@ using namespace std;
 #include <iostream>
 #include <sstream>
 #include <curl/curl.h>
+#include <nlohmann/json.hpp>
+using json = nlohmann::json;
+
 
 Quote::Quote(std::string symbol) {
     this->symbol = symbol;
@@ -99,47 +102,45 @@ std::string Quote::getHistoricalJson(
 }
 
 void Quote::getHistoricalSpotsJson(std::time_t period1,
-                               std::time_t period2,
-                               const char *interval) {
-    // Download the historical prices json
-    std::string json = this->getHistoricalJson(period1, period2, interval);
+                                   std::time_t period2,
+                                   const char *interval) {
+    // Download the historical prices JSON
+    std::string jsonStr = this->getHistoricalJson(period1, period2, interval);
 
-    // temporarily we are offline so we test our parsing with a text:
-    // json = 
-    // std::istringstream csvStream(json);
-    // std::string line;
+    // Parse JSON using nlohmann::json
+    json j = json::parse(jsonStr);
 
-    // output the result
-    // cout << "printing the curl result" << endl;
-    // cout << csv << endl;
+    // Yahoo Finance JSON has "chart.result[0].timestamp" and "chart.result[0].indicators.quote[0]"
+    auto timestamps = j["chart"]["result"][0]["timestamp"];
+    auto quotes = j["chart"]["result"][0]["indicators"]["quote"][0];
 
-    string dates, opens, highs, lows, closes, volumes;
-    vector<string> date, open, high, low, close, volume;
+    std::vector<std::string> date;
+    std::vector<std::string> open, high, low, close, volume;
 
-    //getting the dates and saving them to a vector
-    date = JsonToStringArray(json, "timestamp"); // this works well
-    open = JsonToStringArray(json, "open");
-    high = JsonToStringArray(json, "high");
-    low = JsonToStringArray(json, "low");
-    close = JsonToStringArray(json, "close");
-    volume = JsonToStringArray(json, "volume");
+    for (size_t i = 0; i < timestamps.size(); ++i) {
+        if (!timestamps[i].is_null()) {
+            date.push_back(std::to_string(timestamps[i].get<long>()));
+            open.push_back(quotes["open"][i].is_null() ? "0" : std::to_string(quotes["open"][i].get<double>()));
+            high.push_back(quotes["high"][i].is_null() ? "0" : std::to_string(quotes["high"][i].get<double>()));
+            low.push_back(quotes["low"][i].is_null() ? "0" : std::to_string(quotes["low"][i].get<double>()));
+            close.push_back(quotes["close"][i].is_null() ? "0" : std::to_string(quotes["close"][i].get<double>()));
+            volume.push_back(quotes["volume"][i].is_null() ? "0" : std::to_string(quotes["volume"][i].get<double>()));
+        }
+    }
 
-    
-    for(int i=0; i<date.size(); ++i) {
-        if (date[i] != "empty" ) {
+    for (size_t i = 0; i < date.size(); ++i) {
+        if (date[i] != "empty") {
             Spot spot = Spot(
                 date[i],                      // date
                 std::atof(open[i].c_str()),   // open
                 std::atof(high[i].c_str()),   // high
-                std::atof(low[i].c_str()),   // low
-                std::atof(close[i].c_str()),    // close
-                std::atof(volume[i].c_str())    // volume
+                std::atof(low[i].c_str()),    // low
+                std::atof(close[i].c_str()),  // close
+                std::atof(volume[i].c_str())  // volume
             );
             this->spots.push_back(spot);
         }
     }
-    //    
-
 }
 
 void Quote::getHistoricalSpotsCsv(std::time_t period1,
