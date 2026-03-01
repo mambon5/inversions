@@ -52,6 +52,22 @@ async function renderReportPage(fileName) {
     titleEl.innerText = displayTitle;
     metaEl.innerText = `Fitxer: ${fileName}`;
 
+    // configure download link
+    const downloadLink = document.getElementById('download-link');
+    if (downloadLink) {
+        const basename = fileName.split('/').pop();
+        const timestamp = new Date().getTime();
+        downloadLink.href = fileName + '?t=' + timestamp;
+        downloadLink.setAttribute('download', basename);
+        // update link text depending on extension
+        if (basename.toLowerCase().endsWith('.csv')) {
+            downloadLink.innerText = 'Descarrega CSV';
+        } else {
+            downloadLink.innerText = 'Descarrega fitxer';
+        }
+        downloadLink.style.display = 'inline-block';
+    }
+
     // Cache busting to ensure we get the latest data
     const response = await fetch(fileName + '?t=' + new Date().getTime());
     if (!response.ok) throw new Error("File not found");
@@ -66,8 +82,11 @@ async function renderReportPage(fileName) {
     titleEl.innerText = "Error carregant l'informe";
     metaEl.innerText = `No s'ha pogut trobar o processar el fitxer: ${fileName}`;
     statusEl.innerText = "Error";
-    statusEl.className = "badge badge-negative";
-    console.error(err);
+    statusEl.className = "badge badge-negative";    // hide download link if present
+    const downloadLink = document.getElementById('download-link');
+    if (downloadLink) {
+        downloadLink.style.display = 'none';
+    }    console.error(err);
   }
 }
 
