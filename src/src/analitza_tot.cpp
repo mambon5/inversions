@@ -22,6 +22,7 @@ using namespace std;
 
 // compile by the command:
 // g++ time_utils.cpp curl_utils.cpp quote.cpp spot.cpp dates.cpp textProcess.cpp analitza_tot.cpp -o anal_tot -lcurl
+// g++ time_utils.cpp curl_utils.cpp quote.cpp spot.cpp dates.cpp textProcess.cpp analitza_tot.cpp -o anal_tot -lcurl
 
 // if the computer makes more than 2000 requests per hour, you get an unauthorized error.
 // sometimes it doesn't happend though.
