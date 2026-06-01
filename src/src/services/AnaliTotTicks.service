@@ -1,5 +1,12 @@
 [Unit]
 Description="Get current daily percentile of stock values"
+TriggeredBy=AnaliTotTicks.timer
 
 [Service]
-ExecStart=/var/www/inversions/src/src/starter_all_stocks.sh
+Type=simple
+# Definim on és el projecte perquè les rutes relatives (input/, output/) funcionin
+WorkingDirectory=/var/www/inversions
+# El correm com a root de forma nativa per oblidar-nos de contrasenyes al mig de l'script
+User=root
+ExecStart=/bin/bash /var/www/inversions/src/src/starter_all_stocks.sh
+Restart=on-failure
