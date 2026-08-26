@@ -1,6 +1,5 @@
 [Unit]
 Description="Sort best stocks from previous day"
-TriggeredBy=SortBestStocks.timer
 
 [Service]
 Type=simple
@@ -8,3 +7,9 @@ WorkingDirectory=/var/www/inversions
 User=root
 ExecStart=/bin/bash /var/www/inversions/src/src/starter_sort_best.sh
 Restart=on-failure
+RestartSec=30s
+StartLimitIntervalSec=5m
+StartLimitBurst=3
+
+[Install]
+WantedBy=multi-user.target
