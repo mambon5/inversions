@@ -10,3 +10,6 @@ WorkingDirectory=/var/www/inversions
 User=root
 ExecStart=/bin/bash /var/www/inversions/src/src/starter_all_stocks.sh
 Restart=on-failure
+RestartSec=30s
+StartLimitIntervalSec=5m
+StartLimitBurst=3
