@@ -1,0 +1,126 @@
+
+
+romanov@mireia77serv:~$ sudo journalctl -u AnaliTotTicks.service -n 50 --no-pager
+d’ag. 25 16:07:49 mireia77serv systemd[1]: AnaliTotTicks.service: Scheduled restart job, restart counter is at 2494.
+d’ag. 25 16:07:49 mireia77serv systemd[1]: Started AnaliTotTicks.service - "Get current daily percentile of stock values".
+d’ag. 25 16:07:51 mireia77serv bash[74241]: /var/www/inversions/src/src/starter_all_stocks.sh: line 2: 74242 Segmentation fault      (core dumped) /var/www/inversions/src/src/anal_tot > /var/www/inversions/output/output_anal_tot.log 2>&1
+d’ag. 25 16:07:51 mireia77serv systemd[1]: AnaliTotTicks.service: Main process exited, code=exited, status=139/n/a
+d’ag. 25 16:07:51 mireia77serv systemd[1]: AnaliTotTicks.service: Failed with result 'exit-code'.
+d’ag. 25 16:07:51 mireia77serv systemd[1]: AnaliTotTicks.service: Scheduled restart job, restart counter is at 2495.
+d’ag. 25 16:07:51 mireia77serv systemd[1]: Started AnaliTotTicks.service - "Get current daily percentile of stock values".
+d’ag. 25 16:07:53 mireia77serv bash[74247]: /var/www/inversions/src/src/starter_all_stocks.sh: line 2: 74248 Segmentation fault      (core dumped) /var/www/inversions/src/src/anal_tot > /var/www/inversions/output/output_anal_tot.log 2>&1
+d’ag. 25 16:07:53 mireia77serv systemd[1]: AnaliTotTicks.service: Main process exited, code=exited, status=139/n/a
+d’ag. 25 16:07:53 mireia77serv systemd[1]: AnaliTotTicks.service: Failed with result 'exit-code'.
+d’ag. 25 16:07:53 mireia77serv systemd[1]: AnaliTotTicks.service: Scheduled restart job, restart counter is at 2496.
+d’ag. 25 16:07:53 mireia77serv systemd[1]: Started AnaliTotTicks.service - "Get current daily percentile of stock values".
+d’ag. 25 16:07:56 mireia77serv bash[74251]: /var/www/inversions/src/src/starter_all_stocks.sh: line 2: 74252 Segmentation fault      (core dumped) /var/www/inversions/src/src/anal_tot > /var/www/inversions/output/output_anal_tot.log 2>&1
+d’ag. 25 16:07:56 mireia77serv systemd[1]: AnaliTotTicks.service: Main process exited, code=exited, status=139/n/a
+d’ag. 25 16:07:56 mireia77serv systemd[1]: AnaliTotTicks.service: Failed with result 'exit-code'.
+d’ag. 25 16:07:56 mireia77serv systemd[1]: AnaliTotTicks.service: Scheduled restart job, restart counter is at 2497.
+d’ag. 25 16:07:56 mireia77serv systemd[1]: Started AnaliTotTicks.service - "Get current daily percentile of stock values".
+d’ag. 25 16:07:58 mireia77serv bash[74276]: /var/www/inversions/src/src/starter_all_stocks.sh: line 2: 74277 Segmentation fault      (core dumped) /var/www/inversions/src/src/anal_tot > /var/www/inversions/output/output_anal_tot.log 2>&1
+d’ag. 25 16:07:58 mireia77serv systemd[1]: AnaliTotTicks.service: Main process exited, code=exited, status=139/n/a
+d’ag. 25 16:07:58 mireia77serv systemd[1]: AnaliTotTicks.service: Failed with result 'exit-code'.
+d’ag. 25 16:07:59 mireia77serv systemd[1]: AnaliTotTicks.service: Scheduled restart job, restart counter is at 2498.
+d’ag. 25 16:07:59 mireia77serv systemd[1]: Started AnaliTotTicks.service - "Get current daily percentile of stock values".
+d’ag. 25 16:08:01 mireia77serv bash[74280]: /var/www/inversions/src/src/starter_all_stocks.sh: line 2: 74281 Segmentation fault      (core dumped) /var/www/inversions/src/src/anal_tot > /var/www/inversions/output/output_anal_tot.log 2>&1
+d’ag. 25 16:08:01 mireia77serv systemd[1]: AnaliTotTicks.service: Main process exited, code=exited, status=139/n/a
+d’ag. 25 16:08:01 mireia77serv systemd[1]: AnaliTotTicks.service: Failed with result 'exit-code'.
+d’ag. 25 16:08:02 mireia77serv systemd[1]: AnaliTotTicks.service: Scheduled restart job, restart counter is at 2499.
+d’ag. 25 16:08:02 mireia77serv systemd[1]: Started AnaliTotTicks.service - "Get current daily percentile of stock values".
+-- Boot 9cf14512c2fd40c5a760cd50307d224d --
+d’ag. 26 09:39:43 mireia77serv systemd[1]: Started AnaliTotTicks.service - "Get current daily percentile of stock values".
+d’ag. 26 09:41:39 mireia77serv systemd[1]: Stopping AnaliTotTicks.service - "Get current daily percentile of stock values"...
+d’ag. 26 09:41:39 mireia77serv systemd[1]: AnaliTotTicks.service: Deactivated successfully.
+d’ag. 26 09:41:39 mireia77serv systemd[1]: Stopped AnaliTotTicks.service - "Get current daily percentile of stock values".
+d’ag. 26 09:41:39 mireia77serv systemd[1]: AnaliTotTicks.service: Consumed 27.101s CPU time.
+d’ag. 26 09:41:39 mireia77serv systemd[1]: Started AnaliTotTicks.service - "Get current daily percentile of stock values".
+d’ag. 26 09:42:11 mireia77serv systemd[1]: /etc/systemd/system/AnaliTotTicks.service:3: Unknown key name 'TriggeredBy' in section 'Unit', ignoring.
+d’ag. 26 09:42:14 mireia77serv systemd[1]: /etc/systemd/system/AnaliTotTicks.service:3: Unknown key name 'TriggeredBy' in section 'Unit', ignoring.
+d’ag. 26 09:42:49 mireia77serv systemd[1]: /etc/systemd/system/AnaliTotTicks.service:3: Unknown key name 'TriggeredBy' in section 'Unit', ignoring.
+d’ag. 26 09:42:57 mireia77serv systemd[1]: Stopping AnaliTotTicks.service - "Get current daily percentile of stock values"...
+d’ag. 26 09:42:57 mireia77serv systemd[1]: AnaliTotTicks.service: Deactivated successfully.
+d’ag. 26 09:42:57 mireia77serv systemd[1]: Stopped AnaliTotTicks.service - "Get current daily percentile of stock values".
+d’ag. 26 09:42:57 mireia77serv systemd[1]: AnaliTotTicks.service: Consumed 22.804s CPU time, 4.1M memory peak, 0B memory swap peak.
+d’ag. 26 09:42:57 mireia77serv systemd[1]: /etc/systemd/system/AnaliTotTicks.service:3: Unknown key name 'TriggeredBy' in section 'Unit', ignoring.
+d’ag. 26 09:42:57 mireia77serv systemd[1]: /etc/systemd/system/AnaliTotTicks.service:3: Unknown key name 'TriggeredBy' in section 'Unit', ignoring.
+d’ag. 26 09:43:00 mireia77serv systemd[1]: /etc/systemd/system/AnaliTotTicks.service:3: Unknown key name 'TriggeredBy' in section 'Unit', ignoring.
+d’ag. 26 09:43:00 mireia77serv systemd[1]: /etc/systemd/system/AnaliTotTicks.service:3: Unknown key name 'TriggeredBy' in section 'Unit', ignoring.
+d’ag. 26 09:43:11 mireia77serv systemd[1]: /etc/systemd/system/AnaliTotTicks.service:3: Unknown key name 'TriggeredBy' in section 'Unit', ignoring.
+d’ag. 26 09:43:11 mireia77serv systemd[1]: /etc/systemd/system/AnaliTotTicks.service:3: Unknown key name 'TriggeredBy' in section 'Unit', ignoring.
+d’ag. 26 09:43:11 mireia77serv systemd[1]: /etc/systemd/system/AnaliTotTicks.service:3: Unknown key name 'TriggeredBy' in section 'Unit', ignoring.
+d’ag. 26 09:43:31 mireia77serv systemd[1]: /etc/systemd/system/AnaliTotTicks.service:3: Unknown key name 'TriggeredBy' in section 'Unit', ignoring.
+d’ag. 26 09:43:31 mireia77serv systemd[1]: /etc/systemd/system/AnaliTotTicks.service:3: Unknown key name 'TriggeredBy' in section 'Unit', ignoring.
+d’ag. 26 09:43:31 mireia77serv systemd[1]: /etc/systemd/system/AnaliTotTicks.service:3: Unknown key name 'TriggeredBy' in section 'Unit', ignoring.
+romanov@mireia77serv:~$ 
+romanov@mireia77serv:~$ cat /var/www/inversions/output/output_anal_tot.log
+
+
+
+
+
+#### 1NKE.MI: 
+analizing tickers... 12.3967%
+quote created from tick
+https://query2.finance.yahoo.com/v8/finance/chart/1NKE.MI?period1=1724630400&period2=1787702400&interval=1d&events=history
+historial spots success
+historial spots success
+Quantitat de valors: 505
+last year vals done
+0, -0.175 (-0.157, -0.430, -0.057), 100%, 129%, -3%, 5.9, 0.00, 1NKE.MI
+
+#### PEPB34.SA: 
+analizing tickers... 12.6033%
+quote created from tick
+https://query2.finance.yahoo.com/v8/finance/chart/PEPB34.SA?period1=1724630400&period2=1787702400&interval=1d&events=history
+historial spots success
+historial spots success
+Quantitat de valors: 499
+last year vals done
+0, -0.143 (-0.540, 0.335, -1.506), 100%, 43%, -8%, 6.9, 0.00, PEPB34.SA
+
+#### SONA.SG: 
+analizing tickers... 12.8099%
+quote created from tick
+https://query2.finance.yahoo.com/v8/finance/chart/SONA.SG?period1=1724630400&period2=1787702400&interval=1d&events=history
+historial spots success
+historial spots success
+Quantitat de valors: 506
+last year vals done
+0, 0.003 (0.144, -0.247, -5.980), 100%, 26%, -29%, 9.2, 0.00, SONA.SG
+
+#### TOMA.SG: 
+analizing tickers... 13.0165%
+quote created from tick
+https://query2.finance.yahoo.com/v8/finance/chart/TOMA.SG?period1=1724630400&period2=1787702400&interval=1d&events=history
+historial spots success
+historial spots success
+Quantitat de valors: 506
+last year vals done
+0, 0.022 (-0.589, -0.465, -3.490), 100%, 25%, -21%, 7.2, 0.00, TOMA.SG
+
+#### VODJ.SG: 
+analizing tickers... 13.2231%
+quote created from tick
+https://query2.finance.yahoo.com/v8/finance/chart/VODJ.SG?period1=1724630400&period2=1787702400&interval=1d&events=history
+historial spots success
+historial spots success
+Quantitat de valors: 506
+last year vals done
+0, 0.173 (0.056, -1.218, -14.320), 100%, 5%, -88%, 7.7, 0.00, VODJ.SG
+
+#### 0P00001487.F: 
+analizing tickers... 13.4298%
+quote created from tick
+https://query2.finance.yahoo.com/v8/finance/chart/0P00001487.F?period1=1724630400&period2=1787702400&interval=1d&events=history
+historial spots success
+historial spots success
+Quantitat de valors: 506
+last year vals done
+0, 0.097 (0.017, -5.575, 0.000), 100%, 0%, -45%, 0.0, -1.00, 0P00001487.F
+
+#### COLPAL.NS: 
+analizing tickers... 13.6364%
+quote created from tick
+https://query2.finance.yahoo.com/v8/finance/chart/COLPAL.NS?period1=1724630400&period2=1787702400&interval=1d&events=history
+romanov@mireia77serv:~$ 

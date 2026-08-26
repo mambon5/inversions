@@ -14,6 +14,7 @@
   - [4. Copiar els timers i serveis](#4-copiar-els-timers-i-serveis)
 - [Servir més d'una pàgina web al mateix servidor](#servir-més-duna-pàgina-web-al-mateix-servidor)
   - [Forçar a fer git pull i borrar canvis locals](#forçar-a-fer-git-pull-i-borrar-canvis-locals)
+  - [per trobar quin errro de python dona un servei:](#per-trobar-quin-errro-de-python-dona-un-servei)
 
 
 # Linux system admin
@@ -251,3 +252,11 @@ git reset --hard origin/main
 ```
 
 Bon hacking!
+
+
+## per trobar quin errro de python dona un servei:
+
+Per investigar quin error exactament dóna l'script de Python, executa:
+Bash
+
+sudo journalctl -u AnaliTotTicks.service -n 50 --no-pager
