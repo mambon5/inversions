@@ -9,7 +9,4 @@ WorkingDirectory=/var/www/inversions
 # El correm com a root de forma nativa per oblidar-nos de contrasenyes al mig de l'script
 User=root
 ExecStart=/bin/bash /var/www/inversions/src/src/starter_all_stocks.sh
-Restart=on-failure
-RestartSec=30s
-StartLimitIntervalSec=5m
-StartLimitBurst=3
+
