@@ -2,7 +2,8 @@
 Description="Sort best stocks from previous day"
 
 [Service]
-Type=simple
+Type=oneshot
+Restart=no
 WorkingDirectory=/var/www/inversions
 User=root
 ExecStart=/bin/bash /var/www/inversions/src/src/starter_sort_best.sh

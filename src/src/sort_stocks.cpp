@@ -38,6 +38,13 @@ void showBestStocks(const string & inp_file) {
     vector<vector<string>> triplets = readCsvToMatrix(inp_file, 11);
 
     cout << "numero de files de la matriu: " << LenghtOfMatStr(triplets) << endl;
+
+    // 🛑 ÚNIC CANVI AFEGIT: Si no hi ha files, sortim per evitar el crash a triplets[0]
+    if (triplets.empty()) {
+        WriteToFileOver("showing best stocks: NO DATA", outFile);
+        return;
+    }
+
     cout << "numero de columnes de la matriu: " << LenghtOfVectorStr(triplets[0]) << endl;
 
     double index = 0;
