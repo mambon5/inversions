@@ -104,42 +104,72 @@ std::string Quote::getHistoricalJson(
 void Quote::getHistoricalSpotsJson(std::time_t period1,
                                    std::time_t period2,
                                    const char *interval) {
-    // Download the historical prices JSON
     std::string jsonStr = this->getHistoricalJson(period1, period2, interval);
 
-    // Parse JSON using nlohmann::json
-    json j = json::parse(jsonStr);
-
-    // Yahoo Finance JSON has "chart.result[0].timestamp" and "chart.result[0].indicators.quote[0]"
-    auto timestamps = j["chart"]["result"][0]["timestamp"];
-    auto quotes = j["chart"]["result"][0]["indicators"]["quote"][0];
-
-    std::vector<std::string> date;
-    std::vector<std::string> open, high, low, close, volume;
-
-    for (size_t i = 0; i < timestamps.size(); ++i) {
-        if (!timestamps[i].is_null()) {
-            date.push_back(std::to_string(timestamps[i].get<long>()));
-            open.push_back(quotes["open"][i].is_null() ? "0" : std::to_string(quotes["open"][i].get<double>()));
-            high.push_back(quotes["high"][i].is_null() ? "0" : std::to_string(quotes["high"][i].get<double>()));
-            low.push_back(quotes["low"][i].is_null() ? "0" : std::to_string(quotes["low"][i].get<double>()));
-            close.push_back(quotes["close"][i].is_null() ? "0" : std::to_string(quotes["close"][i].get<double>()));
-            volume.push_back(quotes["volume"][i].is_null() ? "0" : std::to_string(quotes["volume"][i].get<double>()));
-        }
+    if (jsonStr.empty()) {
+        std::cerr << "Sense dades rebudes per al ticker " << this->symbol << std::endl;
+        return;
     }
 
-    for (size_t i = 0; i < date.size(); ++i) {
-        if (date[i] != "empty") {
+    try {
+        json j = json::parse(jsonStr, nullptr, false);
+
+        if (j.is_discarded()) {
+            std::cerr << "JSON invàlid rebut per a " << this->symbol << std::endl;
+            return;
+        }
+
+        // Comprovar si Yahoo ha retornat un objecte d'error en el JSON
+        if (j.contains("chart") && j["chart"].contains("error") && !j["chart"]["error"].is_null()) {
+            std::string errCode = j["chart"]["error"]["code"];
+            std::cerr << "Yahoo Error per a " << this->symbol << ": " << errCode << std::endl;
+            return;
+        }
+
+        // Validar que existeixin els arrays principals
+        if (!j.contains("chart") || !j["chart"].contains("result") || 
+            j["chart"]["result"].is_null() || j["chart"]["result"].empty()) {
+            return;
+        }
+
+        auto result = j["chart"]["result"][0];
+        if (!result.contains("timestamp") || !result.contains("indicators")) {
+            return;
+        }
+
+        auto timestamps = result["timestamp"];
+        if (timestamps.is_null() || !result["indicators"].contains("quote") || result["indicators"]["quote"].empty()) {
+            return;
+        }
+
+        auto quotes = result["indicators"]["quote"][0];
+
+        std::vector<std::string> date, open, high, low, close, volume;
+
+        for (size_t i = 0; i < timestamps.size(); ++i) {
+            if (!timestamps[i].is_null()) {
+                date.push_back(std::to_string(timestamps[i].get<long>()));
+                open.push_back(quotes["open"][i].is_null() ? "0" : std::to_string(quotes["open"][i].get<double>()));
+                high.push_back(quotes["high"][i].is_null() ? "0" : std::to_string(quotes["high"][i].get<double>()));
+                low.push_back(quotes["low"][i].is_null() ? "0" : std::to_string(quotes["low"][i].get<double>()));
+                close.push_back(quotes["close"][i].is_null() ? "0" : std::to_string(quotes["close"][i].get<double>()));
+                volume.push_back(quotes["volume"][i].is_null() ? "0" : std::to_string(quotes["volume"][i].get<double>()));
+            }
+        }
+
+        for (size_t i = 0; i < date.size(); ++i) {
             Spot spot = Spot(
-                date[i],                      // date
-                std::atof(open[i].c_str()),   // open
-                std::atof(high[i].c_str()),   // high
-                std::atof(low[i].c_str()),    // low
-                std::atof(close[i].c_str()),  // close
-                std::atof(volume[i].c_str())  // volume
+                date[i],
+                std::atof(open[i].c_str()),
+                std::atof(high[i].c_str()),
+                std::atof(low[i].c_str()),
+                std::atof(close[i].c_str()),
+                std::atof(volume[i].c_str())
             );
             this->spots.push_back(spot);
         }
+    } catch (const std::exception& e) {
+        std::cerr << "Excepció en processar " << this->symbol << ": " << e.what() << std::endl;
     }
 }
 

@@ -131,6 +131,8 @@ void outputPercentSlope(const int & elems) {
 
         WriteToFileOver(tick, lastTicker); // write tickername in  file after analizing it
         index++;
+        // Pausa de 200ms entre peticions per no saturar Yahoo Finance
+        std::this_thread::sleep_for(std::chrono::milliseconds(200));
     }
     cout << "after the loop:" << endl;
     cout << "ticker length: " << LenghtOfVectorStr(tickers) << endl;
